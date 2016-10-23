@@ -12,10 +12,12 @@ E-Shop
   vagrant ssh
   ```
 4. Install dependencies:
+
     ```
     npm install
     ```
 5. Launch Node.js server.
+
     ```
     node server.js
     ```
