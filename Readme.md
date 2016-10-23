@@ -21,7 +21,12 @@ E-Shop
     ```
     node server.js
     ```
-6. Front-end part (Angular) can be reached through [http://e-shop.dev](http://e-shop.dev), back-end (hapi) through [http://e-shop.dev:3000](http://e-shop.dev:3000).
+6. Front-end part (Angular) can be reached through [http://e-shop.dev:8000](http://e-shop.dev:8000), back-end (hapi) through [http://e-shop.dev:3000](http://e-shop.dev:3000).
 
 ## Dev notes
 After changes in back-end Node.js server must be restarted.
+After changes in front-end TypeScript compiler must be launched.
+
+    ```
+    node_modules/.bin/tsc
+    ```

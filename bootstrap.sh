@@ -25,6 +25,8 @@ service nginx start
 cp /srv/.provision/nginx/nginx.conf /etc/nginx/sites-available/site.conf
 chmod 644 /etc/nginx/sites-available/site.conf
 ln -sf /etc/nginx/sites-available/site.conf /etc/nginx/sites-enabled/site.conf
+sed -e "s/sendfile on;/sendfile off;/" /etc/nginx/nginx.conf > temp_file
+mv -f temp_file /etc/nginx/nginx.conf
 service nginx restart
 
 # set locale to access mongodb from command line
