@@ -1,0 +1,10 @@
+.app-container {
+    display: flex;
+}
+
+.nav-column {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid dodgerblue;
+    border-radius: 10%;
+}
