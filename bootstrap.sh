@@ -22,8 +22,9 @@ apt-get -y install nginx
 service nginx start
 
 # set up nginx server
-cp /srv/.provision/nginx/nginx.conf /etc/nginx/sites-available/site.conf
 rm /etc/nginx/sites-available/default
+rm /etc/nginx/sites-enabled/default
+cp /srv/.provision/nginx/nginx.conf /etc/nginx/sites-available/site.conf
 chmod 644 /etc/nginx/sites-available/site.conf
 ln -sf /etc/nginx/sites-available/site.conf /etc/nginx/sites-enabled/site.conf
 sed -e "s/sendfile on;/sendfile off;/" /etc/nginx/nginx.conf > temp_file

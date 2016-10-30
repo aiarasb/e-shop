@@ -6,6 +6,8 @@
   "scripts": {
     "start": "./node_modules/typescript/bin/tsc && ./node_modules/typescript/bin/tsc -w",
     "postinstall": "typings install",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
     "typings": "typings"
   },
   "author": "",

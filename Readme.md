@@ -31,3 +31,4 @@ E-Shop
     ```
     node_modules/.bin/tsc
     ```
+- OR for easier front-end development run ```npm start```. It will automatically compile Angular after every edit.
