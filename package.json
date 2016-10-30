@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/typescript/bin/tsc && ./node_modules/typescript/bin/tsc -w",
+    "app": "./node_modules/typescript/bin/tsc && ./node_modules/typescript/bin/tsc -w",
+    "server": "node ./server/index.js",
     "postinstall": "typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
