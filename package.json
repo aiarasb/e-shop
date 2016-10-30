@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "tsc && concurrently \"tsc -w\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "typings install",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
     "typings": "typings"
   },
   "author": "",
