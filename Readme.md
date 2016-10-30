@@ -19,7 +19,7 @@ E-Shop
 5. Launch Node.js server.
 
     ```
-    node server.js
+    node server/index.js
     ```
 6. Front-end part (Angular) can be reached through [http://e-shop.dev:8000](http://e-shop.dev:8000), back-end (hapi) through [http://e-shop.dev:3000](http://e-shop.dev:3000).
 7. (For Windows users only) Navigate to ```C:\Windows\System32\drivers\etc``` and add ```127.0.0.1 e-shop.dev``` to ```hosts``` file.
