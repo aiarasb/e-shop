@@ -2,7 +2,7 @@
 const Hapi = require('hapi');
 const Inert = require('inert');
 const mongoDb = require('./services/mongodbService.js');
-const routes = require('./routes');
+const routes = require('./api/routes');
 const server = new Hapi.Server();
 
 mongoDb.mongoConnect(() => {});

@@ -35,15 +35,15 @@ const getItemById = (usedCollection, id) => {
 
 const updateItem = (usedCollection, item) => {
     collections[usedCollection].replace({'_id': item._id}, item);
-}
+};
 
 const removeItemById = (usedCollection, id) => {
     collections[usedCollection].remove({'_id': id});
-}
+};
 
 const removeItem = (usedCollection, item) => {
     collections[usedCollection].remove({'_id': item._id});
-}
+};
 
 
 module.exports = {
@@ -54,4 +54,4 @@ module.exports = {
     updateItem,
     removeItemById,
     removeItem
-}
+};
