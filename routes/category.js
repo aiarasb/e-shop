@@ -1,6 +1,6 @@
 'use strict';
 const mongoDb = require('../services/mongodbService.js');
-const Joi = require('Joi');
+const Joi = require('joi');
 
 function getCategories (request, reply) {
     let products = mongoDb.getItems('categoryCollection');
