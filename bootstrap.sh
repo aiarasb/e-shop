@@ -10,7 +10,7 @@ apt-get update
 
 # install node
 apt-get install -y g++
-curl -sL https://deb.nodesource.com/setup_7.0 | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 #install and launch mongodb

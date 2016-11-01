@@ -7,14 +7,25 @@ import 'rxjs/add/operator/toPromise';
 export class ApiService {
 
     private apiUrl = 'http://localhost:3000';
-    private requestHeader = new Headers({'Content-Type': 'application/json'});
+    private requestHeaders = new Headers({
+        'Content-Type': 'application/json',
+        'Origin': 'Access-Control-Allow-Origin'
+    });
 
     constructor(private http: Http) {}
 
     login(username, password) {
         return this.http
-            .post(this.apiUrl + '/user/authenticate', JSON.stringify({username: username, password: password}), {headers: this.requestHeader})
+            .post(this.apiUrl + '/user/authenticate', JSON.stringify({username: username, password: password}), {headers: this.requestHeaders})
             .toPromise()
-            .then(res => res.json().data);
+            .then((res) => {
+                console.log('weh');
+            })
+            .catch(this.handleError);
+    }
+
+    private handleError(error: any): Promise<any> {
+        console.error('An error occurred', error); // for demo purposes only
+        return Promise.reject(error.message || error);
     }
 }
