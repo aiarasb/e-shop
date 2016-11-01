@@ -8,9 +8,10 @@ function getCategories (request, reply) {
 }
 
 function addCategory (request, reply) {
+    let data = JSON.parse(request.payload);
     const productData = {
-        name: request.payload.name,
-        description: request.payload.description,
+        name: data.name,
+        description: data.description,
         products: []
     };
     mongoDb.insertItem('categoryCollection', productData);
@@ -23,7 +24,7 @@ function removeCategory (request, reply) {
 }
 
 module.exports = [
-    { method: 'GET', path: '/category/get-all', handler: getCategories },
-    { method: 'GET', path: '/category/add', handler: addCategory },
-    { method: 'GET', path: '/category/remove/{id}', handler: removeCategory }
+    { method: 'POST', path: '/category/get-all', handler: getCategories },
+    { method: 'POST', path: '/category/add', handler: addCategory },
+    { method: 'POST', path: '/category/remove/{id}', handler: removeCategory }
 ];

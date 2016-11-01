@@ -9,7 +9,7 @@ mongoDb.mongoConnect(() => {});
 
 server.register(Inert, () => {});
 
-server.connection({ port: 3000 });
+server.connection({ port: 3000, routes: { cors: true } });
 server.route(routes);
 
 server.start((err) => {

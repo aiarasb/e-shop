@@ -2,8 +2,11 @@
     <h2>Categories</h2>
   <div>
     <ul>
-      <li>Beauty products</li>
-      <li>Pet food</li>
+      <li *ngFor="let category of categories">
+        {{category.name}}
+      </li>
     </ul>
   </div>
+  <button (click)="getCategories()">Get Categories</button>
+  <button (click)="addCategory()">Add Category</button>
 </div>

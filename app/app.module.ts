@@ -11,6 +11,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { LoginComponent } from './login/login.component';
 
 import { ApiService } from './services/api.service';
+import { CategoryService } from './services/category.service';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -28,7 +29,8 @@ import { AppRoutingModule } from './app-routing.module';
       LoginComponent
   ],
   providers: [
-     ApiService
+     ApiService,
+     CategoryService
   ],
   bootstrap:    [ AppComponent ]
 })
