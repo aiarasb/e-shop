@@ -15,6 +15,10 @@ Vagrant.configure("2") do |config|
           "--cpus", 2,
           "--name", "e-shop"
       ]
+      v.customize [
+         "setextradata", :id,
+         "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"
+      ]
   end
 
   config.vm.provision :shell, path: "bootstrap.sh"
