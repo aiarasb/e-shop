@@ -8,13 +8,13 @@ function getCategories (request, reply) {
 }
 
 function addCategory (request, reply) {
-    let data = JSON.parse(request.payload);
-    const productData = {
+    //let data = JSON.parse(request.payload);
+   /* const productData = {
         name: data.name,
         description: data.description,
         products: []
-    };
-    mongoDb.insertItem('categoryCollection', productData);
+    };*/
+    mongoDb.insertItem('categoryCollection', request.payload);
     reply('Category added.');
 }
 
