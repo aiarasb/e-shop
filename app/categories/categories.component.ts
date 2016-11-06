@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Category } from './category';
 import { CategoryService } from '../services/category.service'
@@ -14,7 +15,8 @@ export class CategoriesComponent {
   categories: Category[];
 
   constructor (
-      private categoryService: CategoryService
+    private router: Router,
+    private categoryService: CategoryService
   ) {}
 
   getCategories(): void {
@@ -24,6 +26,10 @@ export class CategoriesComponent {
   addCategory(): void {
     this.categoryService.addCategory();
     this.getCategories();
+  }
+
+  gotoCategory(category): void {
+    this.router.navigate(['/category', category.name]);
   }
 
   ngOnInit(): void {

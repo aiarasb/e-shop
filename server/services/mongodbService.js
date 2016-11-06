@@ -28,8 +28,12 @@ const getItems = (usedCollection, limit) => {
 };
 
 const getItemById = (usedCollection, id) => {
-    let item = collections[usedCollection].find({'_id': id}).limit(1);
-    console.log(item);
+    let item = collections[usedCollection].find({'_id': id});
+    return item;
+};
+
+const getItemByName = (usedCollection, name) => {
+    let item = collections[usedCollection].find({'name': name}).limit(1);
     return item;
 };
 
@@ -53,5 +57,6 @@ module.exports = {
     getItemById,
     updateItem,
     removeItemById,
-    removeItem
+    removeItem,
+    getItemByName
 };

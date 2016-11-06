@@ -15,10 +15,18 @@ export class CategoryService {
       return body || [];
     }
 
+    private extractDataOne(res: Response) {
+      let body = res.json();
+      if (body) {
+        return body[0];
+      }
+      return {};
+    }
+
     getCategories(): Observable<Category[]> {
       return this.http
         .post(
-          this.apiUrl + '/category/get-all',
+          this.apiUrl + '/categories/get-all',
           ''
         )
         .map(this.extractData)
@@ -28,10 +36,20 @@ export class CategoryService {
     addCategory(): void {
       this.http
         .post(
-          this.apiUrl + '/category/add',
+          this.apiUrl + '/categories/add',
           JSON.stringify({name:'catt', description:'dess'})
         )
         .toPromise()
+        .catch(this.handleError);
+    }
+
+    getCategory(name: string): Observable<Category> {
+      return this.http
+        .post(
+          this.apiUrl + '/categories/get',
+          JSON.stringify({name:name})
+        )
+        .map(this.extractDataOne)
         .catch(this.handleError);
     }
 
