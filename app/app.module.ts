@@ -8,6 +8,7 @@ import { AppComponent }   from './main/app.component';
 import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { CategoryComponent } from './categories/category.component';
 import { LoginComponent } from './login/login.component';
 
 import { ApiService } from './services/api.service';
@@ -26,6 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
       HomeComponent,
       ProductsComponent,
       CategoriesComponent,
+      CategoryComponent,
       LoginComponent
   ],
   providers: [

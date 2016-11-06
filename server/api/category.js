@@ -3,8 +3,14 @@ const mongoDb = require('../services/mongodbService.js');
 const Joi = require('joi');
 
 function getCategories (request, reply) {
-    let products = mongoDb.getItems('categoryCollection');
-    reply (products.toArray());
+    let categories = mongoDb.getItems('categoryCollection');
+    reply(categories.toArray());
+}
+
+function getCategory (request, reply) {
+    let data = JSON.parse(request.payload);
+    let category = mongoDb.getItemByName('categoryCollection', data.name);
+    reply(category.toArray());
 }
 
 function addCategory (request, reply) {
@@ -18,13 +24,22 @@ function addCategory (request, reply) {
     reply('Category added.');
 }
 
-function removeCategory (request, reply) {
-    mongoDb.removeItemById('categoryCollection', request.params.id);
+function deleteCategory (request, reply) {
+    let data = JSON.parse(request.payload);
+    mongoDb.removeItemById('categoryCollection', data.id);
+    reply('Category removed');
+}
+
+function updateCategory (request, reply) {
+    let data = JSON.parse(request.payload);
+    mongoDb.updateItem('categoryCollection', data.category);
     reply('Category removed');
 }
 
 module.exports = [
-    { method: 'POST', path: '/category/get-all', handler: getCategories },
-    { method: 'POST', path: '/category/add', handler: addCategory },
-    { method: 'POST', path: '/category/remove/{id}', handler: removeCategory }
+    { method: 'POST', path: '/categories/get-all', handler: getCategories },
+    { method: 'POST', path: '/categories/get', handler: getCategory },
+    { method: 'POST', path: '/categories/add', handler: addCategory },
+    { method: 'POST', path: '/categories/delete', handler: deleteCategory },
+    { method: 'POST', path: '/categories/update', handler: updateCategory },
 ];
