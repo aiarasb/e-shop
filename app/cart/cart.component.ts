@@ -1,60 +1,59 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 import { Purchase } from './purchase';
 import {Product} from "../products/product";
-import { PurchaseService } from '../services/purchase.service'
+import { PurchaseService } from '../services/purchase.service';
+
 
 @Component({
     moduleId: module.id,
     selector: 'cart',
-    template: `<div class="category-container">
-  <h2>Shopping cart</h2>
-
-    <table>
-        <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Unit Price</th>
-            <th>Whole price</th>
-        </tr>
-        <tr *ngFor="let item of items; let i = index" >
-            <td>{{item.name}}</td>
-            <td><input [(ngModel)]="item.quantity" placeholder="Enter quantity"></td>
-            <td>{{item.price}}</td>
-            <td>{{item.price * item.quantity}}</td>
-        </tr>
-    </table>
-    <div> <p>Order price: {{getAllProductsPrice()}}</p></div>
-</div>
-`
+    templateUrl: 'cart.component.html'
 })
 
 export class CartComponent {
     purchases: Purchase[];
-    products: Product[];
+    products: Product[] = [];
 
-    items : Item[] = [
-        {"name":"Televizorius", "price":"500", "quantity":"2"},
-        {"name":"telefonas", "price":"200", "quantity":"1"},
-        {"name":"masina", "price":"1500", "quantity":"2"},
-        {"name":"usb", "price":"7", "quantity":"5"},
-    ];
 
 
     constructor (
-        private purchaseService: PurchaseService
+        private router: Router, private purchaseService: PurchaseService
     ) {}
 
-    getPurchases(): void {
-        //this.purchaseService.getPurchases().subscribe(purchases => this.purchases = purchases);
-        //this.purchaseService.getProduct().subscribe(products => this.products = products);
+    goToOrder(): void{
+        this.router.navigate(['/order']);
     }
 
+    getPurchases(): void {
+        this.purchaseService.getPurchases().then((response) => {
+            this.purchases = response;
+
+            var ind = 0;
+            for (let i of this.purchases){
+                this.purchaseService.getProduct(i.produkto_id).then((resp) => {
+                    //this.products.push(resp);
+                    this.products.splice(ind, 0, resp);
+                })
+                ind ++;
+            }
+        });
+    }
+
+    removePurchase(index : any) : void{
+        var purchaseId = this.purchases[index]._id;
+        this.products.splice(index, 1);
+        this.purchases.splice(index,1);
+        this.purchaseService.removePurchase(purchaseId);
+    }
 
     getAllProductsPrice(): number{
         var sum = 0;
-        for (let i of this.items){
-            sum = sum + i.price * i.quantity;
+        var ind = 0;
+        for (let i of this.products){
+            sum += parseInt(i.kaina) * parseInt(this.purchases[ind].kiekis);
+            ind++;
         }
         return sum;
     }
@@ -63,10 +62,4 @@ export class CartComponent {
         this.getPurchases();
     }
 
-}
-
-export class Item {
-    name: string;
-    price: string;
-    quantity: string;
 }

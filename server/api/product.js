@@ -6,6 +6,12 @@ function getProducts (request, reply) {
     reply (products.toArray());
 }
 
+function getProduct (request, reply) {
+    var order = mongoDb.getItemById('productCollection', request.params.id);
+    reply(order);
+}
+
+
 function insertProduct (request, reply) {
     const productData = {
         name: request.params.name,
@@ -17,6 +23,7 @@ function insertProduct (request, reply) {
 }
 
 module.exports = [
+    { method: 'GET',  path: '/product/get/{id}', handler: getProduct },
     { method: 'GET', path: '/product/get-all', handler: getProducts },
     { method: 'GET', path: '/product/add/{name}', handler: insertProduct }
 ];

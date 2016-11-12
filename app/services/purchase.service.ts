@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import {Http, Response, Headers} from '@angular/http';
 import { Purchase } from '../cart/purchase';
 import { Observable } from 'rxjs/Observable';
 import {Product} from "../products/product";
+
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class PurchaseService {
@@ -16,27 +18,27 @@ export class PurchaseService {
         return body || [];
     }
 
-    getPurchases(): Observable<Purchase[]> {
-        return this.http
-            .post(
-                this.apiUrl + '/purchase/get-by-order',
-                { "uzsakymo_id" : "1" }
-            )
-            .map(this.extractData)
+
+    getPurchases(): Promise<Purchase[]> {
+        return this.http.get(this.apiUrl + '/purchase/get-by-order/1')
+            .toPromise()
+            .then(response => response.json() as Purchase[])
             .catch(this.handleError);
     }
 
-    getProduct(): Observable<Product[]> {
-        return this.http
-            .post(
-                this.apiUrl + '/purchase/get-product',
-                { "name" : "rope" }
-            )
-            .map(this.extractData)
+    removePurchase(index : any) : Promise<void>{
+        return this.http.get(this.apiUrl + '/purchase/remove/' + index)
+            .toPromise()
+            .then(() => null)
             .catch(this.handleError);
     }
 
-
+    getProduct(index : any): Promise<Product> {
+        return this.http.get(this.apiUrl + '/product/get/' + index)
+            .toPromise()
+            .then(response => response.json() as Product)
+            .catch(this.handleError);
+    }
 
 
     private handleError(error: any): Promise<any> {

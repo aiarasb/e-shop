@@ -8,7 +8,7 @@ function getPurchases (request, reply) {
 }
 
 function getOrderPurchases (request, reply) {
-    let products = mongoDb.getItemsByField('purchaseCollection', { "uzsakymo_id" : request.payload.uzsakymo_id });
+    let products = mongoDb.getItemsByField('purchaseCollection', { "uzsakymo_id" : request.params.id });
     reply (products.toArray());
 }
 
@@ -55,8 +55,8 @@ function getFullProductInfo (request, reply) {
 
 module.exports = [
     { method: 'POST', path: '/purchase/get-product-info', handler: getFullProductInfo },
-    { method: 'POST', path: '/purchase/get-all', handler: getPurchases },
-    { method: 'POST', path: '/purchase/get-by-order', handler: getOrderPurchases },
+    { method: 'GET', path: '/purchase/get-all', handler: getPurchases },
+    { method: 'GET', path: '/purchase/get-by-order/{id}', handler: getOrderPurchases },
     { method: 'POST', path: '/purchase/add', handler: addPurchase },
     { method: 'POST', path: '/purchase/update', handler: updatePurchase },
     { method: 'GET', path: '/purchase/remove/{id}', handler: removePurchase }
