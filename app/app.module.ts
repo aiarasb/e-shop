@@ -3,10 +3,12 @@ import './rxjs-extensions';
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import { FormsModule }   from '@angular/forms';
 
 import { AppComponent }   from './main/app.component';
 import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
+import { addProductComponent }    from './products/addProduct.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryComponent } from './categories/category.component';
 import { LoginComponent } from './login/login.component';
@@ -20,7 +22,8 @@ import { AppRoutingModule } from './app-routing.module';
   imports:      [
       BrowserModule,
       AppRoutingModule,
-      HttpModule
+      HttpModule,
+      FormsModule
   ],
   declarations: [
       AppComponent,
@@ -28,7 +31,8 @@ import { AppRoutingModule } from './app-routing.module';
       ProductsComponent,
       CategoriesComponent,
       CategoryComponent,
-      LoginComponent
+      LoginComponent,
+      addProductComponent
   ],
   providers: [
      ApiService,
