@@ -1,23 +1,24 @@
 <div class="category-container">
     <h2>Shopping cart</h2>
-
     <table>
         <tr>
             <th>Product</th>
-            <th>Quantity</th>
             <th>Unit Price</th>
+            <th>Quantity</th>
             <th>Whole price</th>
+            <th>Remove</th>
         </tr>
         <tr *ngFor="let product of products; let i = index" >
             <td>{{product.name}}</td>
-            <td><input [(ngModel)]="purchases[i].kiekis" placeholder="Enter quantity"></td>
-            <td>{{product.kaina }}</td>
-            <td>{{product.kaina * purchases[i].kiekis}}</td>
-            <td> <button (click)="removePurchase(i)">Remove</button> </td>
+            <td>{{product.kaina }} €</td>
+            <td><input class="input" [(ngModel)]="purchases[i].kiekis" placeholder="Enter quantity"></td>
+            <td>{{product.kaina * purchases[i].kiekis}} €</td>
+            <td> <button (click)="removePurchase(i)">✗</button></td>
         </tr>
     </table>
+    <br>
     <div>
-        <p>Order price: {{getAllProductsPrice()}}</p>
-        <button (click)="goToOrder()">Proceed</button>
+        <h3 class="inLine">Your order:  {{getAllProductsPrice()}} €</h3>
+        <button id="proceedButton" class="inLine" (click)="goToOrder()">Proceed</button>
     </div>
 </div>

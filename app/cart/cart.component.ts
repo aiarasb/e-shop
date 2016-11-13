@@ -9,7 +9,8 @@ import { PurchaseService } from '../services/purchase.service';
 @Component({
     moduleId: module.id,
     selector: 'cart',
-    templateUrl: 'cart.component.html'
+    templateUrl: 'cart.component.html',
+    styleUrls: ['cart.component.css']
 })
 
 export class CartComponent {
@@ -27,13 +28,12 @@ export class CartComponent {
     }
 
     getPurchases(): void {
-        this.purchaseService.getPurchases().then((response) => {
+        this.purchaseService.getPurchases(1).then((response) => {
             this.purchases = response;
 
             var ind = 0;
             for (let i of this.purchases){
                 this.purchaseService.getProduct(i.produkto_id).then((resp) => {
-                    //this.products.push(resp);
                     this.products.splice(ind, 0, resp);
                 })
                 ind ++;

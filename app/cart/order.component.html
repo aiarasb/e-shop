@@ -1,0 +1,29 @@
+<div class="category-container">
+
+    <div *ngIf="!completed">
+        <h2>Personal information</h2>
+
+        <div *ngFor="let order of orders">
+            <p>Name:</p>
+            <input class="input" [(ngModel)]="order.vardas">
+            <p>Surname:</p>
+            <input class="input" [(ngModel)]="order.pavarde">
+            <p>Credit card number:</p>
+            <input class="input" [(ngModel)]="order.kreditines_numeris">
+            <p>Credit card expiration date:</p>
+            <input class="input" [(ngModel)]="order.kreditines_data">
+            <p>Credit card cvv:</p>
+            <input class="input" [(ngModel)]="order.krediditines_cvv">
+            <p>Address:</p>
+            <input class="input" [(ngModel)]="order.adresas">
+            <br>
+            <br><br>
+            <button (click)="goBack()">Back</button>  <button (click)="updateOrder()">Finish order</button>
+        </div>
+    </div>
+
+    <div *ngIf="completed">
+        <h2>Your order is completed!</h2>
+    </div>
+
+</div>

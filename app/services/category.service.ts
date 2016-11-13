@@ -11,28 +11,28 @@ export class CategoryService {
     constructor(private http: Http) {}
 
     private extractData(res: Response) {
-      let body = res.json();
-      return body || [];
+        let body = res.json();
+        return body || [];
     }
 
     getCategories(): Observable<Category[]> {
-      return this.http
-        .post(
-          this.apiUrl + '/category/get-all',
-          ''
-        )
-        .map(this.extractData)
-        .catch(this.handleError);
+        return this.http
+            .post(
+                this.apiUrl + '/category/get-all',
+                ''
+            )
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 
     addCategory(): void {
-      this.http
-        .post(
-          this.apiUrl + '/category/add',
-          JSON.stringify({name:'catt', description:'dess'})
-        )
-        .toPromise()
-        .catch(this.handleError);
+        this.http
+            .post(
+                this.apiUrl + '/category/add',
+                JSON.stringify({name:'catt', description:'dess'})
+            )
+            .toPromise()
+            .catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {

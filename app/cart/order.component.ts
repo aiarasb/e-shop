@@ -2,54 +2,42 @@ import { Component } from '@angular/core';
 import { Location }  from '@angular/common';
 
 import {Order} from "./order";
+import {PurchaseService} from "../services/purchase.service";
 
 @Component({
     moduleId: module.id,
     selector: 'order',
-    template: `
-<div class="category-container">
-  <h2>Order information</h2>
-  
-    <form >
-      Name:<br>
-      <input [(ngModel)]="order.vardas"> <br>
-      Surname:<br>
-      <input [(ngModel)]="order.kreditines_numeris"> <br>
-      Credit card number:<br>
-      <input [(ngModel)]="order.pavarde"> <br>
-      Credit card expiration date:<br>
-      <input [(ngModel)]="order.kreditines_data"> <br>
-      Credit card cvv:<br>
-      <input [(ngModel)]="order.krediditines_cvv"> <br>
-      Adress:<br>
-      <input [(ngModel)]="order.adresas"> <br>
-      <br><br>
-      <button (click)="goBack()">Back</button>  <button>Finish order</button> 
-    </form>
-
-    
-</div>`
-
+    templateUrl: 'order.component.html',
+    styleUrls: ['order.component.css']
 })
 
 export class OrderComponent {
 
-    constructor(private location: Location){}
+    constructor(private location: Location, private purchaseService: PurchaseService){}
 
-    order: Order = {
-        _id: 2,
-        vardas: "",
-        pavarde: "",
-        kreditines_numeris: null,
-        kreditines_data: "",
-        krediditines_cvv: "",
-        adresas: "",
-        vartotojo_id: 45
-    };
+    orders: Order[] = [];
+    completed : boolean = false;
+
 
     goBack(): void {
         this.location.back();
     }
 
+    getOrder(): void{
+        this.purchaseService.getOrder(0).then((response) => {
+            this.orders.push(response);
+        });
+    }
+
+    updateOrder(): void{
+        console.log("updating...");
+        this.purchaseService.updateOrder(this.orders[0]).then( () => {
+            this.completed = true
+        });
+    }
+
+    ngOnInit() : void{
+        this.getOrder();
+    }
 
 }
