@@ -2,7 +2,7 @@ import './rxjs-extensions';
 
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
 
 import { AppComponent }   from './main/app.component';
@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 
 import { ApiService } from './services/api.service';
 import { CategoryService } from './services/category.service';
+import { ProductService } from './services/product.service';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -23,6 +24,7 @@ import { AppRoutingModule } from './app-routing.module';
       BrowserModule,
       AppRoutingModule,
       HttpModule,
+      JsonpModule,
       FormsModule
   ],
   declarations: [
@@ -36,7 +38,8 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   providers: [
      ApiService,
-     CategoryService
+     CategoryService,
+     ProductService
   ],
   bootstrap:    [ AppComponent ]
 })

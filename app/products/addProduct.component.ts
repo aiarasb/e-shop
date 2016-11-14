@@ -1,19 +1,25 @@
 import { Component } from '@angular/core';
 import { Product }    from './product';
 
+import { ProductService } from '../services/product.service'
+
 @Component({
     moduleId: module.id,
     selector: 'addProduct-form',
-    templateUrl: 'addProduct.component.html'
+    templateUrl: 'addProduct.component.html',
+    styleUrls: ['addProduct.component.css']
 })
 
 export class addProductComponent {
+    errorMessage: string;
+    products: Product[];
 
-    product = new Product(1, 'product name', 'description', '17.7' , 5);
+    constructor (
+        private productService: ProductService
+    ) {}
 
-    submitted = false;
-    onSubmit() { this.submitted = true; }
-
-    // TODO: Remove this when we're done
-    get diagnostic() { return JSON.stringify(this.product); }
+    addProduct(name: string): void {
+        if (!name) { return; }
+        this.productService.addProduct(name);
+    }
 }
