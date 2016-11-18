@@ -58,8 +58,18 @@ export class CartComponent {
         return sum;
     }
 
+    onQuantityChange(purchase : Purchase): void{
+        console.log(purchase);
+        var regexp = new RegExp('^[0-9]*$');
+        console.log(purchase.kiekis);
+    }
+
     ngOnInit(): void {
         this.getPurchases();
+    }
+
+    ngDoCheck(): void{
+
     }
 
 }

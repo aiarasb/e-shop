@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Http, Response, Headers} from '@angular/http';
+import {Http} from '@angular/http';
 import { Purchase } from '../cart/purchase';
-import { Observable } from 'rxjs/Observable';
 import {Product} from "../products/product";
 
 import 'rxjs/add/operator/toPromise';
@@ -24,6 +23,16 @@ export class PurchaseService {
 
     removePurchase(index : any) : Promise<void>{
         return this.http.get(this.apiUrl + '/purchase/remove/' + index)
+            .toPromise()
+            .then(() => null)
+            .catch(this.handleError);
+    }
+
+    updatePurchase(newPurchase : Purchase): Promise<void> {
+        return this.http.post(
+            this.apiUrl + '/purchase/update',
+            newPurchase
+        )
             .toPromise()
             .then(() => null)
             .catch(this.handleError);
