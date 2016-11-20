@@ -11,15 +11,16 @@ import { ProductService } from '../services/product.service'
 })
 
 export class addProductComponent {
-    errorMessage: string;
     products: Product[];
 
     constructor (
         private productService: ProductService
     ) {}
 
-    addProduct(name: string): void {
+    addProduct(name: string, description: string, price: number, quantity: number): void {
         if (!name) { return; }
-        this.productService.addProduct(name);
+        if (!price) { return;}
+        if (!quantity) { return;}
+        this.productService.addProduct(name, description, price, quantity);
     }
 }

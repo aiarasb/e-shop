@@ -8,16 +8,16 @@
 
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" id="description" name="description"></textarea>
+            <textarea #newProductDescription class="form-control" id="description" name="description"></textarea>
         </div>
         <div class="form-group">
             <label for="price">Price</label>
-            <input type="text" class="form-control" id="price" name="price">
+            <input #newProductPrice type="text" class="form-control" id="price" name="price">
         </div>
         <div class="form-group">
             <label for="quantity">Quantity</label>
-            <input type="text" class="form-control" id="quantity" name="quantity">
+            <input #newProductQuantity type="text" class="form-control" id="quantity" name="quantity">
         </div>
-        <button type="submit" class="btn btn-default" [disabled]="!productForm.form.valid" (click)="addProduct(newProductName.value)">Save</button>
+        <button type="submit" class="btn btn-default" [disabled]="!productForm.form.valid" (click)="addProduct(newProductName.value, newProductDescription.value, newProductPrice.value, newProductQuantity.value)">Save</button>
     </form>
 </div>
