@@ -24,12 +24,11 @@ export class CategoriesComponent {
   }
 
   addCategory(): void {
-    this.categoryService.addCategory();
-    this.getCategories();
+    this.router.navigate(['/category/add']);
   }
 
   gotoCategory(category): void {
-    this.router.navigate(['/category', category.name]);
+    this.router.navigate(['/category/show', category.name]);
   }
 
   ngOnInit(): void {

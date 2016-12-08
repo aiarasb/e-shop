@@ -9,7 +9,8 @@ const mongoConnect = (callback) => {
     MongoClient.connect(url, (err, db) => {
         collections = {
             productCollection: db.collection('productCollection'),
-            categoryCollection: db.collection('categoryCollection')
+            categoryCollection: db.collection('categoryCollection'),
+            userCollection: db.collection('userCollection')
         };
         callback();
     });
@@ -38,11 +39,15 @@ const getItemByName = (usedCollection, name) => {
 };
 
 const updateItem = (usedCollection, item) => {
-    collections[usedCollection].replace({'_id': item._id}, item);
+    collections[usedCollection].updateOne({'_id': item._id}, item);
 };
 
 const removeItemById = (usedCollection, id) => {
     collections[usedCollection].remove({'_id': id});
+};
+
+const removeItemByName = (usedCollection, name) => {
+    collections[usedCollection].remove({'name': name});
 };
 
 const removeItem = (usedCollection, item) => {
@@ -57,6 +62,7 @@ module.exports = {
     getItemById,
     updateItem,
     removeItemById,
+    removeItemByName,
     removeItem,
     getItemByName
 };
