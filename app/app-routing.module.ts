@@ -15,7 +15,7 @@ const routes: Routes = [
     { path: 'categories', component: CategoriesComponent },
     { path: 'category/:name', component: CategoryComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'addProduct', component: addProductComponent }
+    { path: 'product/add-product', component: addProductComponent }
 ];
 
 @NgModule({

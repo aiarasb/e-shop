@@ -13,7 +13,7 @@ export class ProductService {
         this.http
             .get(
                 this.apiUrl
-                + '/addProduct?name='
+                + '/product/addProduct?name='
                 + name
                 + '&description='
                 + description

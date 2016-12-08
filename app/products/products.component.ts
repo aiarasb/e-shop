@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     moduleId: module.id,
     selector: 'products',
     template: `
-    <a routerLink="/addProduct" routerLinkActive="active">Add product</a>
+    <a routerLink="add-product" routerLinkActive="active">Add product</a>
     <router-outlet></router-outlet>
 `
 })

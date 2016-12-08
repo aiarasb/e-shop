@@ -7,7 +7,6 @@ function getProducts (request, reply) {
 }
 
 function insertProduct (request, reply) {
-    console.log('here');
     const productData = {
         name: request.params.name,
         quantity: 1,
@@ -19,5 +18,5 @@ function insertProduct (request, reply) {
 
 module.exports = [
     { method: 'GET', path: '/product/get-all', handler: getProducts },
-    { method: 'GET', path: '/product/addProduct', handler: insertProduct }
+    { method: 'GET', path: '/product/add-product', handler: insertProduct }
 ];
