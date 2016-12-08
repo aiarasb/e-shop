@@ -20,9 +20,15 @@ export class addProductComponent {
     addProductInput() {
         let parentDiv = document.getElementById('photo-links');
         let container = document.createElement('div');
+
         container.className = 'photo-link-container';
-        container.innerHTML = '<input class="photo-link-input" type="text"  name="photo-link-input">';
+        container.innerHTML = '<input class="photo-link-input" type="text"  name="photo-link-input">' +
+                                '<span></span>';
         parentDiv.appendChild(container);
+    }
+
+    removeProductInput() {
+
     }
 
     addProduct(name: string, description: string, price: number, quantity: number): void {
