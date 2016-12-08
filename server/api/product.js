@@ -14,5 +14,5 @@ function insertProduct (request, reply) {
 
 module.exports = [
     { method: 'GET', path: '/product/get-all', handler: getProducts },
-    { method: 'GET', path: '/products/add-product', handler: insertProduct }
+    { method: 'POST', path: '/products/add-product', handler: insertProduct }
 ];
