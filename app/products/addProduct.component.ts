@@ -17,6 +17,14 @@ export class addProductComponent {
         private productService: ProductService
     ) {}
 
+    addProductInput() {
+        let parentDiv = document.getElementById('photo-links');
+        let container = document.createElement('div');
+        container.className = 'photo-link-container';
+        container.innerHTML = '<input class="photo-link-input" type="text"  name="photo-link-input">';
+        parentDiv.appendChild(container);
+    }
+
     addProduct(name: string, description: string, price: number, quantity: number): void {
         if (!name) { return; }
         if (!price) { return;}
