@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Category } from './category';
 import { CategoryService } from '../services/category.service'
@@ -15,6 +15,7 @@ export class CategoryComponent {
   category: Category;
 
   constructor (
+    private router: Router,
     private route: ActivatedRoute,
     private categoryService: CategoryService
   ) {}
@@ -24,6 +25,11 @@ export class CategoryComponent {
       let name = params['name'];
       this.categoryService.getCategory(name).subscribe(category => this.category = category);
     });
+  }
+
+  deleteCategory(category): void {
+    this.categoryService.deleteCategory(category.name);
+    this.router.navigate(['/categories']);
   }
 
   ngOnInit(): void {
