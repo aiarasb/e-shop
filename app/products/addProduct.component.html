@@ -18,6 +18,15 @@
             <label for="quantity">Quantity</label>
             <input #newProductQuantity type="text" class="form-control" id="quantity" name="quantity">
         </div>
+        <div class="form-group">
+            <label for="quantity">Add photo links</label>
+            <div id="photo-links">
+                <div class="photo-link-container">
+                    <input class="photo-link-input" type="text"  name="photo-link-input">
+                </div>
+            </div>
+            <button type="button" (click)="addProductInput()">Click</button>
+        </div>
         <button type="submit" class="btn btn-default" [disabled]="!productForm.form.valid" (click)="addProduct(newProductName.value, newProductDescription.value, newProductPrice.value, newProductQuantity.value)">Save</button>
     </form>
 </div>
