@@ -28,7 +28,7 @@ export class CategoryComponent {
   }
 
   deleteCategory(category): void {
-    this.categoryService.deleteCategory(category.name);
+    this.categoryService.deleteCategory(category);
     this.router.navigate(['/categories']);
   }
 

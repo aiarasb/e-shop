@@ -28,7 +28,7 @@ export class EditCategoryComponent {
 
     onSubmit(): void {
         this.categoryService.updateCategory(this.category);
-        this.router.navigate(['/category/show', name]);
+        this.router.navigate(['/category/show', this.category.name]);
     }
 
     ngOnInit(): void {

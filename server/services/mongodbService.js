@@ -1,5 +1,6 @@
 'use strict';
 const MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 
 const url = 'mongodb://localhost:27017/e-shop';
 
@@ -29,7 +30,7 @@ const getItems = (usedCollection, limit) => {
 };
 
 const getItemById = (usedCollection, id) => {
-    let item = collections[usedCollection].find({'_id': id});
+    let item = collections[usedCollection].find(ObjectId(id));
     return item;
 };
 
@@ -39,11 +40,11 @@ const getItemByName = (usedCollection, name) => {
 };
 
 const updateItem = (usedCollection, item) => {
-    collections[usedCollection].updateOne({'_id': item._id}, item);
+    collections[usedCollection].replaceOne({'_id': ObjectId(item._id)}, item);
 };
 
 const removeItemById = (usedCollection, id) => {
-    collections[usedCollection].remove({'_id': id});
+    collections[usedCollection].remove({'_id': ObjectId(id)});
 };
 
 const removeItemByName = (usedCollection, name) => {
@@ -51,7 +52,7 @@ const removeItemByName = (usedCollection, name) => {
 };
 
 const removeItem = (usedCollection, item) => {
-    collections[usedCollection].remove({'_id': item._id});
+    collections[usedCollection].remove({'_id': ObjectId(item._id)});
 };
 
 
