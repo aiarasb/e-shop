@@ -53,6 +53,16 @@ export class CategoryService {
         .catch(this.handleError);
     }
 
+    deleteCategory(name: string): void {
+        this.http
+            .post(
+              this.apiUrl + '/categories/delete',
+              JSON.stringify({name:name})
+            )
+            .toPromise()
+            .catch(this.handleError);
+    }
+
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);

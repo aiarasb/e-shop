@@ -26,14 +26,14 @@ function addCategory (request, reply) {
 
 function deleteCategory (request, reply) {
     let data = JSON.parse(request.payload);
-    mongoDb.removeItemById('categoryCollection', data.id);
+    mongoDb.removeItemByName('categoryCollection', data.name);
     reply('Category removed');
 }
 
 function updateCategory (request, reply) {
     let data = JSON.parse(request.payload);
     mongoDb.updateItem('categoryCollection', data.category);
-    reply('Category removed');
+    reply('Category updated');
 }
 
 module.exports = [
@@ -41,5 +41,5 @@ module.exports = [
     { method: 'POST', path: '/categories/get', handler: getCategory },
     { method: 'POST', path: '/categories/add', handler: addCategory },
     { method: 'POST', path: '/categories/delete', handler: deleteCategory },
-    { method: 'POST', path: '/categories/update', handler: updateCategory },
+    { method: 'POST', path: '/categories/update', handler: updateCategory }
 ];
