@@ -1,0 +1,14 @@
+<div class="container">
+    <h1>Add/Edit Category</h1>
+    <form #categoryForm="ngForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="name">Name</label>
+            <input #categoryName type="text" id="name" name="name" [(ngModel)]="category.name" required>
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <textarea #categoryDescription id="description" name="description" [(ngModel)]="category.description"></textarea>
+        </div>
+        <button type="submit" [disabled]="!categoryForm.form.valid">Save</button>
+    </form>
+</div>

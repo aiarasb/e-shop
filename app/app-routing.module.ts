@@ -7,7 +7,8 @@ import { addProductComponent }    from './products/addProduct.component'
 import { CategoriesComponent }  from './categories/categories.component'
 import { CategoryComponent }    from './categories/category.component'
 import { LoginComponent }       from './login/login.component'
-import {AddCategoryComponent} from "./categories/addCategory.component";
+import { AddCategoryComponent } from "./categories/addCategory.component";
+import { EditCategoryComponent } from "./categories/editCategory.component";
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -16,6 +17,7 @@ const routes: Routes = [
     { path: 'categories', component: CategoriesComponent },
     { path: 'category/add', component: AddCategoryComponent },
     { path: 'category/show/:name', component: CategoryComponent },
+    { path: 'category/edit/:name', component: EditCategoryComponent },
     { path: 'login', component: LoginComponent },
     { path: 'products/add-product', component: addProductComponent }
 ];

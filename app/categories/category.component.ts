@@ -32,6 +32,10 @@ export class CategoryComponent {
     this.router.navigate(['/categories']);
   }
 
+  editCategory(category): void {
+    this.router.navigate(['category/edit', category.name]);
+  }
+
   ngOnInit(): void {
     this.getCategory();
   }
