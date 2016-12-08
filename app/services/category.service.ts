@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class CategoryService {
 
-    private apiUrl = 'http://e-shop.dev:3000';
+    private apiUrl = 'http://127.0.0.1:3000';
 
     constructor(private http: Http) {}
 
