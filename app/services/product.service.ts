@@ -11,16 +11,16 @@ export class ProductService {
 
     addProduct (name: string, description: string, price: number, quantity: number): void {
         this.http
-            .get(
-                this.apiUrl
-                + '/product/addProduct?name='
-                + name
-                + '&description='
-                + description
-                + '&price='
-                + price
-                + '&quantity='
-                + quantity,
+            .post(
+                this.apiUrl + '/products/add-product',
+                JSON.stringify(
+                    {
+                        name:name,
+                        description:description,
+                        price:price,
+                        quantity:quantity
+                    }
+                )
             )
             .toPromise()
             .catch(this.handleError);

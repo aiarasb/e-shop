@@ -7,16 +7,12 @@ function getProducts (request, reply) {
 }
 
 function insertProduct (request, reply) {
-    const productData = {
-        name: request.params.name,
-        quantity: 1,
-        date: new Date()
-    };
-    mongoDb.insertItem('productCollection', productData);
+
+    // mongoDb.insertItem('productCollection', productData);
     reply('Product added.');
 }
 
 module.exports = [
     { method: 'GET', path: '/product/get-all', handler: getProducts },
-    { method: 'GET', path: '/product/add-product', handler: insertProduct }
+    { method: 'GET', path: '/products/add-product', handler: insertProduct }
 ];
