@@ -11,6 +11,7 @@ import { ProductsComponent } from './products/products.component';
 import { addProductComponent }    from './products/addProduct.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryComponent } from './categories/category.component';
+import { AddCategoryComponent } from './categories/addCategory.component';
 import { LoginComponent } from './login/login.component';
 
 import { ApiService } from './services/api.service';
@@ -33,6 +34,7 @@ import { AppRoutingModule } from './app-routing.module';
       ProductsComponent,
       CategoriesComponent,
       CategoryComponent,
+      AddCategoryComponent,
       LoginComponent,
       addProductComponent
   ],

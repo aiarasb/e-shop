@@ -33,11 +33,11 @@ export class CategoryService {
         .catch(this.handleError);
     }
 
-    addCategory(): void {
+    addCategory(name: string, description: string): void {
       this.http
         .post(
           this.apiUrl + '/categories/add',
-          JSON.stringify({name:'catt', description:'dess'})
+          JSON.stringify({name:name, description:description})
         )
         .toPromise()
         .catch(this.handleError);
@@ -51,6 +51,16 @@ export class CategoryService {
         )
         .map(this.extractDataOne)
         .catch(this.handleError);
+    }
+
+    deleteCategory(name: string): void {
+        this.http
+            .post(
+              this.apiUrl + '/categories/delete',
+              JSON.stringify({name:name})
+            )
+            .toPromise()
+            .catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {

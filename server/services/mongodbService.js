@@ -45,6 +45,10 @@ const removeItemById = (usedCollection, id) => {
     collections[usedCollection].remove({'_id': id});
 };
 
+const removeItemByName = (usedCollection, name) => {
+    collections[usedCollection].remove({'name': name});
+};
+
 const removeItem = (usedCollection, item) => {
     collections[usedCollection].remove({'_id': item._id});
 };
@@ -57,6 +61,7 @@ module.exports = {
     getItemById,
     updateItem,
     removeItemById,
+    removeItemByName,
     removeItem,
     getItemByName
 };
