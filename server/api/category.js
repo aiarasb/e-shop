@@ -26,13 +26,13 @@ function addCategory (request, reply) {
 
 function deleteCategory (request, reply) {
     let data = JSON.parse(request.payload);
-    mongoDb.removeItemByName('categoryCollection', data.name);
+    mongoDb.removeItemById('categoryCollection', data._id);
     reply('Category removed');
 }
 
 function updateCategory (request, reply) {
     let data = JSON.parse(request.payload);
-    mongoDb.updateItem('categoryCollection', data.category);
+    mongoDb.updateItem('categoryCollection', data);
     reply('Category updated');
 }
 
