@@ -5,21 +5,27 @@ const mongoDb = require('../services/mongodbService.js');
 
 function insertOrder (request, reply){
     var orderData = {
-            "_id" : request.payload._id                     // vėliau ištrint
-        ,   "vardas" : ""
-        ,   "pavarde" : ""
-        ,   "kreditines_numeris" : ""
-        ,   "kreditines_data" : ""
-        ,   "krediditines_cvv" : ""
-        ,   "adresas" : ""
-        ,   "vartotojo_id" : request.payload.vartotojo_id
+          isActive : true
+        , userId : request.params.id
     };
 
     mongoDb.insertItem('orderCollection', orderData);
     reply('Order added.');
 }
 
+function getActiveOrder(request, reply){
+    var userId = request.params.id;
+    var order = mongoDb.getItemsByField('orderCollection',
+        {$and:[
+        {"userId": userId},
+        {"isActive" : true}
+    ]});
+
+    reply(order.toArray());
+}
+
 function updateOrder (request, reply){
+    console.log(request.payload);
     mongoDb.updateItem('orderCollection', request.payload);
     reply('Order updated.');
 }
@@ -36,7 +42,7 @@ function getOrders (request, reply) {
 
 function getUserOrders (request, reply) {
     var userId = encodeURIComponent(request.params.id);
-    var orders = mongoDb.getItemsByField('orderCollection', { "vartotojo_id" : userId });
+    var orders = mongoDb.getItemsByField('orderCollection', { "userId" : userId });
     reply (orders.toArray());
 }
 
@@ -49,10 +55,11 @@ function removeOrder (request, reply) {
 
 
 module.exports = [
+    { method: 'GET',  path: '/order/get-active/{id}', handler: getActiveOrder },
     { method: 'GET',  path: '/order/get/{id}', handler: getOrder },
     { method: 'GET',  path: '/order/get-user-orders/{id}', handler: getUserOrders },
     { method: 'GET',  path: '/order/get-all', handler: getOrders },
-    { method: 'POST', path: '/order/add', handler: insertOrder },
+    { method: 'GET', path: '/order/add/{id}', handler: insertOrder },
     { method: 'POST', path: '/order/update', handler: updateOrder },
     { method: 'GET',  path: '/order/remove/{id}', handler: removeOrder },
 ];

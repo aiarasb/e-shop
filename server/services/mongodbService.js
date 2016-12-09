@@ -37,7 +37,7 @@ const getItemsByField = (collectionName, field) => {
 }
 
 const getItemById = (usedCollection, id) => {
-    let item = collections[usedCollection].find(ObjectId(id));
+    let item = collections[usedCollection].findOne(ObjectId(id));
     return item;
 };
 

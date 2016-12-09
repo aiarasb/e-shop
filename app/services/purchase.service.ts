@@ -45,6 +45,13 @@ export class PurchaseService {
             .catch(this.handleError);
     }
 
+    getActiveOrder(index: any): Promise<Order[]> {
+        return this.http.get(this.apiUrl + '/order/get-active/' + index)
+            .toPromise()
+            .then(response => response.json() as Order[])
+            .catch(this.handleError);
+    }
+
     getOrder(index: any): Promise<Order> {
         return this.http.get(this.apiUrl + '/order/get/' + index)
             .toPromise()

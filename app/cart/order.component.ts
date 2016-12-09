@@ -24,8 +24,10 @@ export class OrderComponent {
     }
 
     getOrder(): void{
-        this.purchaseService.getOrder(0).then((response) => {
-            this.orders.push(response);
+        // insert current user's id as a parameter
+        this.purchaseService.getActiveOrder(13).then((response) => {
+            console.log(response);
+            this.orders = response;
         });
     }
 

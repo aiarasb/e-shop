@@ -11,10 +11,8 @@ function getProduct (request, reply) {
     reply(order);
 }
 
-
 function insertProduct (request, reply) {
-
-    // mongoDb.insertItem('productCollection', productData);
+    mongoDb.insertItem('productCollection', request.payload);
     reply('Product added.');
 }
 

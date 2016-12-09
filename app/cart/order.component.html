@@ -5,17 +5,17 @@
 
         <div *ngFor="let order of orders">
             <p>Name:</p>
-            <input class="input" [(ngModel)]="order.vardas">
+            <input class="input" [(ngModel)]="order.firstName">
             <p>Surname:</p>
-            <input class="input" [(ngModel)]="order.pavarde">
+            <input class="input" [(ngModel)]="order.lastName">
             <p>Credit card number:</p>
-            <input class="input" [(ngModel)]="order.kreditines_numeris">
+            <input class="input" [(ngModel)]="order.creditNumber">
             <p>Credit card expiration date:</p>
-            <input class="input" [(ngModel)]="order.kreditines_data">
+            <input class="input" [(ngModel)]="order.expirationDate">
             <p>Credit card cvv:</p>
-            <input class="input" [(ngModel)]="order.krediditines_cvv">
+            <input class="input" [(ngModel)]="order.creditCvv">
             <p>Address:</p>
-            <input class="input" [(ngModel)]="order.adresas">
+            <input class="input" [(ngModel)]="order.adress">
             <br>
             <br><br>
             <button (click)="goBack()">Back</button>  <button (click)="updateOrder()">Finish order</button>

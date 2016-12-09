@@ -28,17 +28,25 @@ export class CartComponent {
     }
 
     getPurchases(): void {
-        this.purchaseService.getPurchases(1).then((response) => {
-            this.purchases = response;
 
-            var ind = 0;
-            for (let i of this.purchases){
-                this.purchaseService.getProduct(i.produkto_id).then((resp) => {
-                    this.products.splice(ind, 0, resp);
-                })
-                ind ++;
-            }
+        // insert current user's id as a parameter
+        this.purchaseService.getActiveOrder(13).then((response) => {
+            var activeOrderId = response[0]._id;
+
+            this.purchaseService.getPurchases(activeOrderId).then((response) => {
+                this.purchases = response;
+                console.log(response);
+                var ind = 0;
+                for (let i of this.purchases){
+                    this.purchaseService.getProduct(i.productId).then((resp) => {
+                        this.products.splice(ind, 0, resp);
+                    })
+                    ind ++;
+                }
+            });
         });
+
+
     }
 
     removePurchase(index : any) : void{
@@ -52,7 +60,7 @@ export class CartComponent {
         var sum = 0;
         var ind = 0;
         for (let i of this.products){
-            sum += parseInt(i.price) * parseInt(this.purchases[ind].kiekis);
+            sum += parseInt(i.price) * parseInt(this.purchases[ind].quantity);
             ind++;
         }
         return sum;
@@ -61,7 +69,7 @@ export class CartComponent {
     onQuantityChange(purchase : Purchase): void{
         console.log(purchase);
         var regexp = new RegExp('^[0-9]*$');
-        console.log(purchase.kiekis);
+        console.log(purchase.quantity);
     }
 
     ngOnInit(): void {
