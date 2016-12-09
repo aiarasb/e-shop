@@ -16,68 +16,48 @@ export class CategoryService {
     }
 
     private extractDataOne(res: Response) {
-      let body = res.json();
-      if (body) {
-        return body[0];
-      }
-      return {};
+        let body = res.json();
+        if (body) {
+            return body[0];
+        }
+        return {};
     }
 
     getCategories(): Observable<Category[]> {
-<<<<<<< HEAD
         return this.http
             .post(
-                this.apiUrl + '/category/get-all',
+                this.apiUrl + '/categories/get-all',
                 ''
             )
             .map(this.extractData)
             .catch(this.handleError);
     }
 
-    addCategory(): void {
+    addCategory(category: Category): void {
         this.http
             .post(
-                this.apiUrl + '/category/add',
-                JSON.stringify({name:'catt', description:'dess'})
+                this.apiUrl + '/categories/add',
+                JSON.stringify(category)
             )
             .toPromise()
             .catch(this.handleError);
-=======
-      return this.http
-        .post(
-          this.apiUrl + '/categories/get-all',
-          ''
-        )
-        .map(this.extractData)
-        .catch(this.handleError);
-    }
-
-    addCategory(category: Category): void {
-      this.http
-        .post(
-          this.apiUrl + '/categories/add',
-          JSON.stringify(category)
-        )
-        .toPromise()
-        .catch(this.handleError);
->>>>>>> refs/remotes/origin/master
     }
 
     getCategory(name: string): Observable<Category> {
-      return this.http
-        .post(
-          this.apiUrl + '/categories/get',
-          JSON.stringify({name:name})
-        )
-        .map(this.extractDataOne)
-        .catch(this.handleError);
+        return this.http
+            .post(
+                this.apiUrl + '/categories/get',
+                JSON.stringify({name:name})
+            )
+            .map(this.extractDataOne)
+            .catch(this.handleError);
     }
 
     deleteCategory(category: Category): void {
         this.http
             .post(
-              this.apiUrl + '/categories/delete',
-              JSON.stringify(category)
+                this.apiUrl + '/categories/delete',
+                JSON.stringify(category)
             )
             .toPromise()
             .catch(this.handleError);
@@ -85,12 +65,12 @@ export class CategoryService {
 
     updateCategory(category: Category): void {
         this.http
-          .post(
-              this.apiUrl + '/categories/update',
-              JSON.stringify(category)
-          )
-          .toPromise()
-          .catch(this.handleError);
+            .post(
+                this.apiUrl + '/categories/update',
+                JSON.stringify(category)
+            )
+            .toPromise()
+            .catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {

@@ -52,7 +52,7 @@ export class CartComponent {
         var sum = 0;
         var ind = 0;
         for (let i of this.products){
-            sum += parseInt(i.kaina) * parseInt(this.purchases[ind].kiekis);
+            sum += parseInt(i.price) * parseInt(this.purchases[ind].kiekis);
             ind++;
         }
         return sum;

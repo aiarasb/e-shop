@@ -2,11 +2,7 @@ import './rxjs-extensions';
 
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-<<<<<<< HEAD
-import { HttpModule } from '@angular/http';
-=======
 import { HttpModule, JsonpModule } from '@angular/http';
->>>>>>> refs/remotes/origin/master
 import { FormsModule }   from '@angular/forms';
 
 import { AppComponent }   from './main/app.component';
@@ -23,11 +19,8 @@ import { OrderComponent } from './cart/order.component';
 
 import { ApiService } from './services/api.service';
 import { CategoryService } from './services/category.service';
-<<<<<<< HEAD
 import { PurchaseService } from './services/purchase.service';
-=======
 import { ProductService } from './services/product.service';
->>>>>>> refs/remotes/origin/master
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -36,10 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
       BrowserModule,
       AppRoutingModule,
       HttpModule,
-<<<<<<< HEAD
-=======
       JsonpModule,
->>>>>>> refs/remotes/origin/master
       FormsModule
   ],
   declarations: [
@@ -47,26 +37,20 @@ import { AppRoutingModule } from './app-routing.module';
       HomeComponent,
       ProductsComponent,
       CategoriesComponent,
-<<<<<<< HEAD
       LoginComponent,
       CartComponent,
-      OrderComponent
-=======
+      OrderComponent,
       CategoryComponent,
       AddCategoryComponent,
       EditCategoryComponent,
       LoginComponent,
       addProductComponent
->>>>>>> refs/remotes/origin/master
   ],
   providers: [
      ApiService,
      CategoryService,
-<<<<<<< HEAD
-      PurchaseService
-=======
+      PurchaseService,
      ProductService
->>>>>>> refs/remotes/origin/master
   ],
   bootstrap:    [ AppComponent ]
 })

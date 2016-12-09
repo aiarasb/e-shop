@@ -11,15 +11,12 @@ const mongoConnect = (callback) => {
         collections = {
             productCollection: db.collection('productCollection'),
             categoryCollection: db.collection('categoryCollection'),
-<<<<<<< HEAD
+            userCollection: db.collection('userCollection'),
             purchaseCollection: db.collection('purchaseCollection'),
             orderCollection: db.collection('orderCollection'),
-=======
-            userCollection: db.collection('userCollection')
->>>>>>> refs/remotes/origin/master
         };
-        callback();
-    });
+    callback();
+});
 };
 
 const insertItem = (usedCollection, item) => {
@@ -39,47 +36,17 @@ const getItemsByField = (collectionName, field) => {
     return items;
 }
 
-
-//---------------------------------------------------------
-
-const getItemsByFieldCallback = (collectionName, field, callback) => {
-    let items = collections[collectionName].find(field);
-    callback(items, items.count());
-}
-
-//--------------------------------------------------------
-
-// find was not working -> findOne
 const getItemById = (usedCollection, id) => {
-<<<<<<< HEAD
-    let item = collections[usedCollection].findOne({'_id': id});
-=======
     let item = collections[usedCollection].find(ObjectId(id));
     return item;
 };
 
 const getItemByName = (usedCollection, name) => {
     let item = collections[usedCollection].find({'name': name}).limit(1);
->>>>>>> refs/remotes/origin/master
     return item;
 };
 
-
-// uncaught error 'replace is not  a function' -> updateOne
 const updateItem = (usedCollection, item) => {
-<<<<<<< HEAD
-    collections[usedCollection].updateOne({'_id': item._id}, item);
-}
-
-
-const removeItemById = (usedCollection, id) => {
-    collections[usedCollection].remove({'_id': id});
-}
-
-const removeItem = (usedCollection, item) => {
-    collections[usedCollection].remove({'_id': item._id});
-}
-=======
     collections[usedCollection].replaceOne({'_id': ObjectId(item._id)}, item);
 };
 
@@ -94,7 +61,6 @@ const removeItemByName = (usedCollection, name) => {
 const removeItem = (usedCollection, item) => {
     collections[usedCollection].remove({'_id': ObjectId(item._id)});
 };
->>>>>>> refs/remotes/origin/master
 
 
 module.exports = {
@@ -102,16 +68,10 @@ module.exports = {
     insertItem,
     getItems,
     getItemsByField,
-    getItemsByFieldCallback,
     getItemById,
     updateItem,
     removeItemById,
-<<<<<<< HEAD
-    removeItem
-}
-=======
     removeItemByName,
     removeItem,
     getItemByName
 };
->>>>>>> refs/remotes/origin/master

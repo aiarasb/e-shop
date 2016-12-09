@@ -10,9 +10,9 @@
         </tr>
         <tr *ngFor="let product of products; let i = index" >
             <td>{{product.name}}</td>
-            <td>{{product.kaina }} €</td>
+            <td>{{product.price }} €</td>
             <td><input (ngModelChange)="onQuantityChange(purchases[i])" class="input" [(ngModel)]="purchases[i].kiekis" placeholder="Enter quantity"></td>
-            <td>{{product.kaina * purchases[i].kiekis}} €</td>
+            <td>{{product.price * purchases[i].kiekis}} €</td>
             <td> <button (click)="removePurchase(i)">✗</button></td>
         </tr>
     </table>
