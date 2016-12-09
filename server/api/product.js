@@ -13,17 +13,13 @@ function getProduct (request, reply) {
 
 
 function insertProduct (request, reply) {
-    const productData = {
-        name: request.params.name,
-        quantity: 1,
-        date: new Date()
-    };
-    mongoDb.insertItem('productCollection', productData);
+
+    // mongoDb.insertItem('productCollection', productData);
     reply('Product added.');
 }
 
 module.exports = [
     { method: 'GET',  path: '/product/get/{id}', handler: getProduct },
     { method: 'GET', path: '/product/get-all', handler: getProducts },
-    { method: 'GET', path: '/product/add/{name}', handler: insertProduct }
+    { method: 'POST', path: '/products/add-product', handler: insertProduct }
 ];

@@ -1,5 +1,6 @@
 'use strict';
 const MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 
 const url = 'mongodb://localhost:27017/e-shop';
 
@@ -10,8 +11,12 @@ const mongoConnect = (callback) => {
         collections = {
             productCollection: db.collection('productCollection'),
             categoryCollection: db.collection('categoryCollection'),
+<<<<<<< HEAD
             purchaseCollection: db.collection('purchaseCollection'),
             orderCollection: db.collection('orderCollection'),
+=======
+            userCollection: db.collection('userCollection')
+>>>>>>> refs/remotes/origin/master
         };
         callback();
     });
@@ -46,13 +51,23 @@ const getItemsByFieldCallback = (collectionName, field, callback) => {
 
 // find was not working -> findOne
 const getItemById = (usedCollection, id) => {
+<<<<<<< HEAD
     let item = collections[usedCollection].findOne({'_id': id});
+=======
+    let item = collections[usedCollection].find(ObjectId(id));
+    return item;
+};
+
+const getItemByName = (usedCollection, name) => {
+    let item = collections[usedCollection].find({'name': name}).limit(1);
+>>>>>>> refs/remotes/origin/master
     return item;
 };
 
 
 // uncaught error 'replace is not  a function' -> updateOne
 const updateItem = (usedCollection, item) => {
+<<<<<<< HEAD
     collections[usedCollection].updateOne({'_id': item._id}, item);
 }
 
@@ -64,6 +79,22 @@ const removeItemById = (usedCollection, id) => {
 const removeItem = (usedCollection, item) => {
     collections[usedCollection].remove({'_id': item._id});
 }
+=======
+    collections[usedCollection].replaceOne({'_id': ObjectId(item._id)}, item);
+};
+
+const removeItemById = (usedCollection, id) => {
+    collections[usedCollection].remove({'_id': ObjectId(id)});
+};
+
+const removeItemByName = (usedCollection, name) => {
+    collections[usedCollection].remove({'name': name});
+};
+
+const removeItem = (usedCollection, item) => {
+    collections[usedCollection].remove({'_id': ObjectId(item._id)});
+};
+>>>>>>> refs/remotes/origin/master
 
 
 module.exports = {
@@ -75,5 +106,12 @@ module.exports = {
     getItemById,
     updateItem,
     removeItemById,
+<<<<<<< HEAD
     removeItem
 }
+=======
+    removeItemByName,
+    removeItem,
+    getItemByName
+};
+>>>>>>> refs/remotes/origin/master

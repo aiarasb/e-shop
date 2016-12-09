@@ -6,7 +6,7 @@ import { ApiService } from '../services/api.service'
     moduleId: module.id,
     selector: 'login',
     template: `
-        <p>Login</p>
+        <p>{{loggedIn}}</p>
         <button (click)="login()">click</button>
     `
 })
@@ -15,8 +15,9 @@ export class LoginComponent {
     constructor (
         private apiService: ApiService
     ) {}
-
+    private loggedIn = 'no';
     login() {
-        this.apiService.login('a', 'a').then((res) => console.log(res));
+        this.loggedIn = 'yes';
+        //this.apiService.login('a', 'a').then((res) => console.log(res));
     }
 }
