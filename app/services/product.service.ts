@@ -12,7 +12,7 @@ export class ProductService {
     addProduct (name: string, description: string, price: number, quantity: number): void {
         this.http
             .post(
-                this.apiUrl + '/products/add-product',
+                this.apiUrl + '/products/add',
                 JSON.stringify(
                     {
                         name:name,

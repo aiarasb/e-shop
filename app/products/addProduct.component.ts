@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Product }    from './product';
-
 import { ProductService } from '../services/product.service'
 
 @Component({
@@ -14,7 +13,7 @@ export class addProductComponent {
     products: Product[];
 
     constructor (
-        private productService: ProductService
+        private productService: ProductService,
     ) {}
 
     addProductInput() {
@@ -22,13 +21,14 @@ export class addProductComponent {
         let container = document.createElement('div');
 
         container.className = 'photo-link-container';
-        container.innerHTML = '<input class="photo-link-input" type="text"  name="photo-link-input">' +
-                                '<span></span>';
+        container.innerHTML = `<div class="photo-link-container"><input class="photo-link-input" type="text"  name="photo-link-input">
+        <button type="button" class="link-input-remove" (click)="removeProductInput($event)">Remove</button></div>`;
         parentDiv.appendChild(container);
     }
 
-    removeProductInput() {
-
+    removeProductInput(event) {
+        let eventNode = event.srcElement.parentNode;
+        eventNode.parentNode.removeChild(eventNode);
     }
 
     addProduct(name: string, description: string, price: number, quantity: number): void {
@@ -37,4 +37,6 @@ export class addProductComponent {
         if (!quantity) { return;}
         this.productService.addProduct(name, description, price, quantity);
     }
+
+
 }
