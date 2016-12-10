@@ -27,7 +27,7 @@ function removePurchase(request, reply) {
 }
 
 function updatePurchase (request, reply){
-    mongoDb.updateItem('purchaseCollection', request.payload);
+    mongoDb.updateOneItem('purchaseCollection', request.payload);
     reply('Purchase updated.');
 }
 

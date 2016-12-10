@@ -26,7 +26,7 @@ function getActiveOrder(request, reply){
 
 function updateOrder (request, reply){
     console.log(request.payload);
-    mongoDb.updateItem('orderCollection', request.payload);
+    var res = mongoDb.updateOneItem('orderCollection', request.payload);
     reply('Order updated.');
 }
 

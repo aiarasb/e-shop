@@ -50,6 +50,7 @@ const updateItem = (usedCollection, item) => {
     collections[usedCollection].replaceOne({'_id': ObjectId(item._id)}, item);
 };
 
+
 const removeItemById = (usedCollection, id) => {
     collections[usedCollection].remove({'_id': ObjectId(id)});
 };
