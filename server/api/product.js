@@ -31,7 +31,7 @@ function insertProduct (request, reply) {
     products.toArray().then((productArray) => {
         let product = productArray.find((product)=>{
                 return product.name === newProduct.name;
-});
+     });
 
     let status = false;
 
@@ -42,23 +42,34 @@ function insertProduct (request, reply) {
     } else {
         messages.push('Product with same name already exists');
     }
-
-    reply({
-        success: status,
-        messages: messages
+        reply({
+            success: status,
+            messages: messages
+        });
+    }).catch(()=>{
+        reply({success: false});
     });
-}).catch(()=>{
-        reply({success: 'false'});
-});
 }
 
 function updateProduct(request, reply) {
     let payload = request.payload;
+    let messages = validateProduct(payload);
+
+    if (messages.length > 0) {
+        reply({
+            success: false,
+            messages: messages
+        });
+        return false;
+    }
+
     mongoDb.updateOneItem('productCollection', payload);
     reply({
-        pay: payload._id
+        success: true,
+        messages: ['Successful product update']
     });
 }
+
 
 function validateProduct(payload)
 {
@@ -78,6 +89,7 @@ function validateProduct(payload)
     if (payload.discount && !parseFloat(payload.discount)) {
         errorMessages.push('Invalid discount property');
     }
+
     return errorMessages;
 }
 
