@@ -33,11 +33,11 @@ export class CategoryService {
         .catch(this.handleError);
     }
 
-    addCategory(name: string, description: string): void {
+    addCategory(category: Category): void {
       this.http
         .post(
           this.apiUrl + '/categories/add',
-          JSON.stringify({name:name, description:description})
+          JSON.stringify(category)
         )
         .toPromise()
         .catch(this.handleError);
@@ -53,14 +53,24 @@ export class CategoryService {
         .catch(this.handleError);
     }
 
-    deleteCategory(name: string): void {
+    deleteCategory(category: Category): void {
         this.http
             .post(
               this.apiUrl + '/categories/delete',
-              JSON.stringify({name:name})
+              JSON.stringify(category)
             )
             .toPromise()
             .catch(this.handleError);
+    }
+
+    updateCategory(category: Category): void {
+        this.http
+          .post(
+              this.apiUrl + '/categories/update',
+              JSON.stringify(category)
+          )
+          .toPromise()
+          .catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {

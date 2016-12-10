@@ -1,10 +1,17 @@
 .app-container {
     display: flex;
+    justify-content: space-between;
+    border: 1px solid dodgerblue;
+    border-radius: 10px;
 }
 
 .nav-column {
     display: flex;
-    flex-direction: column;
-    border: 1px solid dodgerblue;
-    border-radius: 10%;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.nav-column > a {
+    text-decoration: none;
 }

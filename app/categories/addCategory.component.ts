@@ -6,22 +6,20 @@ import { Router } from '@angular/router';
 @Component({
     moduleId: module.id,
     selector: 'addCategory',
-    templateUrl: 'addCategory.component.html',
+    templateUrl: 'categoryForm.component.html',
     styleUrls: ['categories.component.css']
 })
 
 export class AddCategoryComponent {
-    category: Category;
+    category = new Category('', '' ,'');
 
     constructor (
         private categoryService: CategoryService,
         private router: Router
     ) {}
 
-    addCategory(name: string, description: string): void {
-        if (!name || !description)
-            return;
-        this.categoryService.addCategory(name, description);
-        this.router.navigate(['/category/show', name]);
+    onSubmit(): void {
+        this.categoryService.addCategory(this.category);
+        this.router.navigate(['/category/show', this.category.name]);
     }
 }

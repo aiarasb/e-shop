@@ -2,7 +2,42 @@
 
 const mongoDb = require('../services/mongodbService.js');
 
-let authenticateUser = () => {};
+let authenticateUser = (request, reply) => {
+    let payload = request.payload;
+
+    if(!payload.token || payload.username) {
+        reply({
+            success: 'false',
+            message: 'Invalid user token or username!'
+        });
+    }
+
+    let users = mongoDb.getItems('userCollection');
+
+    let message;
+
+    users.toArray().then((userArray) => {
+        let user = userArray.find((user)=>{
+            return user.username === payload.username &&
+                user.token === payload.token;
+        });
+
+        if(user) {
+            message = {
+                success: 'true',
+                payload: user
+            };
+        } else {
+            message = {
+                success: 'false',
+                message: 'Token not valid!'
+            };
+        }
+        reply(message);
+    }).catch(()=>{
+        reply({success: 'false'});
+    });
+};
 
 let loginUser = (request, reply) => {
     let payload = request.payload;
@@ -129,7 +164,46 @@ let updateUser = (request, reply) => {
     });
 };
 
-let deleteUser = () => {};
+let deleteUser = (request, reply) => {
+    let payload = request.payload;
+
+    if(!payload.username) {
+        reply({
+            message: 'Must input username!'
+        });
+    }
+
+    let users = mongoDb.getItems('userCollection');
+
+    let message;
+
+    users.toArray().then((userArray) => {
+        let user = userArray.find((user)=>{
+            return user.username === payload.username;
+        });
+
+        if(user) {
+            mongoDb.removeItemById('userCollection', user._id);
+
+            message = {
+                success: 'true',
+                message: 'Deleted!',
+                payload: user
+            };
+        } else {
+            message = {
+                success: 'false',
+                message: 'Did not find a user to delete!'
+            };
+        }
+        reply(message);
+    }).catch((err)=>{
+        reply({
+            success: 'false',
+            message: err
+        });
+    });
+};
 
 module.exports = [
     { method: 'POST', path: '/user/authenticate', handler: authenticateUser },
