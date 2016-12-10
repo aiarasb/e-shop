@@ -48,17 +48,29 @@ function insertProduct (request, reply) {
             messages: messages
         });
     }).catch(()=>{
-        reply({success: 'false'});
+        reply({success: false});
     });
 }
 
 function updateProduct(request, reply) {
     let payload = request.payload;
+    let messages = validateProduct(payload);
+
+    if (messages.length > 0) {
+        reply({
+            success: false,
+            messages: messages
+        });
+        return false;
+    }
+
     mongoDb.updateOneItem('productCollection', payload);
     reply({
-        pay: payload._id
+        success: true,
+        messages: ['Successful product update']
     });
 }
+
 
 function validateProduct(payload)
 {
@@ -78,6 +90,7 @@ function validateProduct(payload)
     if (payload.discount && !parseFloat(payload.discount)) {
         errorMessages.push('Invalid discount property');
     }
+
     return errorMessages;
 }
 
