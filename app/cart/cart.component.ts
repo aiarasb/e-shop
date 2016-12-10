@@ -24,6 +24,7 @@ export class CartComponent {
     ) {}
 
     goToOrder(): void{
+        this.updatePurchases();
         this.router.navigate(['/order']);
     }
 
@@ -54,6 +55,12 @@ export class CartComponent {
         this.products.splice(index, 1);
         this.purchases.splice(index,1);
         this.purchaseService.removePurchase(purchaseId);
+    }
+
+    updatePurchases(): void{
+        for (let i of this.purchases){
+            this.purchaseService.updatePurchase(i);
+        }
     }
 
     getAllProductsPrice(): number{

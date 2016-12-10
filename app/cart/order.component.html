@@ -4,9 +4,9 @@
         <h2>Personal information</h2>
 
         <div *ngFor="let order of orders">
-            <p>Name:</p>
+            <p>First name:</p>
             <input class="input" [(ngModel)]="order.firstName">
-            <p>Surname:</p>
+            <p>Last name:</p>
             <input class="input" [(ngModel)]="order.lastName">
             <p>Credit card number:</p>
             <input class="input" [(ngModel)]="order.creditNumber">
@@ -14,7 +14,7 @@
             <input class="input" [(ngModel)]="order.expirationDate">
             <p>Credit card cvv:</p>
             <input class="input" [(ngModel)]="order.creditCvv">
-            <p>Address:</p>
+            <p>Your Address:</p>
             <input class="input" [(ngModel)]="order.adress">
             <br>
             <br><br>
