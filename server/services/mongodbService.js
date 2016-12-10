@@ -11,10 +11,12 @@ const mongoConnect = (callback) => {
         collections = {
             productCollection: db.collection('productCollection'),
             categoryCollection: db.collection('categoryCollection'),
-            userCollection: db.collection('userCollection')
+            userCollection: db.collection('userCollection'),
+            purchaseCollection: db.collection('purchaseCollection'),
+            orderCollection: db.collection('orderCollection'),
         };
-        callback();
-    });
+    callback();
+});
 };
 
 const insertItem = (usedCollection, item) => {
@@ -29,8 +31,18 @@ const getItems = (usedCollection, limit) => {
     return items;
 };
 
+const getItemsByField = (collectionName, field) => {
+    let items = collections[collectionName].find(field);
+    return items;
+}
+
 const getItemById = (usedCollection, id) => {
     let item = collections[usedCollection].find(ObjectId(id));
+    return item;
+};
+
+const getOneItemById = (usedCollection, id) => {
+    let item = collections[usedCollection].findOne(ObjectId(id));
     return item;
 };
 
@@ -48,6 +60,7 @@ const updateOneItem = (usedCollection, item) => {
     it._id = ObjectId(item._id);
     collections[usedCollection].replaceOne({'_id': item._id}, it);
 };
+
 
 const removeItemById = (usedCollection, id) => {
     collections[usedCollection].remove({'_id': ObjectId(id)});
@@ -67,7 +80,9 @@ module.exports = {
     insertItem,
     updateOneItem,
     getItems,
+    getItemsByField,
     getItemById,
+    getOneItemById,
     updateItem,
     removeItemById,
     removeItemByName,

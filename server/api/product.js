@@ -30,19 +30,18 @@ function insertProduct (request, reply) {
 
     products.toArray().then((productArray) => {
         let product = productArray.find((product)=>{
-            return product.name === newProduct.name;
-        });
+                return product.name === newProduct.name;
+     });
 
-        let status = false;
+    let status = false;
 
-        if (!product) {
-            mongoDb.insertItem('productCollection', newProduct);
-            messages.push('Product added');
-            status = true;
-        } else {
-            messages.push('Product with same name already exists');
-        }
-
+    if (!product) {
+        mongoDb.insertItem('productCollection', newProduct);
+        messages.push('Product added');
+        status = true;
+    } else {
+        messages.push('Product with same name already exists');
+    }
         reply({
             success: status,
             messages: messages
@@ -94,8 +93,14 @@ function validateProduct(payload)
     return errorMessages;
 }
 
+function getProduct (request, reply) {
+    var order = mongoDb.getOneItemById('productCollection', request.params.id);
+    reply(order);
+}
+
 module.exports = [
     { method: 'POST', path: '/products/get-all', handler: getProducts },
     { method: 'POST', path: '/products/add', handler: insertProduct },
-    { method: 'POST', path: '/products/update', handler: updateProduct }
+    { method: 'POST', path: '/products/update', handler: updateProduct },
+    { method: 'GET',  path: '/product/get/{id}', handler: getProduct }
 ];
