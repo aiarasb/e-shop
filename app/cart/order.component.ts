@@ -32,7 +32,8 @@ export class OrderComponent {
     }
 
     updateOrder(): void{
-        console.log("updating...");
+        console.log(this.orders[0]);
+
         this.purchaseService.updateOrder(this.orders[0]).then( () => {
             this.completed = true
         });

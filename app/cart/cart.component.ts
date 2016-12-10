@@ -36,7 +36,7 @@ export class CartComponent {
 
             this.purchaseService.getPurchases(activeOrderId).then((response) => {
                 this.purchases = response;
-                console.log(response);
+
                 var ind = 0;
                 for (let i of this.purchases){
                     this.purchaseService.getProduct(i.productId).then((resp) => {
@@ -59,7 +59,10 @@ export class CartComponent {
 
     updatePurchases(): void{
         for (let i of this.purchases){
-            this.purchaseService.updatePurchase(i);
+            var regexp = new RegExp('^[0-9]*$');
+            if (regexp.test(i.quantity)){
+                this.purchaseService.updatePurchase(i);
+            }
         }
     }
 
