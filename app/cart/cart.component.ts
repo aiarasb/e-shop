@@ -72,12 +72,20 @@ export class CartComponent {
         console.log(purchase.quantity);
     }
 
+    addProduct(productId : any): void{
+        this.purchaseService.getActiveOrder(13).then((response) => {
+            var activeOrderId = response[0]._id;
+
+            this.purchaseService.addPurchase(productId, activeOrderId);
+            location.reload();
+        });
+    }
+
     ngOnInit(): void {
         this.getPurchases();
     }
 
     ngDoCheck(): void{
-
     }
 
 }

@@ -12,7 +12,12 @@ function getOrderPurchases (request, reply) {
 }
 
 function addPurchase (request, reply) {
-    mongoDb.insertItem('purchaseCollection', request.payload);
+    var item = {
+        productId : request.payload.productId,
+        orderId : request.payload.orderId,
+        quantity : 1
+    };
+    mongoDb.insertItem('purchaseCollection', item);
     reply('Purchase added.');
 }
 

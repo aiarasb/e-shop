@@ -28,6 +28,16 @@ export class PurchaseService {
             .catch(this.handleError);
     }
 
+    addPurchase(productId: any, orderId : any): Promise<void>{
+        return this.http.post(
+            this.apiUrl + '/purchase/add',
+            { productId : productId, orderId : orderId}
+        )
+            .toPromise()
+            .then(() => null)
+            .catch(this.handleError);
+    }
+
     updatePurchase(newPurchase : Purchase): Promise<void> {
         return this.http.post(
             this.apiUrl + '/purchase/update',
