@@ -60,7 +60,7 @@ export class CartComponent {
     updatePurchases(): void{
         for (let i of this.purchases){
             var regexp = new RegExp('^[0-9]*$');
-            if (regexp.test(i.quantity)){
+            if (regexp.test((i.quantity).toString())){
                 this.purchaseService.updatePurchase(i);
             }
         }
@@ -70,7 +70,7 @@ export class CartComponent {
         var sum = 0;
         var ind = 0;
         for (let i of this.products){
-            sum += parseInt(i.price) * parseInt(this.purchases[ind].quantity);
+            sum += parseFloat(i.price) * this.purchases[ind].quantity;
             ind++;
         }
         return sum;
