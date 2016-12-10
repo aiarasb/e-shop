@@ -37,6 +37,11 @@ const getItemsByField = (collectionName, field) => {
 }
 
 const getItemById = (usedCollection, id) => {
+    let item = collections[usedCollection].find(ObjectId(id));
+    return item;
+};
+
+const getOneItemById = (usedCollection, id) => {
     let item = collections[usedCollection].findOne(ObjectId(id));
     return item;
 };
@@ -50,14 +55,12 @@ const updateItem = (usedCollection, item) => {
     collections[usedCollection].replaceOne({'_id': ObjectId(item._id)}, item);
 };
 
-<<<<<<< HEAD
-=======
 const updateOneItem = (usedCollection, item) => {
     let it = item;
     it._id = ObjectId(item._id);
     collections[usedCollection].replaceOne({'_id': item._id}, it);
 };
->>>>>>> refs/remotes/origin/master
+
 
 const removeItemById = (usedCollection, id) => {
     collections[usedCollection].remove({'_id': ObjectId(id)});
@@ -79,6 +82,7 @@ module.exports = {
     getItems,
     getItemsByField,
     getItemById,
+    getOneItemById,
     updateItem,
     removeItemById,
     removeItemByName,

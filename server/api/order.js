@@ -31,7 +31,7 @@ function updateOrder (request, reply){
 }
 
 function getOrder (request, reply) {
-    var order = mongoDb.getItemById('orderCollection', request.params.id);
+    var order = mongoDb.getOneItemById('orderCollection', request.params.id);
     reply(order);
 }
 

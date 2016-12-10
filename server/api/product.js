@@ -6,16 +6,6 @@ function getProducts (request, reply) {
     reply (products.toArray());
 }
 
-<<<<<<< HEAD
-function getProduct (request, reply) {
-    var order = mongoDb.getItemById('productCollection', request.params.id);
-    reply(order);
-}
-
-function insertProduct (request, reply) {
-    mongoDb.insertItem('productCollection', request.payload);
-    reply('Product added.');
-=======
 function insertProduct (request, reply) {
     let payload = request.payload;
     let messages = validateProduct(payload);
@@ -40,27 +30,26 @@ function insertProduct (request, reply) {
 
     products.toArray().then((productArray) => {
         let product = productArray.find((product)=>{
-            return product.name === newProduct.name;
-        });
+                return product.name === newProduct.name;
+});
 
-        let status = false;
+    let status = false;
 
-        if (!product) {
-            mongoDb.insertItem('productCollection', newProduct);
-            messages.push('Product added');
-            status = true;
-        } else {
-            messages.push('Product with same name already exists');
-        }
+    if (!product) {
+        mongoDb.insertItem('productCollection', newProduct);
+        messages.push('Product added');
+        status = true;
+    } else {
+        messages.push('Product with same name already exists');
+    }
 
-        reply({
-            success: status,
-            messages: messages
-        });
-    }).catch(()=>{
-        reply({success: 'false'});
+    reply({
+        success: status,
+        messages: messages
     });
->>>>>>> refs/remotes/origin/master
+}).catch(()=>{
+        reply({success: 'false'});
+});
 }
 
 function updateProduct(request, reply) {
@@ -92,14 +81,14 @@ function validateProduct(payload)
     return errorMessages;
 }
 
+function getProduct (request, reply) {
+    var order = mongoDb.getOneItemById('productCollection', request.params.id);
+    reply(order);
+}
+
 module.exports = [
-<<<<<<< HEAD
-    { method: 'GET',  path: '/product/get/{id}', handler: getProduct },
-    { method: 'GET', path: '/product/get-all', handler: getProducts },
-    { method: 'POST', path: '/products/add', handler: insertProduct }
-=======
     { method: 'POST', path: '/products/get-all', handler: getProducts },
     { method: 'POST', path: '/products/add', handler: insertProduct },
-    { method: 'POST', path: '/products/update', handler: updateProduct }
->>>>>>> refs/remotes/origin/master
+    { method: 'POST', path: '/products/update', handler: updateProduct },
+    { method: 'GET',  path: '/product/get/{id}', handler: getProduct }
 ];
