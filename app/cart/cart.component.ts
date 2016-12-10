@@ -70,7 +70,11 @@ export class CartComponent {
         var sum = 0;
         var ind = 0;
         for (let i of this.products){
+<<<<<<< HEAD
             sum += parseFloat(i.price) * this.purchases[ind].quantity;
+=======
+            sum += i.price * parseInt(this.purchases[ind].quantity);
+>>>>>>> refs/remotes/origin/master
             ind++;
         }
         return sum;

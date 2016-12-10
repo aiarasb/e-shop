@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { ProductService } from '../services/product.service'
+import { ProductService } from '../services/product.service';
+import { Router } from '@angular/router';
+import { Product } from './product';
 
 @Component({
     moduleId: module.id,
@@ -9,31 +11,72 @@ import { ProductService } from '../services/product.service'
 })
 
 export class addProductComponent {
+
+    products: Product[];
+
+    inputData = [
+        {
+            name:'cover image link',
+            cover: true
+        }
+    ];
+
     constructor (
         private productService: ProductService,
+        private router: Router
     ) {}
 
-    addProductInput() {
-        let parentDiv = document.getElementById('photo-links');
-        let container = document.createElement('div');
-
-        container.className = 'photo-link-container';
-        container.innerHTML = `<div class="photo-link-container"><input class="photo-link-input" type="text"  name="photo-link-input">
-        <button type="button" class="link-input-remove" (click)="removeProductInput($event)">Remove</button></div>`;
-        parentDiv.appendChild(container);
+    addProductInput()
+    {
+        this.inputData.push({
+            name: 'image link',
+            cover: false
+        })
     }
 
-    removeProductInput(event) {
-        let eventNode = event.srcElement.parentNode;
-        eventNode.parentNode.removeChild(eventNode);
+    removeProductInput(event): void
+    {
+        let eventParent = event.target.parentNode;
+        eventParent.parentNode.removeChild(eventParent);
     }
 
-    addProduct(name: string, description: string, price: number, quantity: number): void {
+    addProduct(
+        name: string,
+        description: string,
+        price: string,
+        quantity: string,
+        discount: string
+    ): void {
         if (!name) { return; }
-        if (!price) { return;}
-        if (!quantity) { return;}
-        this.productService.addProduct(name, description, price, quantity);
+        let data = {
+            name: name,
+            description: description,
+            price: parseFloat(price),
+            quantity: parseInt(quantity),
+            discount: parseFloat(discount),
+            photos: this.getPhotoLinks()
+        };
+        this.productService.addProduct(data);
+        this.router.navigate(['/products']);
     }
 
+    getPhotoLinks()
+    {
+        let photos = document.getElementsByClassName('photo-link-input');
+        let photosObj = [];
+        for(var i = 0; i < photos.length; i++)
+        {
+            let cover = 0;
+            let link = photos[i].value;
 
+            if (i === 0) {
+                cover = 1;
+            }
+            photosObj.push({
+                link: link,
+                main: cover
+            });
+        }
+        return photosObj;
+    }
 }

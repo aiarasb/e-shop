@@ -3,33 +3,39 @@
     <form #productForm="ngForm">
         <div class="form-group">
             <label for="name">Name</label>
-            <input #newProductName type="text" class="form-control" id="name" name="name" required>
+            <input #name type="text" class="form-control" id="name" name="name" required>
         </div>
 
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea #newProductDescription class="form-control" id="description" name="description"></textarea>
+            <textarea #description class="form-control" id="description" name="description"></textarea>
         </div>
         <div class="form-group">
             <label for="price">Price</label>
-            <input #newProductPrice type="text" class="form-control" id="price" name="price">
+            <input #price type="text" class="form-control" id="price" name="price">
         </div>
         <div class="form-group">
             <label for="quantity">Quantity</label>
-            <input #newProductQuantity type="text" class="form-control" id="quantity" name="quantity">
+            <input #quantity type="text" class="form-control" id="quantity" name="quantity">
         </div>
         <div class="form-group">
-            <label for="quantity">Add photo links</label>
-            <div id="photo-links">
-                <div class="photo-link-container">
-                    <input class="photo-link-input" type="text"  name="photo-link-input">
-                    <button type="button" class="link-input-remove" (click)="removeProductInput($event)">
-                        Remove
-                    </button>
+            <label for="quantity">Discount %</label>
+            <input #discount type="text" class="form-control" id="discount" name="discount">
+        </div>
+        <div class="form-group">
+            <p>Add photo links</p>
+            <div *ngFor='let input of inputData' class="photo-link-container">
+                <div [ngSwitch]="input.cover">
+                    <input *ngSwitchCase="true" placeholder="cover image link" class="photo-link-input" type="text"  name="photo-link-input">
+                    <input *ngSwitchCase="false" class="photo-link-input" type="text"  name="photo-link-input">
+                    <button *ngSwitchCase="false" type="button" class="link-input-remove" (click)="removeProductInput($event)">Remove</button>
                 </div>
             </div>
-            <button type="button" (click)="addProductInput()">Click</button>
+            <button type="button" (click)="addProductInput()">Add more image links</button>
         </div>
-        <button type="submit" class="btn btn-default" [disabled]="!productForm.form.valid" (click)="addProduct(newProductName.value, newProductDescription.value, newProductPrice.value, newProductQuantity.value)">Save</button>
+        <button type="button" class="btn btn-default" [disabled]="!productForm.form.valid"
+                (click)="addProduct(name.value, description.value, price.value, quantity.value, discount.value)">
+            Save
+        </button>
     </form>
 </div>
