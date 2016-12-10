@@ -1,6 +1,5 @@
 'use strict';
 const mongoDb = require('../services/mongodbService.js');
-
 function getProducts (request, reply) {
     let products = mongoDb.getItems('productCollection');
     reply (products.toArray());

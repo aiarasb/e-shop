@@ -29,18 +29,11 @@ export class ProductService {
             .catch(this.handleError);
     }
 
-    addProduct (name: string, description: string, price: number, quantity: number): void {
+    addProduct (data): void {
         this.http
             .post(
                 this.apiUrl + '/products/add',
-                JSON.stringify(
-                    {
-                        name:name,
-                        description:description,
-                        price:price,
-                        quantity:quantity
-                    }
-                ),
+                JSON.stringify(data),
                 {headers: this.requestHeaders}
             )
             .toPromise()
