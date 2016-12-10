@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, Response, RequestMethod} from '@angular/http';
+import {Http, Response, Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -7,12 +7,16 @@ export class ProductService {
 
     private apiUrl = 'http://localhost:3000';
 
+    private requestHeaders = new Headers({
+        'Content-Type': 'application/json'
+    });
+
     constructor(private http: Http) {}
 
     addProduct (name: string, description: string, price: number, quantity: number): void {
         this.http
             .post(
-                this.apiUrl + '/products/add-product',
+                this.apiUrl + '/products/add',
                 JSON.stringify(
                     {
                         name:name,
@@ -20,7 +24,8 @@ export class ProductService {
                         price:price,
                         quantity:quantity
                     }
-                )
+                ),
+                {headers: this.requestHeaders}
             )
             .toPromise()
             .catch(this.handleError);
