@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductService } from '../services/product.service'
+import { ProductService } from '../services/product.service';
 
 @Component({
     moduleId: module.id,
@@ -9,23 +9,27 @@ import { ProductService } from '../services/product.service'
 })
 
 export class addProductComponent {
+
+    inputData = [
+        {
+            name:'cover image link',
+        }
+    ]
+        ;
+
     constructor (
-        private productService: ProductService,
+        private productService: ProductService
     ) {}
 
     addProductInput() {
-        let parentDiv = document.getElementById('photo-links');
-        let container = document.createElement('div');
-
-        container.className = 'photo-link-container';
-        container.innerHTML = `<div class="photo-link-container"><input class="photo-link-input" type="text"  name="photo-link-input">
-        <button type="button" class="link-input-remove" (click)="removeProductInput($event)">Remove</button></div>`;
-        parentDiv.appendChild(container);
+        this.inputData.push({
+            name: 'image link',
+        })
     }
 
     removeProductInput(event) {
-        let eventNode = event.srcElement.parentNode;
-        eventNode.parentNode.removeChild(eventNode);
+        let eventParent = event.target.parentNode;
+        eventParent.parentNode.removeChild(eventParent);
     }
 
     addProduct(name: string, description: string, price: number, quantity: number): void {
@@ -34,6 +38,4 @@ export class addProductComponent {
         if (!quantity) { return;}
         this.productService.addProduct(name, description, price, quantity);
     }
-
-
 }
