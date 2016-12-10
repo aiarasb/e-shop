@@ -8,22 +8,7 @@ function getProducts (request, reply) {
 
 function insertProduct (request, reply) {
     let payload = request.payload;
-    let messages = [];
-    if (!payload.name) {
-        messages.push('Please enter products name');
-    }
-
-    if (!parseFloat(payload.price)) {
-        messages.push('Please enter valid products price');
-    }
-
-    if (!parseInt(payload.quantity)) {
-        messages.push('Please enter valid products quantity');
-    }
-
-    if (payload.discount && !parseFloat(payload.discount)) {
-        messages.push('Invalid discount property');
-    }
+    let messages = validateProduct(payload);
 
     if (messages.length > 0) {
         reply({
@@ -67,7 +52,37 @@ function insertProduct (request, reply) {
     });
 }
 
+function updateProduct(request, reply) {
+    let payload = request.payload;
+    mongoDb.updateOneItem('productCollection', payload);
+    reply({
+        pay: payload._id
+    });
+}
+
+function validateProduct(payload)
+{
+    let errorMessages = [];
+    if (!payload.name) {
+        errorMessages.push('Please enter products name');
+    }
+
+    if (!parseFloat(payload.price)) {
+        errorMessages.push('Please enter valid products price');
+    }
+
+    if (!parseInt(payload.quantity)) {
+        errorMessages.push('Please enter valid products quantity');
+    }
+
+    if (payload.discount && !parseFloat(payload.discount)) {
+        errorMessages.push('Invalid discount property');
+    }
+    return errorMessages;
+}
+
 module.exports = [
     { method: 'POST', path: '/products/get-all', handler: getProducts },
-    { method: 'POST', path: '/products/add', handler: insertProduct }
+    { method: 'POST', path: '/products/add', handler: insertProduct },
+    { method: 'POST', path: '/products/update', handler: updateProduct }
 ];
