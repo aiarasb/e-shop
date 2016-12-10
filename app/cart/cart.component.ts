@@ -70,11 +70,7 @@ export class CartComponent {
         var sum = 0;
         var ind = 0;
         for (let i of this.products){
-<<<<<<< HEAD
-            sum += parseFloat(i.price) * this.purchases[ind].quantity;
-=======
-            sum += i.price * parseInt(this.purchases[ind].quantity);
->>>>>>> refs/remotes/origin/master
+            sum += i.price * this.purchases[ind].quantity;
             ind++;
         }
         return sum;
@@ -86,7 +82,7 @@ export class CartComponent {
         console.log(purchase.quantity);
     }
 
-    addProduct(productId : any): void{
+    addProductToOrder(productId : any): void{
         this.purchaseService.getActiveOrder(13).then((response) => {
             var activeOrderId = response[0]._id;
 
