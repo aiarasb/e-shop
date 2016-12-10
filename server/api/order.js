@@ -52,8 +52,6 @@ function removeOrder (request, reply) {
     reply('Order removed');
 }
 
-
-
 module.exports = [
     { method: 'GET',  path: '/order/get-active/{id}', handler: getActiveOrder },
     { method: 'GET',  path: '/order/get/{id}', handler: getOrder },

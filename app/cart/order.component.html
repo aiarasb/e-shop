@@ -3,22 +3,26 @@
     <div *ngIf="!completed">
         <h2>Personal information</h2>
 
+
         <div *ngFor="let order of orders">
-            <p>Name:</p>
-            <input class="input" [(ngModel)]="order.firstName">
-            <p>Surname:</p>
-            <input class="input" [(ngModel)]="order.lastName">
-            <p>Credit card number:</p>
-            <input class="input" [(ngModel)]="order.creditNumber">
-            <p>Credit card expiration date:</p>
-            <input class="input" [(ngModel)]="order.expirationDate">
-            <p>Credit card cvv:</p>
-            <input class="input" [(ngModel)]="order.creditCvv">
-            <p>Address:</p>
-            <input class="input" [(ngModel)]="order.adress">
-            <br>
-            <br><br>
-            <button (click)="goBack()">Back</button>  <button (click)="updateOrder()">Finish order</button>
+            <form (ngSubmit)="updateOrder()">
+                <p><b>First name:</b></p>
+                <input name="firstName" class="input" required [(ngModel)]="order.firstName">
+                <p><b>Last name:</b></p>
+                <input name="lastName" class="input" required [(ngModel)]="order.lastName">
+                <p><b>Credit card number:</b></p>
+                <input name="cardNumber" class="input" type="number" min="0" required [(ngModel)]="order.creditNumber">
+                <p><b>Credit card expiration date:</b></p>
+                <input name="expirationDate" class="input" type="month" required [(ngModel)]="order.expirationDate">
+                <p><b>Credit card security number:</b></p>
+                <input name="creditCvv" class="input" type="number" min="0" required [(ngModel)]="order.creditCvv">
+                <p><b>Your Address:</b></p>
+                <input name="adress" class="input" required [(ngModel)]="order.adress">
+                <br>
+                <br><br>
+                <button (click)="goBack()">Back</button>
+                <button type="submit">Finish order</button>
+            </form>
         </div>
     </div>
 

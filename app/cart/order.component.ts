@@ -24,19 +24,27 @@ export class OrderComponent {
     }
 
     getOrder(): void{
-        // insert current user's id as a parameter
+        // insert current user's id from session as a parameter
         this.purchaseService.getActiveOrder(13).then((response) => {
             console.log(response);
             this.orders = response;
         });
     }
 
+    // uncomment after tests
     updateOrder(): void{
-        console.log("updating...");
+        /* var order = this.orders[0];
+        order.isActive = false;
+        this.purchaseService.createNewOrder(13);*/
+
+        console.log(this.orders[0]);
+
         this.purchaseService.updateOrder(this.orders[0]).then( () => {
             this.completed = true
         });
     }
+
+
 
     ngOnInit() : void{
         this.getOrder();

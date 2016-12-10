@@ -11,7 +11,7 @@
         <tr *ngFor="let product of products; let i = index" >
             <td>{{product.name}}</td>
             <td>{{product.price }} €</td>
-            <td><input (ngModelChange)="onQuantityChange(purchases[i])" type="number" class="input" [(ngModel)]="purchases[i].quantity" placeholder="Enter quantity"></td>
+            <td><input (ngModelChange)="onQuantityChange(purchases[i])" type="number" min="1" class="input" [(ngModel)]="purchases[i].quantity" placeholder="Enter quantity"></td>
             <td>{{product.price * purchases[i].quantity}} €</td>
             <td> <button (click)="removePurchase(i)">✗</button></td>
         </tr>
@@ -23,6 +23,6 @@
     </div>
     <div>
         <br><br><br>
-        <button id="addProductButton" (click)="addProduct('584ad44869d3450a7c523eff')">ADD PRODUCT TO CART</button>
+        <button id="addProductButton" (click)="addProductToOrder('584ad44869d3450a7c523eff')">ADD PRODUCT</button>
     </div>
 </div>

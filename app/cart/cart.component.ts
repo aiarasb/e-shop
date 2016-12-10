@@ -24,6 +24,7 @@ export class CartComponent {
     ) {}
 
     goToOrder(): void{
+        this.updatePurchases();
         this.router.navigate(['/order']);
     }
 
@@ -35,7 +36,7 @@ export class CartComponent {
 
             this.purchaseService.getPurchases(activeOrderId).then((response) => {
                 this.purchases = response;
-                console.log(response);
+
                 var ind = 0;
                 for (let i of this.purchases){
                     this.purchaseService.getProduct(i.productId).then((resp) => {
@@ -56,11 +57,20 @@ export class CartComponent {
         this.purchaseService.removePurchase(purchaseId);
     }
 
+    updatePurchases(): void{
+        for (let i of this.purchases){
+            var regexp = new RegExp('^[0-9]*$');
+            if (regexp.test((i.quantity).toString())){
+                this.purchaseService.updatePurchase(i);
+            }
+        }
+    }
+
     getAllProductsPrice(): number{
         var sum = 0;
         var ind = 0;
         for (let i of this.products){
-            sum += i.price * parseInt(this.purchases[ind].quantity);
+            sum += i.price * this.purchases[ind].quantity;
             ind++;
         }
         return sum;
@@ -72,7 +82,7 @@ export class CartComponent {
         console.log(purchase.quantity);
     }
 
-    addProduct(productId : any): void{
+    addProductToOrder(productId : any): void{
         this.purchaseService.getActiveOrder(13).then((response) => {
             var activeOrderId = response[0]._id;
 

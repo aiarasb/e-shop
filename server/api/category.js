@@ -14,13 +14,13 @@ function getCategory (request, reply) {
 }
 
 function addCategory (request, reply) {
-    //let data = JSON.parse(request.payload);
-   /* const productData = {
+    let data = JSON.parse(request.payload);
+    const productData = {
         name: data.name,
         description: data.description,
         products: []
-    };*/
-    mongoDb.insertItem('categoryCollection', request.payload);
+    };
+    mongoDb.insertItem('categoryCollection', productData);
     reply('Category added.');
 }
 
