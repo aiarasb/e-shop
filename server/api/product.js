@@ -68,6 +68,6 @@ function insertProduct (request, reply) {
 }
 
 module.exports = [
-    { method: 'GET', path: '/product/get-all', handler: getProducts },
+    { method: 'POST', path: '/products/get-all', handler: getProducts },
     { method: 'POST', path: '/products/add', handler: insertProduct }
 ];

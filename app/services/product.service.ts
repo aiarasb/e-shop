@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Product } from '../products/product';
 
 @Injectable()
 export class ProductService {
@@ -12,6 +13,21 @@ export class ProductService {
     });
 
     constructor(private http: Http) {}
+
+    private extractData(res: Response) {
+        let body = res.json();
+        return body || [];
+    }
+
+    getProducts(): Observable<Product[]> {
+        return this.http
+            .post(
+                this.apiUrl + '/products/get-all',
+                ''
+            )
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
     addProduct (name: string, description: string, price: number, quantity: number): void {
         this.http

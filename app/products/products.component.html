@@ -1,1 +1,4 @@
 <button (click)="gotoProductAdd()">Add product</button>
+<li *ngFor="let product of products">
+    {{product.name}}
+</li>
