@@ -70,6 +70,14 @@ function updateProduct(request, reply) {
     });
 }
 
+function deleteProduct(request, reply) {
+    let payload = request.payload;
+    mongoDb.removeItemById('productCollection', payload._id);
+    reply({
+        success: true,
+        messages: ['Product removed']
+    });
+}
 
 function validateProduct(payload)
 {
@@ -102,5 +110,6 @@ module.exports = [
     { method: 'POST', path: '/products/get-all', handler: getProducts },
     { method: 'POST', path: '/products/add', handler: insertProduct },
     { method: 'POST', path: '/products/update', handler: updateProduct },
+    { method: 'POST', path: '/products/delete', handler: deleteProduct },
     { method: 'GET',  path: '/product/get/{id}', handler: getProduct }
 ];
