@@ -13,6 +13,7 @@ import { Product } from './product';
 export class addProductComponent {
 
     products: Product[];
+
     inputData = [
         {
             name:'cover image link',
@@ -62,17 +63,15 @@ export class addProductComponent {
     getPhotoLinks()
     {
         let photos = <HTMLCollection>document.getElementsByClassName('photo-link-input');
-
         if (!photos) {
             return [];
         }
-        
         let photosObj = [];
 
         for(var i = 0; i < photos.length; i++)
         {
             let cover = 0;
-            let link = (<HTMLInputElement>photos[i]).value;
+            let link = <Element>photos[i].valueOf().value;
 
             if (i === 0) {
                 cover = 1;

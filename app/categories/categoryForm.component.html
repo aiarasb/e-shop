@@ -7,7 +7,12 @@
         </div>
         <div>
             <label for="description">Description</label>
-            <textarea #categoryDescription id="description" name="description" [(ngModel)]="category.description"></textarea>
+            <textarea #categoryDescription id="description" name="description"
+                      [(ngModel)]="category.description"></textarea>
+        </div>
+        <div>
+            <label for="product">Product</label>
+            <input #product type="text" id="product" name="product" [(ngModel)]="category.products[0]">
         </div>
         <button type="submit" [disabled]="!categoryForm.form.valid">Save</button>
     </form>
