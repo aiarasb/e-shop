@@ -56,18 +56,19 @@ export class addProductComponent {
             discount: parseFloat(discount),
             photos: this.getPhotoLinks()
         };
+        console.log(data);
         this.productService.addProduct(data);
         this.router.navigate(['/products']);
     }
 
     getPhotoLinks()
     {
-        let photos = document.getElementsByClassName('photo-link-input');
+        let photos = <HTMLCollection>document.getElementsByClassName('photo-link-input');
         let photosObj = [];
         for(var i = 0; i < photos.length; i++)
         {
             let cover = 0;
-            let link = photos[i].value;
+            let link = (<HTMLInputElement>photos[i]).value;
 
             if (i === 0) {
                 cover = 1;
