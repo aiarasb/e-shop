@@ -5,10 +5,8 @@
     </div>
     <div>
         <ul>
-            <li *ngFor="let category of categories">
+            <li *ngFor="let category of categories" (click)="gotoCategory(category)">
                 {{category.name}}
-                <button (click)="gotoCategory(category)">View</button>
-                <button (click)="gotoCategoryList(category)">List</button>
             </li>
         </ul>
     </div>

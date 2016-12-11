@@ -11,7 +11,6 @@ import { CategoryComponent }    from './categories/category.component'
 import { LoginComponent }       from './login/login.component'
 import { AddCategoryComponent } from "./categories/addCategory.component";
 import { EditCategoryComponent } from "./categories/editCategory.component";
-import {CategoryListComponent} from "./categories/categoryList.component";
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -24,7 +23,6 @@ const routes: Routes = [
     { path: 'category/add', component: AddCategoryComponent },
     { path: 'category/show/:name', component: CategoryComponent },
     { path: 'category/edit/:name', component: EditCategoryComponent },
-    { path: 'category/list/:name', component: CategoryListComponent },
     { path: 'login', component: LoginComponent },
     { path: 'products/add', component: addProductComponent }
 ];

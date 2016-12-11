@@ -6,7 +6,7 @@ import { Product } from '../products/product';
 @Injectable()
 export class ProductService {
 
-    private apiUrl = 'http://localhost:3000';
+    private apiUrl = 'http://127.0.0.1:3000';
 
     private requestHeaders = new Headers({
         'Content-Type': 'application/json'
@@ -19,21 +19,13 @@ export class ProductService {
         return body || [];
     }
 
-    private extractDataOne(res: Response) {
-        let body = res.json();
-        if (body) {
-            return body[0];
-        }
-        return {};
-    }
-
-    getProductById(productId): Observable<Product> {
+    getProductsById(productIds: Array<string>): Observable<Product[]> {
         return this.http
             .post(
-                this.apiUrl + '/products/get',
-                JSON.stringify({'id':productId})
+                this.apiUrl + '/products/get-multiple',
+                JSON.stringify({'ids':productIds})
             )
-            .map(this.extractDataOne)
+            .map(this.extractData)
             .catch(this.handleError);
     }
 
