@@ -13,6 +13,7 @@ import { Product } from './product';
 export class addProductComponent {
 
     products: Product[];
+
     inputData = [
         {
             name:'cover image link',
@@ -62,7 +63,6 @@ export class addProductComponent {
     getPhotoLinks()
     {
         let photos = <HTMLCollection>document.getElementsByClassName('photo-link-input');
-
         if (!photos) {
             return [];
         }
