@@ -40,7 +40,7 @@ export class ProductService {
             .catch(this.handleError);
     }
 
-    deleteProduct (idProduct: string): void {
+    deleteProduct (idProduct: string) {
         return this.http
             .post(
                 this.apiUrl + '/products/delete',

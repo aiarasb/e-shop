@@ -38,6 +38,7 @@ export class ProductsComponent {
     deleteProduct(idProduct: string): void {
         if (idProduct) {
             this.productService.deleteProduct(idProduct);
+
             let tableRow = document.getElementById(idProduct);
             tableRow.parentNode.removeChild(tableRow);
         }
