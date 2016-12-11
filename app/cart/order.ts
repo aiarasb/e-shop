@@ -2,9 +2,10 @@ export class Order {
     _id: string;
     firstName: string;
     lastName: string;
-    creditNumber: string;
+    creditNumber: number;
     expirationDate: string;
-    creditCvv: string;
+    creditCvv: number;
     adress: string;
     userId: string;
+    isActive: boolean;
 }

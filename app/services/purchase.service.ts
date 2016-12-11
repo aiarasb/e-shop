@@ -55,6 +55,13 @@ export class PurchaseService {
             .catch(this.handleError);
     }
 
+    createNewOrder(userIndex: any): Promise<void> {
+        return this.http.get(this.apiUrl + '/order/add/' + userIndex)
+            .toPromise()
+            .then(() => null)
+            .catch(this.handleError);
+    }
+
     getActiveOrder(index: any): Promise<Order[]> {
         return this.http.get(this.apiUrl + '/order/get-active/' + index)
             .toPromise()
