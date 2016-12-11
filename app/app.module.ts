@@ -23,6 +23,7 @@ import { PurchaseService } from './services/purchase.service';
 import { ProductService } from './services/product.service';
 
 import { AppRoutingModule } from './app-routing.module';
+import { CategoryListComponent } from "./categories/categoryList.component";
 
 @NgModule({
   imports:      [
@@ -37,6 +38,7 @@ import { AppRoutingModule } from './app-routing.module';
       HomeComponent,
       ProductsComponent,
       CategoriesComponent,
+      CategoryListComponent,
       LoginComponent,
       CartComponent,
       OrderComponent,

@@ -72,7 +72,7 @@ export class addProductComponent {
         for(var i = 0; i < photos.length; i++)
         {
             let cover = 0;
-            let link = <Element>photos[i].valueOf().value;
+            let link = '';//<Element>photos[i].valueOf().value;
 
             if (i === 0) {
                 cover = 1;

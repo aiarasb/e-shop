@@ -101,7 +101,7 @@ function validateProduct(payload)
 }
 
 function getProduct (request, reply) {
-    var order = mongoDb.getOneItemById('productCollection', request.params.id);
+    var order = mongoDb.getOneItemById('productCollection', request.payload.id);
     reply(order);
 }
 
@@ -110,5 +110,5 @@ module.exports = [
     { method: 'POST', path: '/products/add', handler: insertProduct },
     { method: 'POST', path: '/products/update', handler: updateProduct },
     { method: 'POST', path: '/products/delete', handler: deleteProduct },
-    { method: 'GET',  path: '/product/get/{id}', handler: getProduct }
+    { method: 'POST', path: '/product/get', handler: getProduct }
 ];

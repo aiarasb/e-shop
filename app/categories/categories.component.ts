@@ -31,6 +31,10 @@ export class CategoriesComponent {
     this.router.navigate(['/category/show', category.name]);
   }
 
+  gotoCategoryList(category): void {
+    this.router.navigate(['/category/list', category.name]);
+  }
+
   ngOnInit(): void {
     this.getCategories();
   }
