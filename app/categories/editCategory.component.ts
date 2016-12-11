@@ -11,7 +11,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 
 export class EditCategoryComponent {
-    category = new Category('', '', '');
+    category = new Category('', '', '', []);
 
     constructor (
         private categoryService: CategoryService,

@@ -18,7 +18,7 @@ function addCategory (request, reply) {
     const productData = {
         name: data.name,
         description: data.description,
-        products: []
+        products: data.products
     };
     mongoDb.insertItem('categoryCollection', productData);
     reply('Category added.');
@@ -36,7 +36,7 @@ function updateCategory (request, reply) {
         _id: data._id,
         name: data.name,
         description: data.description,
-        products: []
+        products: data.products
     };
     mongoDb.updateOneItem('categoryCollection', productData);
     reply('Category updated');
