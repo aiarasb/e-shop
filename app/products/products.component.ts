@@ -31,8 +31,8 @@ export class ProductsComponent {
         this.getProducts();
     }
 
-    editProduct(idProduct: string): void {
-        console.log(idProduct);
+    editProduct(productName: string): void {
+        this.router.navigate(['products/edit/', productName]);
     }
 
     deleteProduct(idProduct: string): void {

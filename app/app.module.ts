@@ -8,7 +8,8 @@ import { FormsModule }   from '@angular/forms';
 import { AppComponent }   from './main/app.component';
 import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
-import { addProductComponent }    from './products/addProduct.component';
+import { AddProductComponent }    from './products/addProduct.component';
+import { EditProductComponent }    from './products/editProduct.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryComponent } from './categories/category.component';
 import { AddCategoryComponent } from './categories/addCategory.component';
@@ -44,7 +45,8 @@ import { AppRoutingModule } from './app-routing.module';
       AddCategoryComponent,
       EditCategoryComponent,
       LoginComponent,
-      addProductComponent
+      AddProductComponent,
+      EditProductComponent
   ],
   providers: [
      ApiService,

@@ -6,11 +6,11 @@ import { Product } from './product';
 @Component({
     moduleId: module.id,
     selector: 'addProduct-form',
-    templateUrl: 'addProduct.component.html',
-    styleUrls: ['addProduct.component.css']
+    templateUrl: 'productForm.component.html',
+    styleUrls: ['productForm.component.css']
 })
 
-export class addProductComponent {
+export class AddProductComponent {
 
     products: Product[];
     inputData = [

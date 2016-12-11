@@ -1,0 +1,92 @@
+import { Component } from '@angular/core';
+import { ProductService } from '../services/product.service';
+import { Router } from '@angular/router';
+import { Product } from './product';
+import {AddProductComponent} from "./addProduct.component";
+
+@Component({
+    moduleId: module.id,
+    selector: 'editProduct-form',
+    templateUrl: 'productForm.component.html',
+    styleUrls: ['productForm.component.css']
+})
+
+export class EditProductComponent extends AddProductComponent {
+
+    // products: Product[];
+    // inputData = [
+    //     {
+    //         name:'cover image link',
+    //         cover: true
+    //     }
+    // ];
+    //
+    // constructor (
+    //     private productService: ProductService,
+    //     private router: Router
+    // ) {}
+    //
+    // addProductInput()
+    // {
+    //     this.inputData.push({
+    //         name: 'image link',
+    //         cover: false
+    //     })
+    // }
+    //
+    // removeProductInput(event): void
+    // {
+    //     let eventParent = event.target.parentNode;
+    //     eventParent.parentNode.removeChild(eventParent);
+    // }
+    //
+    // addProduct(
+    //     name: string,
+    //     description: string,
+    //     price: string,
+    //     quantity: string,
+    //     discount: string
+    // ): void {
+    //     if (!name) { return; }
+    //     let data = {
+    //         name: name,
+    //         description: description,
+    //         price: parseFloat(price),
+    //         quantity: parseInt(quantity),
+    //         discount: parseFloat(discount),
+    //         photos: this.getPhotoLinks()
+    //     };
+    //     this.productService.addProduct(data);
+    //     this.router.navigate(['/products']);
+    // }
+    //
+    // getPhotoLinks()
+    // {
+    //     let photos = <HTMLCollection>document.getElementsByClassName('photo-link-input');
+    //
+    //     if (!photos) {
+    //         return [];
+    //     }
+    //
+    //     let photosObj = [];
+    //
+    //     for(var i = 0; i < photos.length; i++)
+    //     {
+    //         let cover = 0;
+    //         let link = (<HTMLInputElement>photos[i]).value;
+    //
+    //         if (i === 0) {
+    //             cover = 1;
+    //         }
+    //         photosObj.push({
+    //             link: link,
+    //             main: cover
+    //         });
+    //     }
+    //     return photosObj;
+    // }
+    //
+    // gotoProductsPage(): void {
+    //     this.router.navigate(['/products']);
+    // }
+}
