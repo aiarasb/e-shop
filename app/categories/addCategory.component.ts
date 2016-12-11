@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Category } from './category';
-import { CategoryService } from '../services/category.service';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {Category} from './category';
+import {CategoryService} from '../services/category.service';
+import {Router} from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -11,12 +11,11 @@ import { Router } from '@angular/router';
 })
 
 export class AddCategoryComponent {
-    category = new Category('', '' ,'',[]);
+    category = new Category('', '', '', []);
 
-    constructor (
-        private categoryService: CategoryService,
-        private router: Router
-    ) {}
+    constructor(private categoryService: CategoryService,
+                private router: Router) {
+    }
 
     onSubmit(): void {
         this.categoryService.addCategory(this.category);

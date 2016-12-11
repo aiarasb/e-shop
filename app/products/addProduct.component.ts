@@ -66,7 +66,7 @@ export class addProductComponent {
         if (!photos) {
             return [];
         }
-        
+
         let photosObj = [];
 
         for(var i = 0; i < photos.length; i++)

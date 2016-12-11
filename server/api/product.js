@@ -1,5 +1,6 @@
 'use strict';
 const mongoDb = require('../services/mongodbService.js');
+
 function getProducts (request, reply) {
     let products = mongoDb.getItems('productCollection');
     reply (products.toArray());
@@ -101,8 +102,15 @@ function validateProduct(payload)
 }
 
 function getProduct (request, reply) {
-    var order = mongoDb.getOneItemById('productCollection', request.params.id);
-    reply(order);
+    let data = JSON.parse(request.payload);
+    let product = mongoDb.getItemsById('productCollection', data.id);
+    reply(product.toArray());
+}
+
+function getProductsById (request, reply) {
+    let data = JSON.parse(request.payload);
+    let products = mongoDb.getItemsById('productCollection', data.ids);
+    reply(products.toArray());
 }
 
 module.exports = [
@@ -110,5 +118,6 @@ module.exports = [
     { method: 'POST', path: '/products/add', handler: insertProduct },
     { method: 'POST', path: '/products/update', handler: updateProduct },
     { method: 'POST', path: '/products/delete', handler: deleteProduct },
-    { method: 'GET',  path: '/product/get/{id}', handler: getProduct }
+    { method: 'POST', path: '/products/get', handler: getProduct },
+    { method: 'POST', path: '/products/get-multiple', handler: getProductsById }
 ];
