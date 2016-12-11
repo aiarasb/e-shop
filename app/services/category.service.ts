@@ -37,7 +37,7 @@ export class CategoryService {
         this.http
             .post(
                 this.apiUrl + '/categories/add',
-                JSON.stringify(category)
+                category
             )
             .toPromise()
             .catch(this.handleError);
@@ -57,7 +57,7 @@ export class CategoryService {
         this.http
             .post(
                 this.apiUrl + '/categories/delete',
-                JSON.stringify(category)
+                category
             )
             .toPromise()
             .catch(this.handleError);
@@ -67,7 +67,7 @@ export class CategoryService {
         this.http
             .post(
                 this.apiUrl + '/categories/update',
-                JSON.stringify(category)
+                category
             )
             .toPromise()
             .catch(this.handleError);

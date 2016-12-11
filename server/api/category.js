@@ -14,7 +14,7 @@ function getCategory (request, reply) {
 }
 
 function addCategory (request, reply) {
-    let data = JSON.parse(request.payload);
+    let data = request.payload;
     const productData = {
         name: data.name,
         description: data.description,
@@ -25,14 +25,20 @@ function addCategory (request, reply) {
 }
 
 function deleteCategory (request, reply) {
-    let data = JSON.parse(request.payload);
+    let data = request.payload;
     mongoDb.removeItemById('categoryCollection', data._id);
     reply('Category removed');
 }
 
 function updateCategory (request, reply) {
-    let data = JSON.parse(request.payload);
-    mongoDb.updateItem('categoryCollection', data);
+    let data = request.payload;
+    const productData = {
+        _id: data._id,
+        name: data.name,
+        description: data.description,
+        products: []
+    };
+    mongoDb.updateOneItem('categoryCollection', productData);
     reply('Category updated');
 }
 
