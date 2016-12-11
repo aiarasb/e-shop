@@ -40,6 +40,19 @@ export class ProductService {
             .catch(this.handleError);
     }
 
+    deleteProduct (idProduct: string): void {
+        return this.http
+            .post(
+                this.apiUrl + '/products/delete',
+                JSON.stringify({
+                    _id: idProduct
+                }),
+                {headers: this.requestHeaders}
+            )
+            .toPromise()
+            .catch(this.handleError);
+    }
+
     private handleError (error: Response | any) {
 
         let errMsg: string;

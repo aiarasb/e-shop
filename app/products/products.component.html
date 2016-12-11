@@ -1,4 +1,54 @@
 <button (click)="gotoProductAdd()">Add product</button>
-<li *ngFor="let product of products">
-    {{product.name}}
-</li>
+<table *ngIf="products">
+    <thead>
+        <tr>
+            <th>Product name</th>
+            <th>Photos</th>
+            <th>description</th>
+            <th>Price</th>
+            <th>Discount %</th>
+            <th>Quantity</th>
+            <th>--</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of products" [attr.id]="product._id">
+        <td *ngIf="product">
+            <p *ngIf="product.name">{{product.name}}</p>
+            <p *ngIf="!product.name">--</p>
+        </td>
+        <td *ngIf="product">
+            <!--todo instead of a tags replace img then links will be valid and validated <img[src]-->
+            <a *ngIf="product.photos">{{product.photos[0].link}}</a>
+            <p *ngIf="!product.photos">--</p>
+        </td>
+        <td *ngIf="product">
+            <p *ngIf="product.description">{{product.description}}</p>
+            <p *ngIf="!product.description">--</p>
+        </td>
+        <td *ngIf="product">
+            <p *ngIf="product.price">{{product.price}}</p>
+            <p *ngIf="!product.price">--</p>
+        </td>
+        <td *ngIf="product">
+            <p *ngIf="product.discount">{{product.discount}}</p>
+            <p *ngIf="!product.discount">--</p>
+        </td>
+        <td *ngIf="product">
+            <p *ngIf="product.quantity">{{product.quantity}}</p>
+            <p *ngIf="!product.quantity">0</p>
+        </td>
+        <td *ngIf="product">
+            <div class="button-group">
+                <input #idProduct [hidden]="hideId" [value]="product._id">
+                <button *ngIf="product" (click)="editProduct(idProduct.value)">
+                    Edit
+                </button>
+                <button *ngIf="product" (click)="deleteProduct(idProduct.value)">
+                    Delete
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

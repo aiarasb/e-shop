@@ -13,7 +13,6 @@ import { Product } from './product';
 export class addProductComponent {
 
     products: Product[];
-
     inputData = [
         {
             name:'cover image link',
@@ -56,7 +55,6 @@ export class addProductComponent {
             discount: parseFloat(discount),
             photos: this.getPhotoLinks()
         };
-        console.log(data);
         this.productService.addProduct(data);
         this.router.navigate(['/products']);
     }
