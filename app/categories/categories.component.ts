@@ -33,5 +33,4 @@ export class CategoriesComponent {
     ngOnInit(): void {
         this.getCategories();
     }
-
 }
