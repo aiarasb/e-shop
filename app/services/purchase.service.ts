@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, Response} from '@angular/http';
 import { Purchase } from '../cart/purchase';
 import {Product} from "../products/product";
 
@@ -12,6 +12,11 @@ export class PurchaseService {
     private apiUrl = 'http://e-shop.dev:3000';
 
     constructor(private http: Http) {}
+
+    private extractData(res: Response) {
+        let body = res.json();
+        return body || [];
+    }
 
 
     getPurchases(index : any): Promise<Purchase[]> {
@@ -48,10 +53,12 @@ export class PurchaseService {
             .catch(this.handleError);
     }
 
-    getProduct(index : any): Promise<Product> {
-        return this.http.get(this.apiUrl + '/product/get/' + index)
+    getProduct(index : any): Promise<Product[]> {
+        return this.http.post(
+            this.apiUrl + '/products/get',
+            JSON.stringify({"id" : index}))
             .toPromise()
-            .then(response => response.json() as Product)
+            .then(response => response.json() as Product[])
             .catch(this.handleError);
     }
 

@@ -17,8 +17,6 @@ export class CartComponent {
     purchases: Purchase[];
     products: Product[] = [];
 
-
-
     constructor (
         private router: Router, private purchaseService: PurchaseService
     ) {}
@@ -40,14 +38,12 @@ export class CartComponent {
                 var ind = 0;
                 for (let i of this.purchases){
                     this.purchaseService.getProduct(i.productId).then((resp) => {
-                        this.products.splice(ind, 0, resp);
+                        this.products.splice(ind, 0, resp[0]);
                     })
                     ind ++;
                 }
             });
         });
-
-
     }
 
     removePurchase(index : any) : void{
