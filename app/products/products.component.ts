@@ -11,7 +11,9 @@ import { ProductService } from '../services/product.service'
 })
 
 export class ProductsComponent {
+    private hideId: boolean = true;
     products: Product[];
+
     constructor (
         private router: Router,
         private productService: ProductService
@@ -27,5 +29,18 @@ export class ProductsComponent {
 
     ngOnInit(): void {
         this.getProducts();
+    }
+
+    editProduct(idProduct: string): void {
+        console.log(idProduct);
+    }
+
+    deleteProduct(idProduct: string): void {
+        if (idProduct) {
+            this.productService.deleteProduct(idProduct);
+
+            let tableRow = document.getElementById(idProduct);
+            tableRow.parentNode.removeChild(tableRow);
+        }
     }
 }

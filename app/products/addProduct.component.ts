@@ -62,12 +62,17 @@ export class addProductComponent {
 
     getPhotoLinks()
     {
-        let photos = document.getElementsByClassName('photo-link-input');
+        let photos = <HTMLCollection>document.getElementsByClassName('photo-link-input');
+        if (!photos) {
+            return [];
+        }
+
         let photosObj = [];
+
         for(var i = 0; i < photos.length; i++)
         {
             let cover = 0;
-            let link = photos[i].value;
+            let link = (<HTMLInputElement>photos[i]).value;
 
             if (i === 0) {
                 cover = 1;
@@ -78,5 +83,9 @@ export class addProductComponent {
             });
         }
         return photosObj;
+    }
+
+    gotoProductsPage(): void {
+        this.router.navigate(['/products']);
     }
 }

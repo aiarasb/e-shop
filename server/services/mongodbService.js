@@ -23,6 +23,14 @@ const insertItem = (usedCollection, item) => {
     collections[usedCollection].insert(item);
 };
 
+const getItemsById = (usedCollection, ids) => {
+    ids.forEach(function(id, i, ar){
+        ar[i] = ObjectId(id);
+    });
+    let items = collections[usedCollection].find({'_id':{$in: ids}});
+    return items;
+}
+
 const getItems = (usedCollection, limit) => {
     let items = collections[usedCollection].find();
     if (typeof limit != 'undefined') {
@@ -87,5 +95,6 @@ module.exports = {
     removeItemById,
     removeItemByName,
     removeItem,
-    getItemByName
+    getItemByName,
+    getItemsById
 };
