@@ -16,6 +16,7 @@ export class SearchComponent {
     products: Product[];
     categories: Category[];
     results: Product[];
+    searchField: string;
 
     constructor(private router: Router,
                 private categoryService: CategoryService,
@@ -30,9 +31,9 @@ export class SearchComponent {
         this.productService.getProducts().subscribe(products => this.products = products);
     }
 
-    doSearch(event: any): void {
-        if (event.target.value) {
-            let re = new RegExp(event.target.value);
+    doSearch(): void {
+        if (this.searchField) {
+            let re = new RegExp(this.searchField);
             this.results = this.products.filter(function (value:Product) {
                 return re.test(value.name);
             });
