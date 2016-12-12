@@ -1,0 +1,19 @@
+<div class="search-container">
+    <h2>Search</h2>
+    <div>
+        <input type="text" (keyup)="doSearch($event)">
+    </div>
+    <div>
+        <h3>Search results</h3>
+        <div *ngIf="results">
+            <ul *ngFor="let product of results">
+                <li>{{ product.name }}</li>
+            </ul>
+        </div>
+        <div *ngIf="!results">
+            <ul *ngFor="let product of products">
+                <li>{{ product.name }}</li>
+            </ul>
+        </div>
+    </div>
+</div>

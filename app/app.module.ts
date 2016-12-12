@@ -23,6 +23,7 @@ import { PurchaseService } from './services/purchase.service';
 import { ProductService } from './services/product.service';
 
 import { AppRoutingModule } from './app-routing.module';
+import { SearchComponent } from "./search/search.component";
 
 @NgModule({
   imports:      [
@@ -44,7 +45,8 @@ import { AppRoutingModule } from './app-routing.module';
       AddCategoryComponent,
       EditCategoryComponent,
       LoginComponent,
-      addProductComponent
+      addProductComponent,
+      SearchComponent
   ],
   providers: [
      ApiService,
