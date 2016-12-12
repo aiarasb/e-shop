@@ -103,7 +103,7 @@ function validateProduct(payload)
 
 function getProduct (request, reply) {
     let data = JSON.parse(request.payload);
-    let product = mongoDb.getItemsById('productCollection', data.id);
+    let product = mongoDb.getItemById('productCollection', data.id);
     reply(product.toArray());
 }
 
