@@ -101,14 +101,14 @@ function validateProduct(payload)
     return errorMessages;
 }
 
-function getProduct (request, reply) {
+function getProductByName (request, reply) {
     let data = JSON.parse(request.payload);
-    let product = mongoDb.getItemById('productCollection', data.id);
+    let product = mongoDb.getItemByName('productCollection', data.name);
     reply(product.toArray());
 }
 
 function getProductsById (request, reply) {
-    let data = JSON.parse(request.payload);
+    let data = request.payload;
     let products = mongoDb.getItemsById('productCollection', data.ids);
     reply(products.toArray());
 }
@@ -118,6 +118,6 @@ module.exports = [
     { method: 'POST', path: '/products/add', handler: insertProduct },
     { method: 'POST', path: '/products/update', handler: updateProduct },
     { method: 'POST', path: '/products/delete', handler: deleteProduct },
-    { method: 'POST', path: '/products/get', handler: getProduct },
+    { method: 'POST', path: '/products/get', handler: getProductByName },
     { method: 'POST', path: '/products/get-multiple', handler: getProductsById }
 ];

@@ -4,7 +4,8 @@ import { RouterModule, Routes } from '@angular/router'
 import { CartComponent }        from './cart/cart.component'
 import { HomeComponent }        from './home/home.component'
 import { ProductsComponent }    from './products/products.component'
-import { addProductComponent }    from './products/addProduct.component'
+import { AddProductComponent }    from './products/addProduct.component'
+import { EditProductComponent }    from './products/editProduct.component'
 import { CategoriesComponent }  from './categories/categories.component'
 import { OrderComponent }       from "./cart/order.component"
 import { CategoryComponent }    from './categories/category.component'
@@ -25,7 +26,8 @@ const routes: Routes = [
     { path: 'category/show/:name', component: CategoryComponent },
     { path: 'category/edit/:name', component: EditCategoryComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'products/add', component: addProductComponent },
+    { path: 'products/add', component: AddProductComponent },
+    { path: 'products/edit/:name', component: EditProductComponent },
     { path: 'search', component: SearchComponent }
 ];
 

@@ -4,8 +4,16 @@ export class Product {
     description: string;
     price: number;
     discount: number;
-    photos: any;
-    constructor(_id: string, name: string, description: string, price: number, discount: number, photos: any) {
+    photos: Array<Object>;
+
+    constructor(
+        _id: string,
+        name: string,
+        description: string,
+        price: number,
+        discount: number,
+        photos: Array<Object>
+    ) {
         this._id = _id;
         this.name = name;
         this.description = description;

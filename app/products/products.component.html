@@ -41,7 +41,7 @@
         <td *ngIf="product">
             <div class="button-group">
                 <input #idProduct [hidden]="hideId" [value]="product._id">
-                <button *ngIf="product" (click)="editProduct(idProduct.value)">
+                <button *ngIf="product" (click)="editProduct(product.name)">
                     Edit
                 </button>
                 <button *ngIf="product" (click)="deleteProduct(idProduct.value)">
