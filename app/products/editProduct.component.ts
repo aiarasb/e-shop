@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductService } from '../services/product.service';
-import { Router } from '@angular/router';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 import { Product } from './product';
-import {AddProductComponent} from "./addProduct.component";
 
 @Component({
     moduleId: module.id,
@@ -11,35 +10,43 @@ import {AddProductComponent} from "./addProduct.component";
     styleUrls: ['productForm.component.css']
 })
 
-export class EditProductComponent extends AddProductComponent {
+export class EditProductComponent {
 
-    // products: Product[];
-    // inputData = [
-    //     {
-    //         name:'cover image link',
-    //         cover: true
-    //     }
-    // ];
-    //
-    // constructor (
-    //     private productService: ProductService,
-    //     private router: Router
-    // ) {}
-    //
-    // addProductInput()
-    // {
-    //     this.inputData.push({
-    //         name: 'image link',
-    //         cover: false
-    //     })
-    // }
-    //
-    // removeProductInput(event): void
-    // {
-    //     let eventParent = event.target.parentNode;
-    //     eventParent.parentNode.removeChild(eventParent);
-    // }
-    //
+    products = new Product('', '', '', 0.0, 0, []);
+    inputData = [
+        {
+            name:'cover image link',
+            cover: true
+        }
+    ];
+
+    constructor (
+        private productService: ProductService,
+        private router: Router,
+        private route: ActivatedRoute
+    ) {}
+
+    addProductInput()
+    {
+        this.inputData.push({
+            name: 'image link',
+            cover: false
+        })
+    }
+
+    removeProductInput(event): void
+    {
+        let eventParent = event.target.parentNode;
+        eventParent.parentNode.removeChild(eventParent);
+    }
+
+    getProduct(): void {
+        this.route.params.forEach((params: Params) => {
+            let name = params['name'];
+            this.productService.getProductByName(name).subscribe(product => this.products = product);
+        });
+    }
+
     // addProduct(
     //     name: string,
     //     description: string,
@@ -47,17 +54,7 @@ export class EditProductComponent extends AddProductComponent {
     //     quantity: string,
     //     discount: string
     // ): void {
-    //     if (!name) { return; }
-    //     let data = {
-    //         name: name,
-    //         description: description,
-    //         price: parseFloat(price),
-    //         quantity: parseInt(quantity),
-    //         discount: parseFloat(discount),
-    //         photos: this.getPhotoLinks()
-    //     };
-    //     this.productService.addProduct(data);
-    //     this.router.navigate(['/products']);
+    //
     // }
     //
     // getPhotoLinks()
@@ -85,8 +82,8 @@ export class EditProductComponent extends AddProductComponent {
     //     }
     //     return photosObj;
     // }
-    //
-    // gotoProductsPage(): void {
-    //     this.router.navigate(['/products']);
-    // }
+
+    gotoProductsPage(): void {
+        this.router.navigate(['/products']);
+    }
 }

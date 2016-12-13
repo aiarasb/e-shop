@@ -19,6 +19,14 @@ export class ProductService {
         return body || [];
     }
 
+    private extractDataOne(res: Response) {
+        let body = res.json();
+        if (body) {
+            return body[0];
+        }
+        return {};
+    }
+
     getProductsById(productIds: Array<string>): Observable<Product[]> {
         return this.http
             .post(
@@ -36,6 +44,16 @@ export class ProductService {
                 ''
             )
             .map(this.extractData)
+            .catch(this.handleError)
+    }
+
+    getProductByName(name: string): Observable<Product> {
+        return this.http
+            .post(
+                this.apiUrl + '/products/get',
+                JSON.stringify({name:name})
+            )
+            .map(this.extractDataOne)
             .catch(this.handleError);
     }
 

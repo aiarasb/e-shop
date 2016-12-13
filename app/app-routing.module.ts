@@ -27,7 +27,7 @@ const routes: Routes = [
     { path: 'category/edit/:name', component: EditCategoryComponent },
     { path: 'login', component: LoginComponent },
     { path: 'products/add', component: AddProductComponent },
-    { path: 'products/edit/:name', component: EditProductComponent }
+    { path: 'products/edit/:name', component: EditProductComponent },
     { path: 'search', component: SearchComponent }
 ];
 

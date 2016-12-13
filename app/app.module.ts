@@ -47,7 +47,7 @@ import { SearchComponent } from "./search/search.component";
       EditCategoryComponent,
       LoginComponent,
       AddProductComponent,
-      EditProductComponent
+      EditProductComponent,
       SearchComponent
   ],
   providers: [
