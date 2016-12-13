@@ -1,7 +1,7 @@
 <div class="search-container">
     <h2>Search</h2>
     <div>
-        <input type="text" (keyup)="doSearch($event)">
+        <input type="text" (keyup)="doSearch()" [(ngModel)]="searchField">
     </div>
     <div>
         <h3>Search results</h3>
