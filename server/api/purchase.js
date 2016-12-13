@@ -15,6 +15,7 @@ function addPurchase (request, reply) {
 
     var productId = request.payload.productId;
     var orderId = request.payload.orderId;
+    var quantity = request.payload.quantity;
 
     let purchases = mongoDb.getItemsByField('purchaseCollection',
     {$and:[
@@ -30,7 +31,7 @@ function addPurchase (request, reply) {
             var item = {
             productId : productId,
             orderId : orderId,
-            quantity : 1
+            quantity : quantity
             };
             mongoDb.insertItem('purchaseCollection', item);
             reply('Purchase added.');

@@ -26,7 +26,7 @@
             <p> There are <b>{{ product.quantity }}</b>items left in stock</p>
             <br>
             {{ quantity }} <i (click)="increaseQuantity()">up arrow</i>&nbsp;&nbsp;<i (click)="decreaseQuantity()">down arrow</i>
-            <button (click)="addToCart()">Add to cart</button>
+            <button (click)="addToCart( product._id, quantity)">Add to cart</button>
         </div>
     </div>
 </div>

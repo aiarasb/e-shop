@@ -37,10 +37,10 @@ export class PurchaseService {
             .catch(this.handleError);
     }
 
-    addPurchase(productId: any, orderId : any): Promise<void>{
+    addPurchase(productId: any, orderId : any, quantity : number): Promise<void>{
         return this.http.post(
             this.apiUrl + '/purchase/add',
-            { productId : productId, orderId : orderId}
+            { productId : productId, orderId : orderId, quantity : quantity}
         )
             .toPromise()
             .then(() => null)
@@ -75,9 +75,17 @@ export class PurchaseService {
             .catch(this.handleError);
     }
 
-    getActiveOrder(index: any): Promise<Order[]> {
+    getActiveOrder(userId: any): Promise<Order[]> {
         return this.http.post(
-            this.apiUrl + '/order/get-active', {id: index})
+            this.apiUrl + '/order/get', {id: userId, active: true})
+            .toPromise()
+            .then(response => response.json() as Order[])
+            .catch();
+    }
+
+    getCompletedOrders(userId: any): Promise<Order[]> {
+        return this.http.post(
+            this.apiUrl + '/order/get', {id: userId, active: false})
             .toPromise()
             .then(response => response.json() as Order[])
             .catch();

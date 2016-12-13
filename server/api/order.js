@@ -31,13 +31,13 @@ function insertOrder (request, reply){
     });
 }
 
-function getActiveOrder(request, reply){
+function getOrdersByActivity(request, reply){
     var userId = request.payload.id;
 
     let order = mongoDb.getItemsByField('orderCollection',
         {$and:[
         {"userId": userId},
-        {"isActive" : true}
+        {"isActive" : request.payload.active}
     ]}, function(res, err){
             if(err){
                 console.log(err);
@@ -67,7 +67,7 @@ function removeOrder (request, reply) {
 }
 
 module.exports = [
-    { method: 'POST',  path: '/order/get-active', handler: getActiveOrder },
+    { method: 'POST',  path: '/order/get', handler: getOrdersByActivity },
     { method: 'POST',  path: '/order/get-all', handler: getOrders },
     { method: 'POST', path: '/order/add', handler: insertOrder },
     { method: 'POST', path: '/order/update', handler: updateOrder },

@@ -88,7 +88,7 @@ export class CartComponent {
         this.purchaseService.createNewOrder(this.userId).then(() => {
             this.purchaseService.getActiveOrder(this.userId).then((response) => {
                 var activeOrderId = response[0]._id;
-                this.purchaseService.addPurchase(productId, activeOrderId);
+                this.purchaseService.addPurchase(productId, activeOrderId, 1);
 
                 location.reload();  // refreshes page, for cart testing only
             });
