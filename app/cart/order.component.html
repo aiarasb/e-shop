@@ -7,9 +7,9 @@
         <div *ngFor="let order of orders">
             <form (ngSubmit)="updateOrder()">
                 <p><b>First name:</b></p>
-                <input name="firstName" class="input" required [(ngModel)]="order.firstName">
+                <input name="firstName" class="input" type="text" required [(ngModel)]="order.firstName">
                 <p><b>Last name:</b></p>
-                <input name="lastName" class="input" required [(ngModel)]="order.lastName">
+                <input name="lastName" class="input" type="text" required [(ngModel)]="order.lastName">
                 <p><b>Credit card number:</b></p>
                 <input name="cardNumber" class="input" type="number" min="0" required [(ngModel)]="order.creditNumber">
                 <p><b>Credit card expiration date:</b></p>
