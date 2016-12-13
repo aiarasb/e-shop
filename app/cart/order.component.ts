@@ -18,7 +18,7 @@ export class OrderComponent {
     orders: Order[] = [];
     completed : boolean = false;
 
-    userId : any = 13;
+    userId : any = "13";
 
     goBack(): void {
         this.location.back();

@@ -66,16 +66,18 @@ export class PurchaseService {
             .catch(this.handleError);
     }
 
-    createNewOrder(userIndex: any): Promise<void> {
-        return this.http.get(this.apiUrl + '/order/add/' + userIndex)
+    createNewOrder(userId: any): Promise<void> {
+        return this.http.post(
+            this.apiUrl + '/order/add',
+            { id : userId} )
             .toPromise()
             .then(() => null)
             .catch(this.handleError);
     }
 
     getActiveOrder(index: any): Promise<Order[]> {
-        return this.http.get(
-            this.apiUrl + '/order/get-active/' + index)
+        return this.http.post(
+            this.apiUrl + '/order/get-active', {id: index})
             .toPromise()
             .then(response => response.json() as Order[])
             .catch();

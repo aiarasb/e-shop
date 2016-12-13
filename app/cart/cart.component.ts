@@ -17,7 +17,7 @@ export class CartComponent {
     purchases: Purchase[];
     products: Product[] = [];
 
-    userId : any = 13;
+    userId : any = "13";
     productId : any = '58502142da77270ecb6a2464';
 
     constructor (

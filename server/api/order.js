@@ -4,7 +4,7 @@ const mongoDb = require('../services/mongodbService.js');
 
 
 function insertOrder (request, reply){
-    var userId = request.params.id;
+    var userId = request.payload.id;
 
     let order = mongoDb.getItemsByField('orderCollection',
         {$and:[
@@ -19,7 +19,7 @@ function insertOrder (request, reply){
 
         var orderData = {
             isActive : true
-            , userId : request.params.id
+            , userId : request.payload.id
         };
 
         mongoDb.insertItem('orderCollection', orderData);
@@ -32,13 +32,21 @@ function insertOrder (request, reply){
 }
 
 function getActiveOrder(request, reply){
-    var userId = request.params.id;
+    var userId = request.payload.id;
 
     let order = mongoDb.getItemsByField('orderCollection',
         {$and:[
         {"userId": userId},
         {"isActive" : true}
-    ]});
+    ]}, function(res, err){
+            if(err){
+                console.log(err);
+
+            }
+            else{
+                console.log("veikia");
+            }
+        });
 
     reply(order.toArray());
 }
@@ -59,9 +67,9 @@ function removeOrder (request, reply) {
 }
 
 module.exports = [
-    { method: 'GET',  path: '/order/get-active/{id}', handler: getActiveOrder },
+    { method: 'POST',  path: '/order/get-active', handler: getActiveOrder },
     { method: 'POST',  path: '/order/get-all', handler: getOrders },
-    { method: 'GET', path: '/order/add/{id}', handler: insertOrder },
+    { method: 'POST', path: '/order/add', handler: insertOrder },
     { method: 'POST', path: '/order/update', handler: updateOrder },
     { method: 'GET',  path: '/order/remove/{id}', handler: removeOrder },
 ];
