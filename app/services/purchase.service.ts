@@ -19,24 +19,28 @@ export class PurchaseService {
     }
 
 
-    getPurchases(index : any): Promise<Purchase[]> {
-        return this.http.get(this.apiUrl + '/purchase/get-by-order/' + index)
+    getPurchases(orderId : any): Promise<Purchase[]> {
+        return this.http.post(
+            this.apiUrl + '/purchase/get-by-order',
+            {orderId : orderId} )
             .toPromise()
             .then(response => response.json() as Purchase[])
             .catch(this.handleError);
     }
 
-    removePurchase(index : any) : Promise<void>{
-        return this.http.get(this.apiUrl + '/purchase/remove/' + index)
+    removePurchase(id : any) : Promise<void>{
+        return this.http.post(
+            this.apiUrl + '/purchase/remove',
+            {id : id} )
             .toPromise()
             .then(() => null)
             .catch(this.handleError);
     }
 
-    addPurchase(productId: any, orderId : any): Promise<void>{
+    addPurchase(productId: any, orderId : any, quantity : number): Promise<void>{
         return this.http.post(
             this.apiUrl + '/purchase/add',
-            { productId : productId, orderId : orderId}
+            { productId : productId, orderId : orderId, quantity : quantity}
         )
             .toPromise()
             .then(() => null)
@@ -62,15 +66,26 @@ export class PurchaseService {
             .catch(this.handleError);
     }
 
-    createNewOrder(userIndex: any): Promise<void> {
-        return this.http.get(this.apiUrl + '/order/add/' + userIndex)
+    createNewOrder(userId: any): Promise<void> {
+        return this.http.post(
+            this.apiUrl + '/order/add',
+            { id : userId} )
             .toPromise()
             .then(() => null)
             .catch(this.handleError);
     }
 
-    getActiveOrder(index: any): Promise<Order[]> {
-        return this.http.get(this.apiUrl + '/order/get-active/' + index)
+    getActiveOrder(userId: any): Promise<Order[]> {
+        return this.http.post(
+            this.apiUrl + '/order/get', {id: userId, active: true})
+            .toPromise()
+            .then(response => response.json() as Order[])
+            .catch();
+    }
+
+    getCompletedOrders(userId: any): Promise<Order[]> {
+        return this.http.post(
+            this.apiUrl + '/order/get', {id: userId, active: false})
             .toPromise()
             .then(response => response.json() as Order[])
             .catch();

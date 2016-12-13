@@ -17,8 +17,8 @@ export class CartComponent {
     purchases: Purchase[];
     products: Product[] = [];
 
-    userId : any = 13;
-    productId : any = '58502067da77270ecb6a2461';
+    userId : any = "13";
+    productId : any = '58502142da77270ecb6a2464';
 
     constructor (
         private router: Router, private purchaseService: PurchaseService
@@ -88,7 +88,7 @@ export class CartComponent {
         this.purchaseService.createNewOrder(this.userId).then(() => {
             this.purchaseService.getActiveOrder(this.userId).then((response) => {
                 var activeOrderId = response[0]._id;
-                this.purchaseService.addPurchase(productId, activeOrderId);
+                this.purchaseService.addPurchase(productId, activeOrderId, 1);
 
                 location.reload();  // refreshes page, for cart testing only
             });

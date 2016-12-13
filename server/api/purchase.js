@@ -7,7 +7,7 @@ function getPurchases (request, reply) {
 }
 
 function getOrderPurchases (request, reply) {
-    let products = mongoDb.getItemsByField('purchaseCollection', { "orderId" : request.params.id });
+    let products = mongoDb.getItemsByField('purchaseCollection', { "orderId" : request.payload.orderId });
     reply (products.toArray());
 }
 
@@ -15,6 +15,7 @@ function addPurchase (request, reply) {
 
     var productId = request.payload.productId;
     var orderId = request.payload.orderId;
+    var quantity = request.payload.quantity;
 
     let purchases = mongoDb.getItemsByField('purchaseCollection',
     {$and:[
@@ -30,7 +31,7 @@ function addPurchase (request, reply) {
             var item = {
             productId : productId,
             orderId : orderId,
-            quantity : 1
+            quantity : quantity
             };
             mongoDb.insertItem('purchaseCollection', item);
             reply('Purchase added.');
@@ -43,7 +44,7 @@ function addPurchase (request, reply) {
 }
 
 function removePurchase(request, reply) {
-    mongoDb.removeItemById('purchaseCollection', request.params.id);
+    mongoDb.removeItemById('purchaseCollection', request.payload.id);
     reply('Purchase removed');
 }
 
@@ -53,11 +54,11 @@ function updatePurchase (request, reply){
 }
 
 module.exports = [
-    { method: 'GET', path: '/purchase/get-all', handler: getPurchases },
-    { method: 'GET', path: '/purchase/get-by-order/{id}', handler: getOrderPurchases },
+    { method: 'POST', path: '/purchase/get-all', handler: getPurchases },
+    { method: 'POST', path: '/purchase/get-by-order', handler: getOrderPurchases },
     { method: 'POST', path: '/purchase/add', handler: addPurchase },
     { method: 'POST', path: '/purchase/update', handler: updatePurchase },
-    { method: 'GET', path: '/purchase/remove/{id}', handler: removePurchase }
+    { method: 'POST', path: '/purchase/remove', handler: removePurchase }
 ];
 
 
