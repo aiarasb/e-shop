@@ -44,24 +44,12 @@ function getActiveOrder(request, reply){
 }
 
 function updateOrder (request, reply){
-    console.log(request.payload);
     var res = mongoDb.updateOneItem('orderCollection', request.payload);
     reply('Order updated.');
 }
 
-function getOrder (request, reply) {
-    var order = mongoDb.getOneItemById('orderCollection', request.params.id);
-    reply(order);
-}
-
 function getOrders (request, reply) {
     var orders = mongoDb.getItems('orderCollection');
-    reply (orders.toArray());
-}
-
-function getUserOrders (request, reply) {
-    var userId = encodeURIComponent(request.params.id);
-    var orders = mongoDb.getItemsByField('orderCollection', { "userId" : userId });
     reply (orders.toArray());
 }
 
@@ -72,9 +60,7 @@ function removeOrder (request, reply) {
 
 module.exports = [
     { method: 'GET',  path: '/order/get-active/{id}', handler: getActiveOrder },
-    { method: 'GET',  path: '/order/get/{id}', handler: getOrder },
-    { method: 'GET',  path: '/order/get-user-orders/{id}', handler: getUserOrders },
-    { method: 'GET',  path: '/order/get-all', handler: getOrders },
+    { method: 'POST',  path: '/order/get-all', handler: getOrders },
     { method: 'GET', path: '/order/add/{id}', handler: insertOrder },
     { method: 'POST', path: '/order/update', handler: updateOrder },
     { method: 'GET',  path: '/order/remove/{id}', handler: removeOrder },

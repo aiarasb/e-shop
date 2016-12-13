@@ -18,7 +18,7 @@ export class CartComponent {
     products: Product[] = [];
 
     userId : any = 13;
-    productId : any = '58502067da77270ecb6a2461';
+    productId : any = '58502142da77270ecb6a2464';
 
     constructor (
         private router: Router, private purchaseService: PurchaseService

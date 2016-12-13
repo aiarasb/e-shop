@@ -19,15 +19,19 @@ export class PurchaseService {
     }
 
 
-    getPurchases(index : any): Promise<Purchase[]> {
-        return this.http.get(this.apiUrl + '/purchase/get-by-order/' + index)
+    getPurchases(orderId : any): Promise<Purchase[]> {
+        return this.http.post(
+            this.apiUrl + '/purchase/get-by-order',
+            {orderId : orderId} )
             .toPromise()
             .then(response => response.json() as Purchase[])
             .catch(this.handleError);
     }
 
-    removePurchase(index : any) : Promise<void>{
-        return this.http.get(this.apiUrl + '/purchase/remove/' + index)
+    removePurchase(id : any) : Promise<void>{
+        return this.http.post(
+            this.apiUrl + '/purchase/remove',
+            {id : id} )
             .toPromise()
             .then(() => null)
             .catch(this.handleError);
@@ -70,7 +74,8 @@ export class PurchaseService {
     }
 
     getActiveOrder(index: any): Promise<Order[]> {
-        return this.http.get(this.apiUrl + '/order/get-active/' + index)
+        return this.http.get(
+            this.apiUrl + '/order/get-active/' + index)
             .toPromise()
             .then(response => response.json() as Order[])
             .catch();

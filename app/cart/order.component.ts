@@ -18,6 +18,7 @@ export class OrderComponent {
     orders: Order[] = [];
     completed : boolean = false;
 
+    userId : any = 13;
 
     goBack(): void {
         this.location.back();
@@ -25,23 +26,27 @@ export class OrderComponent {
 
     getOrder(): void{
         // insert current user's id from session as a parameter
-        this.purchaseService.getActiveOrder(13).then((response) => {
+        this.purchaseService.getActiveOrder(this.userId).then((response) => {
             console.log(response);
             this.orders = response;
         });
     }
 
-    // uncomment after tests
-    updateOrder(): void{
-        /* var order = this.orders[0];
-        order.isActive = false;
-        this.purchaseService.createNewOrder(13);*/
 
-        console.log(this.orders[0]);
+    updateOrder(): void{
+
+        var order = this.orders[0];
+        order.isActive = false;
 
         this.purchaseService.updateOrder(this.orders[0]).then( () => {
-            this.completed = true
+            this.completed = true;
+            this.purchaseService.createNewOrder(this.userId);
         });
+
+        /*this.purchaseService.updateOrder(this.orders[0]).then( () => {
+         this.completed = true
+         });*/
+
     }
 
 
