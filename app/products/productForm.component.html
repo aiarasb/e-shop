@@ -1,38 +1,79 @@
 <div class="container">
-    <h1>Add product</h1>
+    <h1 *ngIf="product">Edit product</h1>
+    <h1 *ngIf="!product">Add product</h1>
     <form #productForm="ngForm">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input #name type="text" class="form-control" id="name" name="name" required>
-        </div>
-
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea #description class="form-control" id="description" name="description"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="price">Price</label>
-            <input #price type="text" class="form-control" id="price" name="price">
-        </div>
-        <div class="form-group">
-            <label for="quantity">Quantity</label>
-            <input #quantity type="text" class="form-control" id="quantity" name="quantity">
-        </div>
-        <div class="form-group">
-            <label for="quantity">Discount %</label>
-            <input #discount type="text" class="form-control" id="discount" name="discount">
-        </div>
-        <div class="form-group">
-            <p>Add photo links</p>
-            <div *ngFor='let input of inputData' class="photo-link-container">
-                <div [ngSwitch]="input.cover">
-                    <input *ngSwitchCase="true" placeholder="cover image link" class="photo-link-input" type="text"  name="photo-link-input">
-                    <input *ngSwitchCase="false" class="photo-link-input" type="text"  name="photo-link-input">
-                    <button *ngSwitchCase="false" type="button" class="link-input-remove" (click)="removeProductInput($event)">Remove</button>
+        <div *ngIf="product">
+            <div  class="form-group">
+                <label>Name</label>
+                <input [value]="product.name" #name type="text" class="form-control" required>
+            </div>
+            <div  class="form-group">
+                <label>Description</label>
+                <input [value]="product.description" #description type="text" class="form-control">
+            </div>
+            <div  class="form-group">
+                <label>Price</label>
+                <input [value]="product.price" #price type="text" class="form-control" required>
+            </div>
+            <div  class="form-group">
+                <label>Quantity</label>
+                <input [value]="product.quantity" #quantity type="text" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Discount %</label>
+                <input [value]="product.discount" #discount type="text" class="form-control" required>
+            </div>
+            <div *ngIf="product.photos" class="form-group">
+                <p>Add photo links</p>
+                <div *ngFor="let photo of product.photos" class="photo-link-container">
+                    <div>
+                        <input *ngIf="photo.main == 1" [value]="photo.link" placeholder="cover image link" class="photo-link-input" type="text">
+                        <input *ngIf="photo.main == 0" [value]="photo.link" class="photo-link-input" type="text">
+                        <button *ngIf="photo.main == 0" type="button" class="link-input-remove" (click)="removeProductInput($event)">Remove</button>
+                    </div>
+                </div>
+                <div *ngFor='let input of inputData' class="photo-link-container">
+                    <div>
+                        <input *ngIf="input.display" class="photo-link-input" type="text">
+                        <button *ngIf="input.display" type="button" class="link-input-remove" (click)="removeProductInput($event)">Remove</button>
+                    </div>
                 </div>
             </div>
-            <button type="button" (click)="addProductInput()">Add more image links</button>
         </div>
+        <div *ngIf="!product">
+            <div class="form-group">
+                <label>Name</label>
+                <input #name type="text" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea #description class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Price</label>
+                <input #price type="text" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>Quantity</label>
+                <input #quantity type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Discount %</label>
+                <input #discount type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <p>Add photo links</p>
+                <div *ngFor='let input of inputData' class="photo-link-container">
+                    <div [ngSwitch]="input.cover">
+                        <input *ngSwitchCase="true" placeholder="cover image link" class="photo-link-input" type="text">
+                        <input *ngSwitchCase="false" class="photo-link-input" type="text">
+                        <button *ngSwitchCase="false" type="button" class="link-input-remove" (click)="removeProductInput($event)">Remove</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <button type="button" (click)="addProductInput()">Add more image links</button>
         <button type="button" class="btn btn-default" [disabled]="!productForm.form.valid"
                 (click)="addProduct(name.value, description.value, price.value, quantity.value, discount.value)">
             Save

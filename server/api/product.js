@@ -102,13 +102,13 @@ function validateProduct(payload)
 }
 
 function getProductByName (request, reply) {
-    let data = request.payload;
+    let data = JSON.parse(request.payload);
     let product = mongoDb.getItemByName('productCollection', data.name);
     reply(product.toArray());
 }
 
 function getProductsById (request, reply) {
-    let data = JSON.parse(request.payload);
+    let data = request.payload;
     let products = mongoDb.getItemsById('productCollection', data.ids);
     reply(products.toArray());
 }

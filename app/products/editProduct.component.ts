@@ -12,11 +12,11 @@ import { Product } from './product';
 
 export class EditProductComponent {
 
-    products = new Product('', '', '', 0.0, 0, []);
+    product = new Product('', '', '', 0.0, 0, []);
     inputData = [
         {
             name:'cover image link',
-            cover: true
+            display: false
         }
     ];
 
@@ -30,7 +30,7 @@ export class EditProductComponent {
     {
         this.inputData.push({
             name: 'image link',
-            cover: false
+            display: true
         })
     }
 
@@ -43,8 +43,12 @@ export class EditProductComponent {
     getProduct(): void {
         this.route.params.forEach((params: Params) => {
             let name = params['name'];
-            this.productService.getProductByName(name).subscribe(product => this.products = product);
+            this.productService.getProductByName(name).subscribe(product => this.product = product);
         });
+    }
+
+    ngOnInit(): void {
+        this.getProduct();
     }
 
     // addProduct(
