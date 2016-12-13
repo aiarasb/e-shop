@@ -3,25 +3,26 @@
     <h1 *ngIf="!product">Add product</h1>
     <form #productForm="ngForm">
         <div *ngIf="product">
+            <input #id name="id" [hidden]="hideId" [value]="product._id">
             <div  class="form-group">
                 <label>Name</label>
-                <input [value]="product.name" #name type="text" class="form-control" required>
+                <input #name [value]="product.name"type="text" class="form-control" name="name" required>
             </div>
             <div  class="form-group">
                 <label>Description</label>
-                <input [value]="product.description" #description type="text" class="form-control">
+                <input #description [value]="product.description" type="text" name="description" class="form-control">
             </div>
             <div  class="form-group">
                 <label>Price</label>
-                <input [value]="product.price" #price type="text" class="form-control" required>
+                <input #price [value]="product.price" type="text" class="form-control" name="price" required>
             </div>
             <div  class="form-group">
                 <label>Quantity</label>
-                <input [value]="product.quantity" #quantity type="text" class="form-control" required>
+                <input #quantity [value]="product.quantity" type="text" class="form-control" name="quantity" required>
             </div>
             <div class="form-group">
                 <label>Discount %</label>
-                <input [value]="product.discount" #discount type="text" class="form-control" required>
+                <input #discount [value]="product.discount" type="text" class="form-control" name="discount" required>
             </div>
             <div *ngIf="product.photos" class="form-group">
                 <p>Add photo links</p>
@@ -39,27 +40,32 @@
                     </div>
                 </div>
             </div>
+            <button type="button" (click)="addProductInput()">Add more image links</button>
+            <button type="button" class="btn btn-default" [disabled]="!productForm.form.valid"
+                    (click)="updateProduct(id.value, name.value, description.value, price.value, quantity.value, discount.value)">
+                Update
+            </button>
         </div>
         <div *ngIf="!product">
             <div class="form-group">
                 <label>Name</label>
-                <input #name type="text" class="form-control" required>
+                <input #name name="name" type="text" class="form-control" required>
             </div>
             <div class="form-group">
                 <label>Description</label>
-                <textarea #description class="form-control"></textarea>
+                <textarea #description name="description" class="form-control"></textarea>
             </div>
             <div class="form-group">
                 <label>Price</label>
-                <input #price type="text" class="form-control" required>
+                <input #price name="price" type="text" class="form-control" required>
             </div>
             <div class="form-group">
                 <label>Quantity</label>
-                <input #quantity type="text" class="form-control">
+                <input #quantity name="quantity" type="text" class="form-control">
             </div>
             <div class="form-group">
                 <label>Discount %</label>
-                <input #discount type="text" class="form-control">
+                <input #discount name="discount" type="text" class="form-control">
             </div>
             <div class="form-group">
                 <p>Add photo links</p>
@@ -70,14 +76,13 @@
                         <button *ngSwitchCase="false" type="button" class="link-input-remove" (click)="removeProductInput($event)">Remove</button>
                     </div>
                 </div>
-
             </div>
+            <button type="button" (click)="addProductInput()">Add more image links</button>
+            <button type="button" class="btn btn-default" [disabled]="!productForm.form.valid"
+                    (click)="addProduct(name.value, description.value, price.value, quantity.value, discount.value)">
+                Save
+            </button>
         </div>
-        <button type="button" (click)="addProductInput()">Add more image links</button>
-        <button type="button" class="btn btn-default" [disabled]="!productForm.form.valid"
-                (click)="addProduct(name.value, description.value, price.value, quantity.value, discount.value)">
-            Save
-        </button>
         <button type="button" class="btn btn-default" (click)="gotoProductsPage()">
             Cancel
         </button>

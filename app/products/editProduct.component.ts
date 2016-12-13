@@ -11,7 +11,7 @@ import { Product } from './product';
 })
 
 export class EditProductComponent {
-
+    private hideId=true;
     product = new Product('', '', '', 0.0, 0, []);
     inputData = [
         {
@@ -51,42 +51,16 @@ export class EditProductComponent {
         this.getProduct();
     }
 
-    // addProduct(
-    //     name: string,
-    //     description: string,
-    //     price: string,
-    //     quantity: string,
-    //     discount: string
-    // ): void {
-    //
-    // }
-    //
-    // getPhotoLinks()
-    // {
-    //     let photos = <HTMLCollection>document.getElementsByClassName('photo-link-input');
-    //
-    //     if (!photos) {
-    //         return [];
-    //     }
-    //
-    //     let photosObj = [];
-    //
-    //     for(var i = 0; i < photos.length; i++)
-    //     {
-    //         let cover = 0;
-    //         let link = (<HTMLInputElement>photos[i]).value;
-    //
-    //         if (i === 0) {
-    //             cover = 1;
-    //         }
-    //         photosObj.push({
-    //             link: link,
-    //             main: cover
-    //         });
-    //     }
-    //     return photosObj;
-    // }
-
+    updateProduct(
+        id: string,
+        name: string,
+        description: string,
+        price: number,
+        quantity: number,
+        discount: number
+    ): void {
+            this.productService.updateProduct(id,name, description, price, quantity, discount);
+    }
     gotoProductsPage(): void {
         this.router.navigate(['/products']);
     }
