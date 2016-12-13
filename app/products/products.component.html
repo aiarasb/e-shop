@@ -18,7 +18,6 @@
             <p *ngIf="!product.name">--</p>
         </td>
         <td *ngIf="product">
-            <!--todo instead of a tags replace img then links will be valid and validated <img[src]-->
             <img *ngIf="product.photos" [attr.src]="product.photos[0].link">
             <p *ngIf="!product.photos">--</p>
         </td>

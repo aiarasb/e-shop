@@ -3,6 +3,7 @@ export class Product {
     name: string;
     description: string;
     price: number;
+    quantity: number;
     discount: number;
     photos: Array<Object>;
 
@@ -11,6 +12,7 @@ export class Product {
         name: string,
         description: string,
         price: number,
+        quantity: number,
         discount: number,
         photos: Array<Object>
     ) {
@@ -18,6 +20,7 @@ export class Product {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.quantity = quantity;
         this.discount = discount;
         this.photos = photos;
     }
