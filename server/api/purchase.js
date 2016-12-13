@@ -12,13 +12,34 @@ function getOrderPurchases (request, reply) {
 }
 
 function addPurchase (request, reply) {
-    var item = {
-        productId : request.payload.productId,
-        orderId : request.payload.orderId,
-        quantity : 1
-    };
-    mongoDb.insertItem('purchaseCollection', item);
-    reply('Purchase added.');
+
+    var productId = request.payload.productId;
+    var orderId = request.payload.orderId;
+
+    let purchases = mongoDb.getItemsByField('purchaseCollection',
+    {$and:[
+        {"productId": productId},
+        {"orderId" : orderId}
+    ]});
+
+    purchases.toArray().then((purchaseArray) => {
+        if (purchaseArray.length > 0){
+        console.log("Product already exists in order");
+        reply("Product already exists in order");
+        }else{
+            var item = {
+            productId : productId,
+            orderId : orderId,
+            quantity : 1
+            };
+            mongoDb.insertItem('purchaseCollection', item);
+            reply('Purchase added.');
+        }
+
+    }).catch(()=>{
+            reply("Error getting data from DB");
+    });
+
 }
 
 function removePurchase(request, reply) {
