@@ -58,7 +58,7 @@ export class PurchaseService {
             this.apiUrl + '/products/get',
             JSON.stringify({"id" : index}))
             .toPromise()
-            .then(response => response.json() as Product[])
+            .then(response => response.json() as Product[] || [])
             .catch(this.handleError);
     }
 
@@ -73,14 +73,7 @@ export class PurchaseService {
         return this.http.get(this.apiUrl + '/order/get-active/' + index)
             .toPromise()
             .then(response => response.json() as Order[])
-            .catch(this.handleError);
-    }
-
-    getOrder(index: any): Promise<Order> {
-        return this.http.get(this.apiUrl + '/order/get/' + index)
-            .toPromise()
-            .then(response => response.json() as Order)
-            .catch(this.handleError);
+            .catch();
     }
 
     updateOrder(newOrder: Order): Promise<void> {
@@ -92,7 +85,6 @@ export class PurchaseService {
             .then(() => null)
             .catch(this.handleError);
     }
-
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only

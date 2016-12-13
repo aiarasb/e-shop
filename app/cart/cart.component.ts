@@ -17,6 +17,8 @@ export class CartComponent {
     purchases: Purchase[];
     products: Product[] = [];
 
+    userId : any = 13;
+
     constructor (
         private router: Router, private purchaseService: PurchaseService
     ) {}
@@ -29,7 +31,7 @@ export class CartComponent {
     getPurchases(): void {
 
         // insert current user's id as a parameter
-        this.purchaseService.getActiveOrder(13).then((response) => {
+        this.purchaseService.getActiveOrder(this.userId).then((response) => {
             var activeOrderId = response[0]._id;
 
             this.purchaseService.getPurchases(activeOrderId).then((response) => {
@@ -43,6 +45,8 @@ export class CartComponent {
                     ind ++;
                 }
             });
+        }).catch(() => {
+            console.log("User doesn't have active order.")
         });
     }
 
@@ -78,12 +82,15 @@ export class CartComponent {
         console.log(purchase.quantity);
     }
 
-    addProductToOrder(productId : any): void{
-        this.purchaseService.getActiveOrder(13).then((response) => {
-            var activeOrderId = response[0]._id;
+    addProductToOrder(productId : any, userId : any): void{
 
-            this.purchaseService.addPurchase(productId, activeOrderId);
-            location.reload();
+        this.purchaseService.createNewOrder(this.userId).then(() => {
+            this.purchaseService.getActiveOrder(this.userId).then((response) => {
+                var activeOrderId = response[0]._id;
+                this.purchaseService.addPurchase(productId, activeOrderId);
+
+                location.reload();  // refreshes page, for cart testing only
+            });
         });
     }
 
