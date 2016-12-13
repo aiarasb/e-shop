@@ -12,6 +12,8 @@ import { PagerService } from '../services/pager.service'
 
 export class ProductsComponent {
 
+    private productsPerPage = 10;
+
     private hideId: boolean = true;
     products: Product[];
     private  pager: any = {};
@@ -57,10 +59,7 @@ export class ProductsComponent {
             return;
         }
 
-        // get pager object from service
-        this.pager = this.pagerService.getPager(this.products.length, page);
-
-        // get current page of items
+        this.pager = this.pagerService.getPager(this.products.length, page, this.productsPerPage);
         this.pagedProducts = this.products.slice(this.pager.startIndex, this.pager.endIndex + 1);
     }
 }

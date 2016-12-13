@@ -17,6 +17,7 @@ import { EditCategoryComponent } from './categories/editCategory.component';
 import { LoginComponent } from './login/login.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderComponent } from './cart/order.component';
+import { ProductPageComponent } from './products/productPage.component';
 
 import { ApiService } from './services/api.service';
 import { CategoryService } from './services/category.service';
@@ -49,7 +50,8 @@ import { SearchComponent } from "./search/search.component";
       LoginComponent,
       AddProductComponent,
       EditProductComponent,
-      SearchComponent
+      SearchComponent,
+      ProductPageComponent
   ],
   providers: [
      ApiService,
