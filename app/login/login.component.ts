@@ -5,10 +5,8 @@ import { ApiService } from '../services/api.service'
 @Component({
     moduleId: module.id,
     selector: 'login',
-    template: `
-        <p>{{loggedIn}}</p>
-        <button (click)="login()">click</button>
-    `
+    templateUrl: 'login.component.html',
+    styleUrls: ['login.component.css']
 })
 
 export class LoginComponent {
