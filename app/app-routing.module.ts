@@ -12,6 +12,7 @@ import { CategoryComponent }    from './categories/category.component'
 import { LoginComponent }       from './login/login.component'
 import { AddCategoryComponent } from "./categories/addCategory.component";
 import { EditCategoryComponent } from "./categories/editCategory.component";
+import { SearchComponent } from "./search/search.component";
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -27,6 +28,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'products/add', component: AddProductComponent },
     { path: 'products/edit/:name', component: EditProductComponent }
+    { path: 'search', component: SearchComponent }
 ];
 
 @NgModule({

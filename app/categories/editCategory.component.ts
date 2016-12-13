@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Category } from './category';
-import { CategoryService } from '../services/category.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import {Component} from '@angular/core';
+import {Category} from './category';
+import {CategoryService} from '../services/category.service';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -13,11 +13,10 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class EditCategoryComponent {
     category = new Category('', '', '', []);
 
-    constructor (
-        private categoryService: CategoryService,
-        private route: ActivatedRoute,
-        private router: Router
-    ) {}
+    constructor(private categoryService: CategoryService,
+                private route: ActivatedRoute,
+                private router: Router) {
+    }
 
     getCategory(): void {
         this.route.params.forEach((params: Params) => {
