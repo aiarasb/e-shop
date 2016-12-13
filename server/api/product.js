@@ -107,6 +107,12 @@ function getProductByName (request, reply) {
     reply(product.toArray());
 }
 
+function getProductById (request, reply) {
+    let data = JSON.parse(request.payload);
+    let product = mongoDb.getItemById('productCollection', data.id);
+    reply(product.toArray());
+}
+
 function getProductsById (request, reply) {
     let data = request.payload;
     let products = mongoDb.getItemsById('productCollection', data.ids);
@@ -119,5 +125,6 @@ module.exports = [
     { method: 'POST', path: '/products/update', handler: updateProduct },
     { method: 'POST', path: '/products/delete', handler: deleteProduct },
     { method: 'POST', path: '/products/get', handler: getProductByName },
+    { method: 'POST', path: '/products/get-by-id', handler: getProductById },
     { method: 'POST', path: '/products/get-multiple', handler: getProductsById }
 ];

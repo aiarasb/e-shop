@@ -55,7 +55,7 @@ export class PurchaseService {
 
     getProduct(index : any): Promise<Product[]> {
         return this.http.post(
-            this.apiUrl + '/products/get',
+            this.apiUrl + '/products/get-by-id',
             JSON.stringify({"id" : index}))
             .toPromise()
             .then(response => response.json() as Product[] || [])
