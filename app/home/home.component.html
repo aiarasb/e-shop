@@ -1,7 +1,7 @@
 <div *ngIf="pagedProducts">
+    <!--todo grid system-->
     <div *ngFor="let product of pagedProducts">
         <div>
-            <!--todo valid links to test images-->
             <img [attr.src]="product.photos[0].link" (click)="gotoProductPage(product.name)">
             <h4>{{ product.name }}</h4>
             <h5>{{ product.price }} $</h5>

@@ -1,1 +1,32 @@
-product page
+<div *ngIf="product">
+    <!--left side of page-->
+    <div [ngClass]="product-img-container">
+        <!--main image-->
+        <!--<div *ngIf="product.photos">-->
+            <!--<p>{{ product.photos[0].main }}</p>-->
+            <!--<img [attr.src]="product.photos.link">-->
+            <!--<ol>-->
+                <!--&lt;!&ndash;<li *ngFor="let image of product.photos">&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<img *ngIf="image.main == 0" [attr.src]="image.link">&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+            <!--</ol>-->
+        <!--</div>-->
+    </div>
+    <!--right side of the page-->
+    <!--todo calculate discount and display in this and in  home page after price-->
+    <div [ngClass]="product-content-container">
+        <div [ngClass]="name-price-holder">
+            <h2>{{ product.name }}</h2>
+            <h4>{{ product.price}} $</h4>
+        </div>
+        <div [ngClass]="description-holder">
+            <p>{{ product.description }}</p>
+        </div>
+        <div [ngClass]="user-input-container">
+            <p> There are <b>{{ product.quantity }}</b>items left in stock</p>
+            <br>
+            {{ quantity }} <i (click)="increaseQuantity()">up arrow</i>&nbsp;&nbsp;<i (click)="decreaseQuantity()">down arrow</i>
+            <button (click)="addToCart()">Add to cart</button>
+        </div>
+    </div>
+</div>

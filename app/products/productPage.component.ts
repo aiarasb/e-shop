@@ -11,7 +11,9 @@ import {ProductService} from "../services/product.service";
 
 export class ProductPageComponent {
 
-    product = new Product('', '', '', 0.0, 0, []);
+    product = new Product('', '', '', 0.0, 0, 0, []);
+
+    private quantity = 0;
 
     constructor (
         private productService: ProductService,
@@ -24,6 +26,24 @@ export class ProductPageComponent {
             let name = params['name'];
             this.productService.getProductByName(name).subscribe(product => this.product = product);
         });
+    }
+
+    increaseQuantity(): void {
+        if (this.quantity <= this.product.quantity-1) {
+            this.quantity++;
+        }
+    }
+
+    decreaseQuantity(): void {
+         if (this.quantity > 0) {
+            this.quantity--;
+         }
+    }
+
+    addToCart(): void {
+        if (!this.quantity) {
+            return;
+        }
     }
 
     ngOnInit(): void {

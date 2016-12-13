@@ -12,7 +12,7 @@ import { Product } from './product';
 
 export class EditProductComponent {
     private hideId=true;
-    product = new Product('', '', '', 0.0, 0, []);
+    product = new Product('', '', '', 0.0, 0, 0, []);
     inputData = [
         {
             name:'cover image link',
