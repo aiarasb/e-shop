@@ -31,7 +31,7 @@ function insertProduct (request, reply) {
     products.toArray().then((productArray) => {
         let product = productArray.find((product)=>{
                 return product.name === newProduct.name;
-     });
+});
 
     let status = false;
 
@@ -42,13 +42,13 @@ function insertProduct (request, reply) {
     } else {
         messages.push('Product with same name already exists');
     }
-        reply({
-            success: status,
-            messages: messages
-        });
-    }).catch(()=>{
-        reply({success: false});
+    reply({
+        success: status,
+        messages: messages
     });
+}).catch(()=>{
+        reply({success: false});
+});
 }
 
 function updateProduct(request, reply) {

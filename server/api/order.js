@@ -4,18 +4,37 @@ const mongoDb = require('../services/mongodbService.js');
 
 
 function insertOrder (request, reply){
-    var orderData = {
-          isActive : true
-        , userId : request.params.id
-    };
+    var userId = request.params.id;
 
-    mongoDb.insertItem('orderCollection', orderData);
-    reply('Order added.');
+    let order = mongoDb.getItemsByField('orderCollection',
+        {$and:[
+            {"userId": userId},
+            {"isActive" : true}
+    ]});
+
+    order.toArray().then((orderArray) => {
+        if (orderArray.length > 0){
+        reply("Active order already exists.");
+    }else{
+
+        var orderData = {
+            isActive : true
+            , userId : request.params.id
+        };
+
+        mongoDb.insertItem('orderCollection', orderData);
+        reply('Order added.');
+
+    }
+    }).catch(()=>{
+            reply("Error getting data from DB");
+    });
 }
 
 function getActiveOrder(request, reply){
     var userId = request.params.id;
-    var order = mongoDb.getItemsByField('orderCollection',
+
+    let order = mongoDb.getItemsByField('orderCollection',
         {$and:[
         {"userId": userId},
         {"isActive" : true}
@@ -45,7 +64,6 @@ function getUserOrders (request, reply) {
     var orders = mongoDb.getItemsByField('orderCollection', { "userId" : userId });
     reply (orders.toArray());
 }
-
 
 function removeOrder (request, reply) {
     mongoDb.removeItemById('orderCollection', request.params.id);
