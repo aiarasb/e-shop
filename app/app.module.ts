@@ -22,6 +22,7 @@ import { ApiService } from './services/api.service';
 import { CategoryService } from './services/category.service';
 import { PurchaseService } from './services/purchase.service';
 import { ProductService } from './services/product.service';
+import { PagerService } from './services/pager.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { SearchComponent } from "./search/search.component";
@@ -53,8 +54,9 @@ import { SearchComponent } from "./search/search.component";
   providers: [
      ApiService,
      CategoryService,
-      PurchaseService,
-     ProductService
+     PurchaseService,
+     ProductService,
+     PagerService
   ],
   bootstrap:    [ AppComponent ]
 })
