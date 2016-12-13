@@ -1,0 +1,30 @@
+<div *ngIf="pagedProducts">
+    <div *ngFor="let product of pagedProducts">
+        <div>
+            <!--todo valid links to test images-->
+            <img [attr.src]="product.photos[0].link" (click)="gotoProductPage(product.name)">
+            <h4>{{ product.name }}</h4>
+            <h5>{{ product.price }} $</h5>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="pagedProducts">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(1)">First</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.currentPage + 1)">Next</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.totalPages)">Last</a>
+            </li>
+        </ul>
+</div>

@@ -12,14 +12,14 @@
         </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let product of products" [attr.id]="product._id">
+    <tr *ngFor="let product of pagedProducts" [attr.id]="product._id">
         <td *ngIf="product">
             <p *ngIf="product.name">{{product.name}}</p>
             <p *ngIf="!product.name">--</p>
         </td>
         <td *ngIf="product">
             <!--todo instead of a tags replace img then links will be valid and validated <img[src]-->
-            <a *ngIf="product.photos">{{product.photos[0].link}}</a>
+            <img *ngIf="product.photos" [attr.src]="product.photos[0].link">
             <p *ngIf="!product.photos">--</p>
         </td>
         <td *ngIf="product">
@@ -52,3 +52,24 @@
     </tr>
     </tbody>
 </table>
+<div class="container">
+    <div class="text-center">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(1)">First</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.currentPage + 1)">Next</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a (click)="setPage(pager.totalPages)">Last</a>
+            </li>
+        </ul>
+    </div>
+</div>
