@@ -32,7 +32,6 @@ export class OrderComponent {
         });
     }
 
-
     updateOrder(): void{
 
         var order = this.orders[0];
@@ -42,14 +41,7 @@ export class OrderComponent {
             this.completed = true;
             this.purchaseService.createNewOrder(this.userId);
         });
-
-        /*this.purchaseService.updateOrder(this.orders[0]).then( () => {
-         this.completed = true
-         });*/
-
     }
-
-
 
     ngOnInit() : void{
         this.getOrder();
