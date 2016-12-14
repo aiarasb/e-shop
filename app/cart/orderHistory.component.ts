@@ -59,10 +59,13 @@ export class OrderHistoryComponent {
     }
 
     getOrderData(): void {
-        this.purchaseService.getCompletedOrders(this.userId).then( (orderData) => {
-            this.orders = orderData;
+            this.purchaseService.getCompletedOrders(this.userId).then( (orderData) => {
+                this.orders = orderData;
             if (orderData.length === 0){
                 this.orderExists = false;
+            }else{
+                this.selected = true;
+                this.onChange(this.orders[0]._id);
             }
         });
     }

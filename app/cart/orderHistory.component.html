@@ -7,7 +7,7 @@
         <div class="container">
             <label>Select order from the list:</label>
 
-            <select  (change)="onChange($event.target.value)" class="form-control">
+            <select (change)="onChange($event.target.value)" class="form-control">
                 <option *ngFor="let order of orders; let i = index" [value]=order._id >
                     #{{i+1}} {{order.firstName}} {{order.lastName}} - {{order.adress}}
                 </option>
@@ -39,7 +39,7 @@
 
                 <br>
                 <div class="container">
-                    <h3 class="inLine">Price paid:  {{getAllProductsPrice()}} €</h3>
+                    <h3 class="inLine">Amount paid:  {{getAllProductsPrice()}} €</h3>
                 </div>
             </div>
         </div>
