@@ -10,22 +10,30 @@
                        [(ngModel)]="searchField">
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="row">
                 <div class="col-xs-6">
                     <div class="form-group">
                         <label>Price from</label>
-                        <input class="form-control" type="number" placeholder="0.00" (keyup)="doSearch()"
+                        <input class="form-control" type="number" placeholder="0.00" (input)="doSearch()"
                                [(ngModel)]="priceFrom">
                     </div>
                 </div>
                 <div class="col-xs-6">
                     <div class="form-group">
                         <label>Price to</label>
-                        <input class="form-control" type="number" placeholder="{{ maxPrice }}" (keyup)="doSearch()"
+                        <input class="form-control" type="number" placeholder="{{ maxPrice }}" (input)="doSearch()"
                                [(ngModel)]="priceTo">
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="checkbox">
+                <label (change)="doSearch()">
+                    <input type="checkbox" [(ngModel)]="discounted">
+                    Discounted only
+                </label>
             </div>
         </div>
     </div>
@@ -36,7 +44,8 @@
                 <div>
                     <img [attr.src]="product.photos[0].link" (click)="gotoProductPage(product.name)">
                     <h4>{{ product.name }}</h4>
-                    <h5>{{ product.price }} $</h5>
+                    <h5>{{ product.price }}$</h5>
+                    <h5>Discount: {{ product.discount }}%</h5>
                 </div>
             </div>
             <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
