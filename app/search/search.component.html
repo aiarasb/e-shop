@@ -1,18 +1,36 @@
-<div class="search-container">
-    <h2>Search</h2>
-    <div>
-        <input type="text" (keyup)="doSearch()" [(ngModel)]="searchField">
+<div class="container">
+    <div class="page-header">
+        <h1>Search</h1>
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="Type to search" (keyup)="doSearch()" [(ngModel)]="searchField">
     </div>
     <div>
         <h3>Search results</h3>
-        <div *ngIf="results">
-            <ul *ngFor="let product of results">
-                <li>{{ product.name }}</li>
-            </ul>
-        </div>
-        <div *ngIf="!results">
-            <ul *ngFor="let product of products">
-                <li>{{ product.name }}</li>
+        <div *ngIf="pagedResults">
+            <div *ngFor="let product of pagedResults">
+                <div>
+                    <img [attr.src]="product.photos[0].link" (click)="gotoProductPage(product.name)">
+                    <h4>{{ product.name }}</h4>
+                    <h5>{{ product.price }} $</h5>
+                </div>
+            </div>
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPage(1)">First</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                </li>
+                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <a (click)="setPage(page)">{{page}}</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPage(pager.totalPages)">Last</a>
+                </li>
             </ul>
         </div>
     </div>
