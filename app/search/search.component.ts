@@ -18,9 +18,12 @@ export class SearchComponent {
     results: Product[] = [];
     pagedResults: Product[];
     categories: Category[];
-    searchField: string;
     pager: any = {};
     productsPerPage: number = 10;
+    searchField: string;
+    priceFrom: number;
+    priceTo: number;
+    maxPrice: number;
 
     constructor(private router: Router,
                 private categoryService: CategoryService,
@@ -62,8 +65,24 @@ export class SearchComponent {
     doSearch(): void {
         if (this.searchField) {
             let re = new RegExp(this.searchField);
-            this.results = this.products.filter(function (value:Product) {
+
+            let tempRes = this.products.filter(function (value:Product) {
                 return re.test(value.name);
+            });
+
+            let maxPrice = 0;
+            tempRes.forEach(function (value) {
+                maxPrice = value.price>maxPrice?value.price:maxPrice;
+            });
+            this.maxPrice = maxPrice;
+
+            let price = {
+                from: this.priceFrom?this.priceFrom:0,
+                to: this.priceTo?this.priceTo:this.maxPrice
+            };
+
+            this.results = tempRes.filter(function (value:Product) {
+                return value.price >= price.from && value.price <= price.to;
             });
         } else {
             this.results = [];
