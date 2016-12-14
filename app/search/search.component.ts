@@ -15,7 +15,7 @@ import {PagerService} from "../services/pager.service";
 
 export class SearchComponent {
     products: Product[];
-    results: Product[];
+    results: Product[] = [];
     pagedResults: Product[];
     categories: Category[];
     searchField: string;
@@ -45,6 +45,17 @@ export class SearchComponent {
             this.pagedResults = this.results.slice(this.pager.startIndex, this.pager.endIndex + 1);
         } else {
             this.pagedResults = [];
+            this.pager = {
+                totalItems: 0,
+                currentPage: 1,
+                pageSize: 10,
+                totalPages: 1,
+                startPage: 1,
+                endPage: 1,
+                startIndex: 0,
+                endIndex: 0,
+                pages: [1]
+            };
         }
     }
 
@@ -55,7 +66,7 @@ export class SearchComponent {
                 return re.test(value.name);
             });
         } else {
-            this.results = this.products;
+            this.results = [];
         }
         this.setPage(1);
     }
@@ -63,5 +74,6 @@ export class SearchComponent {
     ngOnInit(): void {
         this.getCategories();
         this.getProducts();
+        this.setPage(1);
     }
 }
