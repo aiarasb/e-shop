@@ -1,0 +1,56 @@
+<div class="category-container">
+
+
+    <div *ngIf="orderExists">
+        <h2>Your previous orders</h2><br>
+
+        <div class="container">
+            <label>Select order from the list:</label>
+
+            <select (change)="onChange($event.target.value)" class="form-control">
+                <option *ngFor="let order of orders; let i = index" [value]=order._id >
+                    #{{i+1}} {{order.firstName}} {{order.lastName}} - {{order.adress}}
+                </option>
+            </select>
+            <!--<button onclick="dosmth"></button>-->
+        </div>
+
+        <br>
+        <div class="container">
+            <div *ngIf="selected">
+                <table>
+                    <tr>
+                        <th>No.</th>
+                        <th>Product</th>
+                        <th>Name</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Whole price</th>
+                    </tr>
+                    <tr *ngFor="let product of products; let i = index" >
+                        <td>{{i+1}}</td>
+                        <td><img src={{product.photos[0].link}}></td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.price }} €</td>
+                        <td>{{purchases[i].quantity}}</td>
+                        <td><b>{{product.price * purchases[i].quantity}} €</b></td>
+                    </tr>
+                </table>
+
+                <br>
+                <div class="container">
+                    <h3 class="inLine">Amount paid:  {{getAllProductsPrice()}} €</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!orderExists">
+        <br>
+        <h2>Your order history is empty</h2>
+    </div>
+
+
+
+
+</div>

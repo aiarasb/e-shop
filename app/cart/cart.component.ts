@@ -14,19 +14,20 @@ import { PurchaseService } from '../services/purchase.service';
 })
 
 export class CartComponent {
-    purchases: Purchase[];
-    products: Product[] = [];
+    private purchases: Purchase[];
+    private products: Product[] = [];
 
-    userId : any = "13";
-    productId : any = '58502142da77270ecb6a2464';
+    private userId : any = "13";
+    private productId : any = '58502142da77270ecb6a2464';
 
     constructor (
         private router: Router, private purchaseService: PurchaseService
     ) {}
 
     goToOrder(): void{
-        this.updatePurchases();
-        this.router.navigate(['/order']);
+        if(this.updatePurchases()){
+            this.router.navigate(['/order']);
+        }
     }
 
     getPurchases(): void {
@@ -58,21 +59,24 @@ export class CartComponent {
         this.purchaseService.removePurchase(purchaseId);
     }
 
-    updatePurchases(): void{
+    updatePurchases(): boolean{
+        let safe : boolean = true;
         for (let i of this.purchases){
             var regexp = new RegExp('^[0-9]*$');
             if (regexp.test((i.quantity).toString())){
                 this.purchaseService.updatePurchase(i);
+            }else{
+                console.log("wrong");
+                safe = false;
             }
         }
+        return safe;
     }
 
     getAllProductsPrice(): number{
         var sum = 0;
-        var ind = 0;
-        for (let i of this.products){
-            sum += i.price * this.purchases[ind].quantity;
-            ind++;
+        for (var i = 0; i < this.products.length; i++){
+            sum += this.products[i].price * this.purchases[i].quantity;
         }
         return sum;
     }

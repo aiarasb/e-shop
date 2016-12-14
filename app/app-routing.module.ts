@@ -14,6 +14,7 @@ import { AddCategoryComponent } from "./categories/addCategory.component";
 import { EditCategoryComponent } from "./categories/editCategory.component";
 import { SearchComponent } from "./search/search.component";
 import { ProductPageComponent } from './products/productPage.component';
+import { OrderHistoryComponent } from './cart/orderHistory.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -30,7 +31,8 @@ const routes: Routes = [
     { path: 'products/add', component: AddProductComponent },
     { path: 'products/edit/:name', component: EditProductComponent },
     { path: 'search', component: SearchComponent },
-    { path: 'product/:name', component: ProductPageComponent }
+    { path: 'product/:name', component: ProductPageComponent },
+    { path: 'history', component: OrderHistoryComponent}
 ];
 
 @NgModule({

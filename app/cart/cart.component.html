@@ -1,28 +1,33 @@
 <div class="category-container">
     <h2>Shopping cart</h2>
-    <table>
-        <tr>
-            <th>Product</th>
-            <th>Name</th>
-            <th>Unit Price</th>
-            <th>Quantity</th>
-            <th>Whole price</th>
-            <th>Remove</th>
-        </tr>
-        <tr *ngFor="let product of products; let i = index" >
-            <td><img src={{product.photos[0].link}}></td>
-            <td>{{product.name}}</td>
-            <td>{{product.price }} €</td>
-            <td><input (ngModelChange)="onQuantityChange(purchases[i])" type="number" min="1" class="input" [(ngModel)]="purchases[i].quantity" placeholder="Enter quantity"></td>
-            <td>{{product.price * purchases[i].quantity}} €</td>
-            <td> <button (click)="removePurchase(i)">✗</button></td>
-        </tr>
-    </table>
-    <br>
-    <div>
-        <h3 class="inLine">Your order:  {{getAllProductsPrice()}} €</h3>
-        <button id="proceedButton" class="inLine" (click)="goToOrder()">Proceed</button>
-    </div>
+
+    <form (ngSubmit)="goToOrder()">
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Name</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Whole price</th>
+                <th>Remove</th>
+            </tr>
+            <tr *ngFor="let product of products; let i = index" >
+                <td><img src={{product.photos[0].link}}></td>
+                <td>{{product.name}}</td>
+                <td>{{product.price }} €</td>
+                <td><input (ngModelChange)="onQuantityChange(purchases[i])" type="number" min="1" max={{product.quantity}}
+                           class="input" [(ngModel)]="purchases[i].quantity" placeholder="Enter quantity" name={{i}} required></td>
+                <td>{{product.price * purchases[i].quantity}} €</td>
+                <td> <button (click)="removePurchase(i)">✗</button></td>
+            </tr>
+        </table>
+        <br>
+        <div>
+            <h3 class="inLine">Your order:  {{getAllProductsPrice()}} €</h3>
+            <button id="proceedButton" class="inLine" type = "submit">Proceed</button>
+        </div>
+    </form>
+
     <div>
         <br><br><br>
         <button id="addProductButton" (click)="addProductToOrder(productId, userId)">ADD PRODUCT</button>
