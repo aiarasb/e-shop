@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Http, Response, Headers} from '@angular/http';
 import { Purchase } from '../cart/purchase';
 import {Product} from "../products/product";
 
@@ -10,6 +10,10 @@ import {Order} from "../cart/order";
 export class PurchaseService {
 
     private apiUrl = 'http://e-shop.dev:3000';
+
+    private requestHeaders = new Headers({
+        'Content-Type': 'application/json'
+    });
 
     constructor(private http: Http) {}
 
@@ -63,6 +67,16 @@ export class PurchaseService {
             JSON.stringify({"id" : index}))
             .toPromise()
             .then(response => response.json() as Product[] || [])
+            .catch(this.handleError);
+    }
+
+    updateProduct(newProduct: Product): Promise<void> {
+        return this.http.post(
+            this.apiUrl + '/products/update',
+            JSON.stringify(newProduct),
+            {headers: this.requestHeaders})
+            .toPromise()
+            .then(() => null)
             .catch(this.handleError);
     }
 

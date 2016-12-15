@@ -25,14 +25,13 @@ export class CartComponent {
     ) {}
 
     goToOrder(): void{
-        if(this.updatePurchases()){
+        if(this.updatePurchases() && this.purchases.length != 0){
             this.router.navigate(['/order']);
         }
     }
 
     getPurchases(): void {
 
-        // insert current user's id as a parameter
         this.purchaseService.getActiveOrder(this.userId).then((response) => {
             var activeOrderId = response[0]._id;
 
@@ -66,7 +65,6 @@ export class CartComponent {
             if (regexp.test((i.quantity).toString())){
                 this.purchaseService.updatePurchase(i);
             }else{
-                console.log("wrong");
                 safe = false;
             }
         }

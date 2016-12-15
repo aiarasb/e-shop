@@ -1,11 +1,12 @@
-<div class="category-container">
+<div class="container">
 
     <div *ngIf="!completed">
-        <h2>Personal information</h2>
-
+        <div class="page-header">
+            <h1>Personal information</h1>
+        </div>
 
         <div *ngFor="let order of orders">
-            <form (ngSubmit)="updateOrder()">
+            <form (ngSubmit)="update()">
                 <p><b>First name:</b></p>
                 <input name="firstName" class="input" type="text" required [(ngModel)]="order.firstName">
                 <p><b>Last name:</b></p>
@@ -20,14 +21,16 @@
                 <input name="adress" class="input" required [(ngModel)]="order.adress">
                 <br>
                 <br><br>
-                <button (click)="goBack()">Back</button>
-                <button type="submit">Finish order</button>
+                <button class="btn btn-default" (click)="goBack()">Back</button>
+                <button class="btn btn-primary" type="submit">Finish order</button>
             </form>
         </div>
     </div>
 
     <div *ngIf="completed">
-        <h2>Your order is completed!</h2>
+        <div class="page-header">
+            <h1>Your order is completed!</h1>
+        </div>
     </div>
 
 </div>
