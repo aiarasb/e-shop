@@ -7,16 +7,8 @@ th, td {
     padding: 8px;
 }
 
-tr:nth-child(even){background-color: #f2f2f2}
-
-th {
-    background-color: #4CAF50;
-    color: white;
-}
-
 .input{
     text-align: right;
-    width: 50px;
 }
 
 .inLine{
@@ -24,12 +16,17 @@ th {
 }
 
 #proceedButton{
-    margin-left: 200px;
+    margin-left: 60px;
+}
+
+th {
+    background-color: #428bca;
+    color: white;
 }
 
 img{
-    height:40px;
-    width:40px;
+    height:55px;
+    width:55px;
     margin-top:-5px;
     margin-bottom:-5px;
 }
