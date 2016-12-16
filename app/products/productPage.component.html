@@ -3,7 +3,7 @@
 </div>
 <div *ngIf="product">
     <!--left side of page-->
-    <div class="col-sm-6 col-xs-6">
+    <div class="col-sm-6 col-sm-6">
         <div class="product-img-container">
             <div *ngIf="product.photos">
                 <img class="img-thumbnail img-responsive" src="product.photos[0].link">
@@ -15,14 +15,14 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-xs-6">
+    <div class="col-sm-6 col-sm-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <h2>{{ product.name }}</h2>
                 </div>
-                <div class="col-md-6">
-                    <h2 class="pull-right">{{ product.price}} $</h2>
+                <div class="col-md-4">
+                    <h2>{{ product.price}} $</h2>
                 </div>
                 <div class="col-md-12">
                     <p class="lead">{{ product.description }}</p>
@@ -33,7 +33,7 @@
             </div>
             <div class="panel-body">
                 <div class="col-md-4">
-                    <input #quantity type="number" min="1" max={{product.quantity}} placeholder="Enter quantity" class="form-control" required>
+                    <input [(ngModel)]="quantity" type="number" min="1" max={{product.quantity}} placeholder="Enter quantity" class="form-control" required>
                 </div>
                 <div class="col-md-8">
                     <div class="alert-info col-md-12">
@@ -44,7 +44,7 @@
             <div class="panel-footer">
                 <div [ngClass]="product-content-container">
                     <div class="text-center">
-                        <button class="btn btn-lg btn-success" (click)="addToCart( product._id, quantity.value)">
+                        <button class="btn btn-lg btn-success" (click)="addToCart( product._id, quantity)">
                             <i class="glyphicon glyphicon-shopping-cart"></i> Add to cart
                         </button>
                     </div>
