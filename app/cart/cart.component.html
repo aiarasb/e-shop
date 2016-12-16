@@ -10,7 +10,7 @@
                     <tr>
                         <th>Product</th>
                         <th>Name</th>
-                        <th>Unit Price</th>
+                        <th colspan="2">Unit Price</th>
                         <th>Quantity</th>
                         <th>Whole price</th>
                         <th>Remove</th>
@@ -18,8 +18,8 @@
                     <tr *ngFor="let product of products; let i = index" >
                         <td><img src={{product.photos[0].link}} class="img-rounded"></td>
                         <td>{{product.name}}</td>
-                        <td>{{getDiscountedProductPrice(i) }} €  &nbsp;&nbsp;
-                            <span *ngIf="product.discount" style="color: #9c9c9c; text-decoration:line-through;font-size:85%;">{{getFullProductPrice(i) }} €</span> </td>
+                        <td style="text-align:right" >{{getDiscountedProductPrice(i) }} €</td>
+                        <td style="text-align:left"><span *ngIf="product.discount" style="color: #9c9c9c; text-decoration:line-through;font-size:85%;">{{getFullProductPrice(i) }} €</span> </td>
                         <td><input (ngModelChange)="onQuantityChange(purchases[i])" type="number" min="1" max={{product.quantity}}
                                    class="input" [(ngModel)]="purchases[i].quantity" placeholder="Enter quantity" name={{i}} required></td>
                         <td>{{getPurchasePrice(i)}} € </td>

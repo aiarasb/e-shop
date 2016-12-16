@@ -6,15 +6,17 @@
 
     <div *ngIf="orderExists">
         <div class="container">
-            <label>Select order you wish to see:</label>
-            <select (change)="onChange($event.target.value)" class="form-control">
-                <option *ngFor="let order of orders; let i = index" [value]=order._id >
-                    #{{i+1}} {{order.firstName}} {{order.lastName}} - {{order.adress}}
-                </option>
-            </select>
+            <div class="col-md-8">
+                <label>Select order you wish to see:</label>
+                <select (change)="onChange($event.target.value)" class="form-control">
+                    <option *ngFor="let order of orders; let i = index" [value]=order._id >
+                        #{{i+1}} {{order.firstName}} {{order.lastName}} - {{order.adress}}
+                    </option>
+                </select>
+            </div>
         </div>
 
-        <br>
+        <br><br>
         <div class="container">
             <div *ngIf="selected">
                 <div class="col-md-8">
@@ -32,9 +34,9 @@
                                 <td>{{i+1}}.</td>
                                 <td><img src={{product.photos[0].link}}></td>
                                 <td>{{product.name}}</td>
-                                <td>{{product.price }} €</td>
+                                <td>{{getDiscountedProductPrice(i) }} €</td>
                                 <td>{{purchases[i].quantity}}</td>
-                                <td><b>{{product.price * purchases[i].quantity}} €</b></td>
+                                <td><b>{{getPurchasePrice(i)}} €</b></td>
                             </tr>
                         </table>
                     </div>
@@ -42,7 +44,7 @@
                 <br>
             </div>
             <div class="col-md-8" >
-                <h3 class="inLine"><span style="color: #9c9c9c">Amount paid:</span>  <b>{{getAllProductsPrice()}}</b> €</h3>
+                <h3 class="inLine"><span style="color: #9c9c9c">Amount paid:</span>  <b>{{orderPriceWithDiscount()}}</b> €</h3>
             </div>
         </div>
     </div>

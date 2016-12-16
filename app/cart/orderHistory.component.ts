@@ -43,12 +43,21 @@ export class OrderHistoryComponent {
         });
     }
 
-    getAllProductsPrice(): number{
+    getDiscountedProductPrice(ind : any): string{
+        return  (this.products[ind].price / 100 * (100 - this.purchases[ind].discount)).toFixed(2);
+    }
+
+    orderPriceWithDiscount(): string{
         var sum = 0;
         for (var i = 0; i < this.products.length; i++){
-            sum += this.products[i].price * this.purchases[i].quantity;
+            sum += parseFloat(this.getDiscountedProductPrice(i)) * this.purchases[i].quantity;
         }
-        return sum;
+        return sum.toFixed(2);
+    }
+
+    getPurchasePrice(ind: any): string{
+        var price = parseFloat(this.getDiscountedProductPrice(ind)) * this.purchases[ind].quantity;
+        return price.toFixed(2);
     }
 
     onChange(orderId : any): void {
