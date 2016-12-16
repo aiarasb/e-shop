@@ -1,32 +1,59 @@
+<div class="clearfix">
+    &nbsp;
+</div>
 <div *ngIf="product">
     <!--left side of page-->
-    <div [ngClass]="product-img-container">
-        <!--main image-->
-        <!--<div *ngIf="product.photos">-->
-            <!--<p>{{ product.photos[0].main }}</p>-->
-            <!--<img [attr.src]="product.photos.link">-->
-            <!--<ol>-->
-                <!--&lt;!&ndash;<li *ngFor="let image of product.photos">&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<img *ngIf="image.main == 0" [attr.src]="image.link">&ndash;&gt;&ndash;&gt;-->
-                <!--&lt;!&ndash;</li>&ndash;&gt;-->
-            <!--</ol>-->
-        <!--</div>-->
-    </div>
-    <!--right side of the page-->
-    <!--todo calculate discount and display in this and in  home page after price-->
-    <div [ngClass]="product-content-container">
-        <div [ngClass]="name-price-holder">
-            <h2>{{ product.name }}</h2>
-            <h4>{{ product.price}} $</h4>
-        </div>
-        <div [ngClass]="description-holder">
-            <p>{{ product.description }}</p>
-        </div>
-        <div [ngClass]="user-input-container">
-            <p> There are <b>{{ product.quantity }}</b>items left in stock</p>
-            <br>
-            {{ quantity }} <i (click)="increaseQuantity()">up arrow</i>&nbsp;&nbsp;<i (click)="decreaseQuantity()">down arrow</i>
-            <button (click)="addToCart( product._id, quantity)">Add to cart</button>
+    <div class="col-sm-6 col-sm-6">
+        <div class="product-img-container">
+            <div *ngIf="product.photos">
+                <img class="img-thumbnail img-responsive" src="product.photos[0].link">
+                <div class="extra-img-container">
+                    <div *ngFor="let image of product.photos">
+                        <img *ngIf="image.main == 0" [attr.src]="image.link">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="col-sm-6 col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="col-md-8">
+                    <h2>{{ product.name }}</h2>
+                </div>
+                <div class="col-md-4">
+                    <h2>{{ product.price}} $</h2>
+                </div>
+                <div class="col-md-12">
+                    <p class="lead">{{ product.description }}</p>
+                </div>
+                <div class="clearfix">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-4">
+                    <input [(ngModel)]="quantity" type="number" min="1" max={{product.quantity}} placeholder="Enter quantity" class="form-control" required>
+                </div>
+                <div class="col-md-8">
+                    <div class="alert-info col-md-12">
+                        <p class="bg-info"> There are <b>{{ product.quantity }}</b> items left in stock.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div [ngClass]="product-content-container">
+                    <div class="text-center">
+                        <button class="btn btn-lg btn-success" (click)="addToCart( product._id, quantity)">
+                            <i class="glyphicon glyphicon-shopping-cart"></i> Add to cart
+                        </button>
+                    </div>
+                    <div class="clearfix">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
