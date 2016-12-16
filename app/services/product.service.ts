@@ -90,7 +90,6 @@ export class ProductService {
             discount: discount,
             photos: this.getPhotoLinks()
         };
-        console.log(document.getElementsByClassName('photo-link-input'));
         this.http
             .post(
                 this.apiUrl + '/products/add',

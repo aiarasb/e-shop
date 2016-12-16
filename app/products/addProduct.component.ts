@@ -6,8 +6,7 @@ import { Product } from './product';
 @Component({
     moduleId: module.id,
     selector: 'addProduct-form',
-    templateUrl: 'productForm.component.html',
-    styleUrls: ['productForm.component.css']
+    templateUrl: 'productForm.component.html'
 })
 
 export class AddProductComponent {
@@ -36,7 +35,7 @@ export class AddProductComponent {
 
     removeProductInput(event): void
     {
-        let eventParent = event.target.parentNode;
+        let eventParent = event.target.parentNode.parentNode.parentNode;
         eventParent.parentNode.removeChild(eventParent);
     }
 
