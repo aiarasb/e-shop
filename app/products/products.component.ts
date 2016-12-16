@@ -46,6 +46,7 @@ export class ProductsComponent {
     }
 
     deleteProduct(idProduct: string): void {
+        //todo delete from array
         if (idProduct) {
             this.productService.deleteProduct(idProduct);
 
