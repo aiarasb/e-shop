@@ -1,15 +1,21 @@
-<div *ngIf="pagedProducts">
-    <!--todo grid system-->
+<div class="clearfix">
+    &nbsp;
+</div>
+<div *ngIf="pagedProducts" class="container">
     <div *ngFor="let product of pagedProducts">
-        <div>
-            <img [attr.src]="product.photos[0].link" (click)="gotoProductPage(product.name)">
-            <h4>{{ product.name }}</h4>
-            <h5>{{ product.price }} $</h5>
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img class="img-responsive img-thumbnail" [attr.src]="product.photos[0].link" (click)="gotoProductPage(product.name)">
+                <div class="caption">
+                    <h3>{{ product.name }}</h3>
+                    <h5>{{ product.price }} $</h5>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<div *ngIf="pagedProducts">
+<div *ngIf="pagedProducts" class="text-center">
         <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <li [ngClass]="{disabled:pager.currentPage === 1}">
                 <a (click)="setPage(1)">First</a>

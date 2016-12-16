@@ -54,15 +54,12 @@
                         <p *ngIf="!product.quantity" class="text-center">0</p>
                     </td>
                     <td *ngIf="product">
-                        <div class="button-group btn-group" role="group">
+                        <div class="button-group btn-group-vertical" role="group">
                             <input #idProduct [hidden]="hideId" [value]="product._id">
                                 <button class="btn btn-default pull-right" *ngIf="product" (click)="editProduct(product.name)">
                                     <i class="glyphicon glyphicon-edit"></i>
                                     Edit
                                 </button>
-                                <div class="clearfix">
-                                    &nbsp;
-                                </div>
                                 <button class="btn btn-warning pull-right" *ngIf="product" (click)="deleteProduct(idProduct.value)">
                                     <i class="glyphicon glyphicon-trash"></i>
                                     Delete

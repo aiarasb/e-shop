@@ -32,18 +32,6 @@ export class ProductPageComponent {
         });
     }
 
-    increaseQuantity(): void {
-        if (this.quantity <= this.product.quantity-1) {
-            this.quantity++;
-        }
-    }
-
-    decreaseQuantity(): void {
-         if (this.quantity > 0) {
-            this.quantity--;
-         }
-    }
-
     addToCart(productId : any, quantity : number): void {
         if (!this.quantity) {
             return;
