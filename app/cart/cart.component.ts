@@ -71,30 +71,39 @@ export class CartComponent {
         return safe;
     }
 
-    getAllProductsPrice(): number{
+    getDiscountedProductPrice(ind : any): string{
+        return  (this.products[ind].price / 100 * (100 - this.products[ind].discount)).toFixed(2);
+    }
+
+    getFullProductPrice(ind: any): any{
+        return (this.products[ind].price * 1).toFixed(2);
+    }
+
+    getPurchasePrice(ind: any): string{
+        var price = parseFloat(this.getDiscountedProductPrice(ind)) * this.purchases[ind].quantity;
+        return price.toFixed(2);
+    }
+
+    orderPriceWithDiscount(): string{
         var sum = 0;
         for (var i = 0; i < this.products.length; i++){
-            sum += this.products[i].price * this.purchases[i].quantity;
+            sum += parseFloat(this.getDiscountedProductPrice(i)) * this.purchases[i].quantity;
         }
-        return sum;
+        return sum.toFixed(2);
+    }
+
+    getSavedMoneyAmount(): string{
+        var sum = 0;
+        for (var i = 0; i < this.products.length; i++){
+            var savedPerProduct = this.products[i].price - parseFloat(this.getDiscountedProductPrice(i));
+            sum += savedPerProduct * this.purchases[i].quantity;
+        }
+        return sum.toFixed(2);
     }
 
     onQuantityChange(purchase : Purchase): void{
-        console.log(purchase);
         var regexp = new RegExp('^[0-9]*$');
         console.log(purchase.quantity);
-    }
-
-    addProductToOrder(productId : any, userId : any): void{
-
-        this.purchaseService.createNewOrder(this.userId).then(() => {
-            this.purchaseService.getActiveOrder(this.userId).then((response) => {
-                var activeOrderId = response[0]._id;
-                this.purchaseService.addPurchase(productId, activeOrderId, 1);
-
-                location.reload();  // refreshes page, for cart testing only
-            });
-        });
     }
 
     ngOnInit(): void {

@@ -52,6 +52,7 @@ export class OrderComponent {
     update(): void{
         this.updateOrder();
         this.updateProductQuantity();
+        this.updatePurchaseDiscount();
     }
 
     updateOrder(): void{
@@ -69,6 +70,13 @@ export class OrderComponent {
             this.products[i].quantity -= this.purchases[i].quantity;
             console.log(this.products[i]);
             this.purchaseService.updateProduct(this.products[i]);
+        }
+    }
+
+    updatePurchaseDiscount(): void{
+        for (var i = 0; i < this.purchases.length; i++){
+            this.purchases[i].discount = this.products[i].discount;
+            this.purchaseService.updatePurchase(this.purchases[i]);
         }
     }
 

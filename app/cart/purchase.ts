@@ -3,4 +3,5 @@ export class Purchase {
     quantity: number;
     orderId: string;
     productId: string;
+    discount: number;
 }

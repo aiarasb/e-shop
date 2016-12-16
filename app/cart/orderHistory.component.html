@@ -17,32 +17,32 @@
         <br>
         <div class="container">
             <div *ngIf="selected">
-
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <tr>
-                            <th>No.</th>
-                            <th>Product</th>
-                            <th>Name</th>
-                            <th>Unit Price</th>
-                            <th>Quantity</th>
-                            <th>Whole price</th>
-                        </tr>
-                        <tr *ngFor="let product of products; let i = index" >
-                            <td>{{i+1}}.</td>
-                            <td><img src={{product.photos[0].link}}></td>
-                            <td>{{product.name}}</td>
-                            <td>{{product.price }} €</td>
-                            <td>{{purchases[i].quantity}}</td>
-                            <td><b>{{product.price * purchases[i].quantity}} €</b></td>
-                        </tr>
-                    </table>
+                <div class="col-md-8">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <tr>
+                                <th>No.</th>
+                                <th>Product</th>
+                                <th>Name</th>
+                                <th>Unit Price</th>
+                                <th>Quantity</th>
+                                <th>Whole price</th>
+                            </tr>
+                            <tr *ngFor="let product of products; let i = index" >
+                                <td>{{i+1}}.</td>
+                                <td><img src={{product.photos[0].link}}></td>
+                                <td>{{product.name}}</td>
+                                <td>{{product.price }} €</td>
+                                <td>{{purchases[i].quantity}}</td>
+                                <td><b>{{product.price * purchases[i].quantity}} €</b></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-
                 <br>
-                <div class="container">
-                    <h3 class="inLine"><span style="color: #9c9c9c">Amount paid:</span>  <b>{{getAllProductsPrice()}}</b> €</h3>
-                </div>
+            </div>
+            <div class="col-md-8" >
+                <h3 class="inLine"><span style="color: #9c9c9c">Amount paid:</span>  <b>{{getAllProductsPrice()}}</b> €</h3>
             </div>
         </div>
     </div>
