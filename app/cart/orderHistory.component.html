@@ -6,7 +6,7 @@
 
     <div *ngIf="orderExists">
         <div class="container">
-            <div class="col-md-8">
+            <div class="col-md-4">
                 <label>Select order you wish to see:</label>
                 <select (change)="onChange($event.target.value)" class="form-control">
                     <option *ngFor="let order of orders; let i = index" [value]=order._id >
@@ -17,35 +17,33 @@
         </div>
 
         <br><br>
-        <div class="container">
-            <div *ngIf="selected">
-                <div class="col-md-8">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover">
-                            <tr>
-                                <th>No.</th>
-                                <th>Product</th>
-                                <th>Name</th>
-                                <th>Unit Price</th>
-                                <th>Quantity</th>
-                                <th>Whole price</th>
-                            </tr>
-                            <tr *ngFor="let product of products; let i = index" >
-                                <td>{{i+1}}.</td>
-                                <td><img src={{product.photos[0].link}}></td>
-                                <td>{{product.name}}</td>
-                                <td>{{getDiscountedProductPrice(i) }} €</td>
-                                <td>{{purchases[i].quantity}}</td>
-                                <td><b>{{getPurchasePrice(i)}} €</b></td>
-                            </tr>
-                        </table>
-                    </div>
+
+        <div *ngIf="selected" class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <tr>
+                            <th>Product</th>
+                            <th>Name</th>
+                            <th>Unit Price</th>
+                            <th>Quantity</th>
+                            <th>Whole price</th>
+                        </tr>
+                        <tr *ngFor="let product of products; let i = index" >
+                            <td><img src={{product.photos[0].link}}></td>
+                            <td id="productName" (click)="goToProductPage(product.name)">{{product.name}}</td>
+                            <td>{{getDiscountedProductPrice(i) }} €</td>
+                            <td>{{purchases[i].quantity}}</td>
+                            <td><b>{{getPurchasePrice(i)}} €</b></td>
+                        </tr>
+                    </table>
                 </div>
-                <br>
+                <h3 class="pull-right"><span style="color: #9c9c9c">Amount paid:</span>  <b>{{orderPriceWithDiscount()}}</b> €</h3>
+             </div>
             </div>
-            <div class="col-md-8" >
-                <h3 class="inLine"><span style="color: #9c9c9c">Amount paid:</span>  <b>{{orderPriceWithDiscount()}}</b> €</h3>
-            </div>
+            <br>
         </div>
     </div>
 

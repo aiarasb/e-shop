@@ -1,38 +1,39 @@
 <div class="container">
-
     <div *ngIf="!completed">
         <div class="page-header">
             <h1>Personal information</h1>
         </div>
-
-        <div *ngFor="let order of orders">
-            <form (ngSubmit)="update()">
-                <div class="col-md-4">
-                    <p><b>First name:</b></p>
-                    <input name="firstName" class="form-control" type="text" required [(ngModel)]="order.firstName">
-                    <p><b>Last name:</b></p>
-                    <input name="lastName" class="form-control" type="text" required [(ngModel)]="order.lastName">
-                    <p><b>Credit card number:</b></p>
-                    <input name="cardNumber" class="form-control" type="number" min="0" required [(ngModel)]="order.creditNumber">
-                    <p><b>Credit card expiration date:</b></p>
-                    <input name="expirationDate" class="form-control" type="month" required [(ngModel)]="order.expirationDate">
-                    <p><b>Credit card security number:</b></p>
-                    <input name="creditCvv" class="form-control" type="number" min="0" required [(ngModel)]="order.creditCvv">
-                    <p><b>Your Address:</b></p>
-                    <input name="adress" class="form-control" required [(ngModel)]="order.adress">
-                    <br>
-                    <br><br>
-                    <button class="btn btn-default" (click)="goBack()">Back</button>
-                    <button class="btn btn-primary" type="submit">Finish order</button>
-                </div>
-            </form>
+        <div class="col-sm-6">
+            <div *ngFor="let order of orders">
+                    <form (ngSubmit)="update()">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <p><b>First name:</b></p>
+                                <input name="firstName" class="form-control" type="text" required [(ngModel)]="order.firstName">
+                                <p><b>Last name:</b></p>
+                                <input name="lastName" class="form-control" type="text" required [(ngModel)]="order.lastName">
+                                <p><b>Credit card number:</b></p>
+                                <input name="cardNumber" class="form-control" type="number" min="0" required [(ngModel)]="order.creditNumber">
+                                <p><b>Credit card expiration date:</b></p>
+                                <input name="expirationDate" class="form-control" type="month" required [(ngModel)]="order.expirationDate">
+                                <p><b>Credit card security number:</b></p>
+                                <input name="creditCvv" class="form-control" type="number" min="0" required [(ngModel)]="order.creditCvv">
+                                <p><b>Your Address:</b></p>
+                                <input name="adress" class="form-control" required [(ngModel)]="order.adress">
+                            </div>
+                                <br><br><br>
+                            <div class="panel-footer">
+                                <button class="btn btn-default btn-lg" (click)="goBack()"><i class="glyphicon glyphicon-chevron-left"></i> Back</button>
+                                <button class="btn btn-primary  btn-lg pull-right" type="submit"><i class="glyphicon glyphicon-ok"></i> Finish order</button>
+                            </div>
+                        </div>
+                    </form>
+            </div>
         </div>
     </div>
-
     <div *ngIf="completed">
         <div class="page-header">
             <h1>Your order is completed!</h1>
         </div>
     </div>
-
 </div>

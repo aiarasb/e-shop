@@ -4,6 +4,7 @@ import { Purchase } from './purchase';
 import {Product} from "../products/product";
 import { PurchaseService } from '../services/purchase.service';
 import {Order} from "./order";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -25,8 +26,12 @@ export class OrderHistoryComponent {
     private userId: any = "13";
 
 
-    constructor ( private purchaseService: PurchaseService)
+    constructor ( private router: Router, private purchaseService: PurchaseService)
     {}
+
+    goToProductPage(name: string): void {
+        this.router.navigate(['/product', name]);
+    }
 
     getPurchases(selectedOrderId: any): void {
 
