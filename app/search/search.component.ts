@@ -83,8 +83,6 @@ export class SearchComponent {
                 discounted: this.discounted
             };
 
-            console.log(this.discounted);
-
             this.results = tempRes.filter(function (value: Product) {
                 return value.price >= price.from
                     && value.price <= price.to
