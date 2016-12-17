@@ -8,7 +8,6 @@ import {CategoryService} from '../services/category.service'
     moduleId: module.id,
     selector: 'categories',
     templateUrl: 'categories.component.html',
-    styleUrls: ['categories.component.css']
 })
 
 export class CategoriesComponent {
