@@ -1,27 +1,24 @@
-<div class="category-container">
-    <h2>Category</h2>
+<div class="container">
     <div *ngIf="category">
-        <h3>{{category.name}} details!</h3>
-        <div>
-            <label>id: </label>{{category._id}}
+        <div class="page-header">
+            <h2>{{category.name}}</h2>
+            <p>{{category.description}}</p>
         </div>
-        <div>
-            <label>name: </label>{{category.name}}
+        <div class="row" *ngFor="let product of products">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img class="img-responsive img-thumbnail" [attr.src]="product.photos[0].link"
+                         (click)="gotoProductPage(product.name)">
+                    <div class="caption">
+                        <h3>{{ product.name }}</h3>
+                        <h5>{{ product.price }} $</h5>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <label>description: </label>{{category.description}}
-        </div>
-        <div>
-            <button (click)="editCategory(category)">Edit</button>
-            <button (click)="deleteCategory(category)">Delete</button>
-        </div>
-        <h2>{{category.name}} products</h2>
-        <div>
-            <ul>
-                <li *ngFor="let product of products">
-                    {{product.name}}
-                </li>
-            </ul>
+        <div class="modal-footer">
+            <button class="btn btn-primary" (click)="editCategory(category)">Edit</button>
+            <button class="btn btn-danger" (click)="deleteCategory(category)">Delete</button>
         </div>
     </div>
 </div>

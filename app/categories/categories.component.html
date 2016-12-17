@@ -1,13 +1,22 @@
-<div class="category-container">
-    <h2>Categories</h2>
-    <div>
-        <button (click)="addCategory()">Add Category</button>
+<div class="container">
+    <div class="page-header">
+        <h2>Categories</h2>
     </div>
-    <div>
-        <ul>
-            <li *ngFor="let category of categories" (click)="gotoCategory(category)">
-                {{category.name}}
-            </li>
-        </ul>
+    <div class="row">
+        <div *ngFor="let category of categories">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3 style="text-decoration: underline; cursor: pointer;" (click)="gotoCategory(category)">{{ category.name }}</h3>
+                        <p>{{ category.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <button class="btn btn-primary" (click)="addCategory()">Add Category</button>
+        </div>
     </div>
 </div>
