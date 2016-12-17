@@ -24,6 +24,10 @@ export class CartComponent {
         private router: Router, private purchaseService: PurchaseService
     ) {}
 
+    goToProductPage(name: string): void {
+        this.router.navigate(['/product', name]);
+    }
+
     goToOrder(): void{
         if(this.updatePurchases() && this.purchases.length != 0){
             this.router.navigate(['/order']);
@@ -99,6 +103,10 @@ export class CartComponent {
             sum += savedPerProduct * this.purchases[i].quantity;
         }
         return sum.toFixed(2);
+    }
+
+    isCartEmpty(): boolean{
+        return this.purchases == undefined || this.purchases.length == 0;
     }
 
     onQuantityChange(purchase : Purchase): void{
