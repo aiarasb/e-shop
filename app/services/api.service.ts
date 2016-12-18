@@ -19,8 +19,8 @@ export class ApiService {
             .post(this.apiUrl + '/user/login', JSON.stringify({username: username, password: password}), {headers: this.requestHeaders})
             .toPromise()
             .then((res) => {
-                console.log(res._body);
-                onSuccess(JSON.parse(res._body));
+                console.log(res['_body']);
+                onSuccess(JSON.parse(res['_body']));
             })
     }
 
@@ -29,7 +29,7 @@ export class ApiService {
             .post(this.apiUrl + '/user/create', JSON.stringify({username: username, password: password}), {headers: this.requestHeaders})
             .toPromise()
             .then((res) => {
-                onSuccess(JSON.parse(res._body));
+                onSuccess(JSON.parse(res['_body']));
             })
     }
 }
