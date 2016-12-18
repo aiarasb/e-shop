@@ -31,9 +31,7 @@ export class CategoryComponent {
     }
 
     getProducts(): void {
-        if (this.category && this.category.products.length > 0) {
-            this.productService.getProductsById(this.category.products).subscribe(products => this.products = products);
-        }
+        this.productService.getProductsByCategoryId(this.category._id).subscribe(products => this.products = products);
     }
 
     deleteCategory(category): void {

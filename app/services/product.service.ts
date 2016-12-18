@@ -61,6 +61,16 @@ export class ProductService {
             .catch(this.handleError);
     }
 
+    getProductsByCategoryId(categoryId: string): Observable<Product[]> {
+        return this.http
+            .post(
+                this.apiUrl + '/products/get-multiple-by-category',
+                JSON.stringify({'id':categoryId})
+            )
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     getProducts(): Observable<Product[]> {
         return this.http
             .post(
