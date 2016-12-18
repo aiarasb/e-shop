@@ -119,7 +119,9 @@ export class CartComponent {
     }
 
     ngOnDestroy(): void{
-        this.updatePurchases();
+        if(this.products.length > 0){
+            this.updatePurchases();
+        }
     }
 
 }
