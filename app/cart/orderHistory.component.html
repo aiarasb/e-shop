@@ -47,7 +47,10 @@
         </div>
     </div>
 
-    <div *ngIf="!orderExists">
-        <h3>At first buy something, you peasant.</h3>
+    <div *ngIf="!orderExists && userId != null">
+        <h3>You have no completed orders.</h3>
+    </div>
+    <div *ngIf="!orderExists && userId == null">
+        <h3>Please login to see your order history.</h3>
     </div>
 </div>

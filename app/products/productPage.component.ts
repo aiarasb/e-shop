@@ -16,7 +16,7 @@ export class ProductPageComponent {
 
     private quantity = 0;
 
-    private userId : any = "13"; // will need to change later
+    private userId: any = null;
 
     constructor (
         private productService: ProductService,
@@ -37,8 +37,8 @@ export class ProductPageComponent {
             return;
         }
 
-        this.purchaseService.createNewOrder(this.userId).then(() => {
-            this.purchaseService.getActiveOrder(this.userId).then((response) => {
+        this.purchaseService.createNewOrder(window.localStorage.getItem('userId')).then(() => {
+            this.purchaseService.getActiveOrder(window.localStorage.getItem('userId')).then((response) => {
                 var activeOrderId = response[0]._id;
                 this.purchaseService.addPurchase(productId, activeOrderId, quantity);
             });
@@ -46,6 +46,7 @@ export class ProductPageComponent {
     }
 
     ngOnInit(): void {
+        this.userId = window.localStorage.getItem('userId');
         this.getProduct();
     }
 }

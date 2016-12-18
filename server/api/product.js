@@ -82,6 +82,13 @@ function updateProduct(request, reply) {
     });
 }
 
+function updateProductWithoutValidation(request, reply) {
+    let payload = request.payload;
+
+    mongoDb.updateOneItem('productCollection', payload);
+    reply("Successful product update");
+}
+
 function deleteProduct(request, reply) {
     let payload = request.payload;
     mongoDb.removeItemById('productCollection', payload._id);
@@ -141,6 +148,7 @@ module.exports = [
     { method: 'POST', path: '/products/get-all', handler: getProducts },
     { method: 'POST', path: '/products/add', handler: insertProduct },
     { method: 'POST', path: '/products/update', handler: updateProduct },
+    { method: 'POST', path: '/products/update-quantity', handler: updateProductWithoutValidation },
     { method: 'POST', path: '/products/delete', handler: deleteProduct },
     { method: 'POST', path: '/products/get', handler: getProductByName },
     { method: 'POST', path: '/products/get-by-id', handler: getProductById },
