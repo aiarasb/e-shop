@@ -3,9 +3,10 @@ export class Product {
     name: string;
     description: string;
     price: number;
+    reducedPrice: number;
     quantity: number;
     discount: number;
-    photos: any;
+    photos: Array<Object>;
     categories: Array<string>;
 
     constructor(
@@ -15,7 +16,7 @@ export class Product {
         price: number,
         quantity: number,
         discount: number,
-        photos: any,
+        photos: Array<Object>,
         categories: Array<string>
     ) {
         this._id = _id;

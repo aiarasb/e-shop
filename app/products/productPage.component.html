@@ -8,10 +8,10 @@
             <div *ngIf="product.photos">
                 <div class="extra-img-container">
                     <div *ngFor="let image of product.photos">
-                        <div *ngIf="image.main == 1" class="main-image-container">
+                        <div *ngIf="image.cover == 1" class="main-image-container">
                             <img class="img-responsive img-thumbnail img-cover" [attr.src]="image.link" id="main-image">
                         </div>
-                        <div *ngIf="image.main == 0" class="secondary-image-container col-md-3">
+                        <div *ngIf="image.cover == 0" class="secondary-image-container col-md-3">
                             <img class="img-responsive img-thumbnail" (mouseover)="replaceMainImage($event)" [attr.src]="image.link">
                         </div>
                     </div>
@@ -22,11 +22,14 @@
     <div class="col-md-6 col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <h2>{{ product.name }}</h2>
                 </div>
-                <div class="col-md-4">
-                    <h2>{{ product.price}} $</h2>
+                <div class="col-md-6">
+                    <h2 *ngIf="!product.reducedPrice">{{ product.price }} $</h2>
+                    <div *ngIf="product.reducedPrice">
+                        <h2>{{ product.reducedPrice }} $      <sup><del class="text-primary">{{product.price}} $</del></sup></h2>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <p class="lead">{{ product.description }}</p>

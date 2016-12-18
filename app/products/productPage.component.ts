@@ -30,7 +30,13 @@ export class ProductPageComponent {
     getProduct(): void {
         this.route.params.forEach((params: Params) => {
             let name = params['name'];
-            this.productService.getProductByName(name).subscribe(product => this.product = product);
+            this.productService.getProductByName(name).subscribe(product => {
+                this.product = product;
+                this.product.reducedPrice = this.productService.getReducedPrice(
+                    this.product.price,
+                    this.product.discount
+                );
+            });
         });
     }
 

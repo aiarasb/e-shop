@@ -31,6 +31,15 @@ export class ProductService {
         return {};
     }
 
+    getReducedPrice(price: number, discount: number): number {
+        if (!discount) {
+            return 0;
+        }
+
+        let calculatedDidcount = price*(discount/100);
+        return price - calculatedDidcount;
+    }
+
     getPhotoLinks() {
         let photos = <HTMLCollection>document.getElementsByClassName('photo-link-input');
         if (!photos) {
