@@ -8,12 +8,13 @@ import { PagerService } from '../services/pager.service'
     moduleId: module.id,
     selector: 'products',
     templateUrl: 'products.component.html',
+    styleUrls: ['products.component.css']
 })
 
 export class ProductsComponent {
 
     private productsPerPage = 10;
-
+    private displayProducts = false;
     private hideId: boolean = true;
     products: Product[];
     private  pager: any = {};
@@ -38,7 +39,9 @@ export class ProductsComponent {
 
     ngOnInit(): void {
         this.getProducts();
-
+        if (this.products) {
+            this.displayProducts = true;
+        }
     }
 
     editProduct(productName: string): void {
@@ -46,7 +49,6 @@ export class ProductsComponent {
     }
 
     deleteProduct(idProduct: string): void {
-        //todo delete from array
         if (idProduct) {
             this.productService.deleteProduct(idProduct);
 

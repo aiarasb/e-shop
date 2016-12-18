@@ -3,19 +3,23 @@
 </div>
 <div *ngIf="product">
     <!--left side of page-->
-    <div class="col-sm-6 col-sm-6">
+    <div class="col-md-6 col-md-6">
         <div class="product-img-container">
             <div *ngIf="product.photos">
-                <img class="img-thumbnail img-responsive" src="product.photos[0].link">
                 <div class="extra-img-container">
                     <div *ngFor="let image of product.photos">
-                        <img *ngIf="image.main == 0" [attr.src]="image.link">
+                        <div *ngIf="image.main == 1" class="main-image-container">
+                            <img class="img-responsive img-thumbnail img-cover" [attr.src]="image.link" id="main-image">
+                        </div>
+                        <div *ngIf="image.main == 0" class="secondary-image-container col-md-3">
+                            <img class="img-responsive img-thumbnail" (mouseover)="replaceMainImage($event)" [attr.src]="image.link">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-sm-6">
+    <div class="col-md-6 col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="col-md-8">

@@ -47,7 +47,6 @@ export class AddProductComponent {
         discount: number
     ): void {
         this.productService.addProduct(name, description, price, quantity, discount);
-        this.router.navigate(['/products']);
     }
 
     gotoProductsPage(): void {

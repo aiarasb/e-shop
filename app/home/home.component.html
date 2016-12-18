@@ -5,7 +5,7 @@
     <div *ngFor="let product of pagedProducts">
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img class="img-responsive img-thumbnail" [attr.src]="product.photos[0].link" (click)="gotoProductPage(product.name)">
+                <img class="img-responsive img-thumbnail img-product" [attr.src]="product.photos[0].link" (click)="gotoProductPage(product.name)">
                 <div class="caption">
                     <h3>{{ product.name }}</h3>
                     <h5>{{ product.price }} $</h5>

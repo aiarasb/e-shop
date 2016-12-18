@@ -8,6 +8,7 @@ import {PurchaseService} from "../services/purchase.service";
     moduleId: module.id,
     selector: 'product-page',
     templateUrl: 'productPage.component.html',
+    styleUrls: ['productPage.component.css']
 })
 
 export class ProductPageComponent {
@@ -43,6 +44,15 @@ export class ProductPageComponent {
                 this.purchaseService.addPurchase(productId, activeOrderId, quantity);
             });
         });
+    }
+
+    replaceMainImage(event): void {
+        let eventNode = event.target;
+        let eventImage = eventNode.getAttribute('src');
+        let mainNode = document.getElementById('main-image');
+        let mainImg = mainNode.getAttribute('src');
+        mainNode.setAttribute('src', eventImage);
+        eventNode.setAttribute('src', mainImg);
     }
 
     ngOnInit(): void {
