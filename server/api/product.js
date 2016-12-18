@@ -23,7 +23,8 @@ function insertProduct (request, reply) {
         price: payload.price,
         discount: payload.discount,
         quantity: payload.quantity,
-        photos: payload.photos
+        photos: payload.photos,
+        categories: payload.categories
     };
 
     let products = mongoDb.getItems('productCollection');
@@ -63,7 +64,18 @@ function updateProduct(request, reply) {
         return false;
     }
 
-    mongoDb.updateOneItem('productCollection', payload);
+    let newProduct = {
+        _id: payload._id,
+        name: payload.name,
+        description: payload.description,
+        price: payload.price,
+        discount: payload.discount,
+        quantity: payload.quantity,
+        photos: payload.photos,
+        categories: payload.categories
+    };
+
+    mongoDb.updateOneItem('productCollection', newProduct);
     reply({
         success: true,
         messages: ['Successful product update']
