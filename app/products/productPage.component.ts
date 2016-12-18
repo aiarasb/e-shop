@@ -12,7 +12,7 @@ import {PurchaseService} from "../services/purchase.service";
 
 export class ProductPageComponent {
 
-    product = new Product('', '', '', 0.0, 0, 0, []);
+    product = new Product('', '', '', 0.0, 0, 0, [], []);
 
     private quantity = 0;
 

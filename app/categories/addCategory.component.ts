@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 })
 
 export class AddCategoryComponent {
-    category = new Category('', '', '', []);
+    category = new Category('', '', '');
 
     constructor(private categoryService: CategoryService,
                 private router: Router) {
