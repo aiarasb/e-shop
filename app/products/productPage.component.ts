@@ -14,7 +14,7 @@ import {PurchaseService} from "../services/purchase.service";
 export class ProductPageComponent {
 
     product = new Product('', '', '', 0.0, 0, 0, []);
-
+    private errorMessage = false;
     private quantity = 0;
 
     private userId : any = "13"; // will need to change later
@@ -35,13 +35,16 @@ export class ProductPageComponent {
 
     addToCart(productId : any, quantity : number): void {
         if (!this.quantity) {
+            this.errorMessage = true;
             return;
         }
 
         this.purchaseService.createNewOrder(this.userId).then(() => {
             this.purchaseService.getActiveOrder(this.userId).then((response) => {
-                var activeOrderId = response[0]._id;
-                this.purchaseService.addPurchase(productId, activeOrderId, quantity);
+                let activeOrderId = response[0]._id;
+                this.purchaseService.addPurchase(productId, activeOrderId, quantity).then(() => {
+                    this.router.navigate(['/cart']);
+                });
             });
         });
     }

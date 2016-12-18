@@ -35,7 +35,7 @@
                                 </td>
                                 <td *ngIf="product">
                                     <img *ngIf="product.photos" [attr.src]="product.photos[0].link" class="img-responsive img-product">
-                                    <p *ngIf="!product.photos">--</p>
+                                    <img class="img-responsive img-product" *ngIf="!product.photos[0].link" src="https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw.jpg">
                                 </td>
                                 <td *ngIf="product">
                                     <p *ngIf="product.description">{{product.description}}</p>

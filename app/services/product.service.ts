@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Product } from '../products/product';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ProductService {
@@ -12,7 +13,10 @@ export class ProductService {
         'Content-Type': 'application/json'
     });
 
-    constructor(private http: Http) {}
+    constructor(
+        private http: Http,
+        private router: Router
+    ) {}
 
     private extractData(res: Response) {
         let body = res.json();
@@ -35,7 +39,7 @@ export class ProductService {
 
         let photosObj = [];
 
-        for(var i = 0; i < photos.length; i++)
+        for(let i = 0; i < photos.length; i++)
         {
             let cover = 0;
             let link = (<HTMLInputElement>photos[i]).value;
@@ -97,7 +101,9 @@ export class ProductService {
                 {headers: this.requestHeaders}
             )
             .toPromise()
-            .catch(this.handleError);
+            .then(() =>{
+                this.router.navigate(['/products']);
+            });
     }
 
     updateProduct(

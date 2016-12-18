@@ -12,7 +12,6 @@ import { PagerService } from '../services/pager.service'
 })
 
 export class ProductsComponent {
-
     private productsPerPage = 10;
     private displayProducts = false;
     private hideId: boolean = true;

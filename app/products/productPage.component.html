@@ -36,6 +36,9 @@
                 </div>
             </div>
             <div class="panel-body">
+                <div [hidden]="!errorMessage" class="alert alert-warning">
+                    Please enter quantity
+                </div>
                 <div class="col-md-4">
                     <input [(ngModel)]="quantity" type="number" min="1" max={{product.quantity}} placeholder="Enter quantity" class="form-control" required>
                 </div>
