@@ -1,4 +1,35 @@
 <ul class="nav navbar-nav navbar-right">
-    <li><p class="navbar-text">Logged in: {{loggedIn}}</p></li>
-    <li><p class="navbar-text pushable" (click)="login()">Login</p></li>
+    <li>
+        <div class="navbar-text pushable">
+            <div *ngIf="loggedIn === true">
+                <span>Logged in as {{username}}</span>
+            </div>
+            <div *ngIf="loggedIn === false">
+                <span (click)="showRegister()">Register</span>
+                <div class="register-form {{showRegisterPanel}}">
+                    <input class="form-control" type="text" placeholder="Username" [(ngModel)]="username">
+                    <input class="form-control" type="text" placeholder="Password" [(ngModel)]="password">
+                    <input class="form-control" type="text" placeholder="Repeat password" [(ngModel)]="passwordRepeat">
+                    <div class="login-error">{{errorMessage}}</div>
+                    <div (click)="register()">Send</div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="navbar-text pushable">
+            <span (click)="showLogin()">Login</span>
+            <div class="login-form {{showLoginPanel}}">
+                <input class="form-control" type="text" placeholder="Username" [(ngModel)]="username">
+                <input class="form-control" type="text" placeholder="Password" [(ngModel)]="password">
+                <div class="login-error">{{errorMessage}}</div>
+                <div (click)="login()">Send</div>
+            </div>
+        </div>
+    </li>
+    <li *ngIf="loggedIn === true">
+        <div class="navbar-text pushable">
+            <span (click)="logout()">Logout</span>
+        </div>
+    </li>
 </ul>
