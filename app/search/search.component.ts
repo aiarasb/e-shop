@@ -10,7 +10,6 @@ import {PagerService} from "../services/pager.service";
     moduleId: module.id,
     selector: 'search',
     templateUrl: 'search.component.html',
-    styleUrls: ['search.component.css']
 })
 
 export class SearchComponent {
@@ -82,8 +81,6 @@ export class SearchComponent {
                 to: this.priceTo ? this.priceTo : this.maxPrice,
                 discounted: this.discounted
             };
-
-            console.log(this.discounted);
 
             this.results = tempRes.filter(function (value: Product) {
                 return value.price >= price.from

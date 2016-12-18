@@ -7,7 +7,6 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
     moduleId: module.id,
     selector: 'editCategory',
     templateUrl: 'categoryForm.component.html',
-    styleUrls: ['categories.component.css']
 })
 
 export class EditCategoryComponent {

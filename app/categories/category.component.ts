@@ -10,7 +10,6 @@ import {Product} from "../products/product";
     moduleId: module.id,
     selector: 'category',
     templateUrl: 'category.component.html',
-    styleUrls: ['categories.component.css']
 })
 
 export class CategoryComponent {
