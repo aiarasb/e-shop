@@ -31,9 +31,11 @@ export class CategoryComponent {
     }
 
     getProducts(): void {
-        if (this.category) {
-            this.productService.getProductsById(this.category.products).subscribe(products => this.products = products);
-        }
+        this.productService.getProductsByCategoryId(this.category._id).subscribe(products => this.products = products);
+    }
+
+    gotoProductPage(name: string): void {
+        this.router.navigate(['/products']);
     }
 
     deleteCategory(category): void {

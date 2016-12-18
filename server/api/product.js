@@ -23,7 +23,8 @@ function insertProduct (request, reply) {
         price: payload.price,
         discount: payload.discount,
         quantity: payload.quantity,
-        photos: payload.photos
+        photos: payload.photos,
+        categories: payload.categories
     };
 
     let products = mongoDb.getItems('productCollection');
@@ -63,7 +64,18 @@ function updateProduct(request, reply) {
         return false;
     }
 
-    mongoDb.updateOneItem('productCollection', payload);
+    let newProduct = {
+        _id: payload._id,
+        name: payload.name,
+        description: payload.description,
+        price: payload.price,
+        discount: payload.discount,
+        quantity: payload.quantity,
+        photos: payload.photos,
+        categories: payload.categories
+    };
+
+    mongoDb.updateOneItem('productCollection', newProduct);
     reply({
         success: true,
         messages: ['Successful product update']
@@ -126,6 +138,12 @@ function getProductsById (request, reply) {
     reply(products.toArray());
 }
 
+function getProductsByCategoryId (request, reply) {
+    let data = JSON.parse(request.payload);
+    let products = mongoDb.getItemsByCategoryId('productCollection', data.id);
+    reply(products.toArray());
+}
+
 module.exports = [
     { method: 'POST', path: '/products/get-all', handler: getProducts },
     { method: 'POST', path: '/products/add', handler: insertProduct },
@@ -134,5 +152,6 @@ module.exports = [
     { method: 'POST', path: '/products/delete', handler: deleteProduct },
     { method: 'POST', path: '/products/get', handler: getProductByName },
     { method: 'POST', path: '/products/get-by-id', handler: getProductById },
-    { method: 'POST', path: '/products/get-multiple', handler: getProductsById }
+    { method: 'POST', path: '/products/get-multiple', handler: getProductsById },
+    { method: 'POST', path: '/products/get-multiple-by-category', handler: getProductsByCategoryId }
 ];

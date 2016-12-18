@@ -45,7 +45,7 @@ export class ProductService {
             }
             photosObj.push({
                 link: link,
-                main: cover
+                cover: cover
             });
         }
         return photosObj;
@@ -56,6 +56,16 @@ export class ProductService {
             .post(
                 this.apiUrl + '/products/get-multiple',
                 JSON.stringify({'ids':productIds})
+            )
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    getProductsByCategoryId(categoryId: string): Observable<Product[]> {
+        return this.http
+            .post(
+                this.apiUrl + '/products/get-multiple-by-category',
+                JSON.stringify({'id':categoryId})
             )
             .map(this.extractData)
             .catch(this.handleError);
@@ -81,47 +91,23 @@ export class ProductService {
             .catch(this.handleError);
     }
 
-    addProduct (name: string, description: string, price: number, quantity: number, discount: number): void {
-        let data = {
-            name: name,
-            description: description,
-            price: price,
-            quantity: quantity,
-            discount: discount,
-            photos: this.getPhotoLinks()
-        };
+    addProduct (product: Product): void {
+        product['photos'] = this.getPhotoLinks();
         this.http
             .post(
                 this.apiUrl + '/products/add',
-                JSON.stringify(data),
-                {headers: this.requestHeaders}
+                product,
             )
             .toPromise()
             .catch(this.handleError);
     }
 
-    updateProduct(
-        id: string,
-        name: string,
-        description: string,
-        price: number,
-        quantity: number,
-        discount: number
-    ): void {
-        let data = {
-            _id: id,
-            name: name,
-            description: description,
-            price: price,
-            quantity: quantity,
-            discount: discount,
-            photos: this.getPhotoLinks()
-        };
+    updateProduct(product: Product): void {
+        product['photos'] = this.getPhotoLinks();
         this.http
             .post(
                 this.apiUrl + '/products/update',
-                JSON.stringify(data),
-                {headers: this.requestHeaders}
+                product
             )
             .toPromise()
             .catch(this.handleError);
