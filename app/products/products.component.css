@@ -1,0 +1,5 @@
+.img-product {
+    max-height: 100px;
+    max-width: 150px;
+    object-fit: cover;
+}

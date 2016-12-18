@@ -55,6 +55,7 @@ export class AddProductComponent {
         eventParent.parentNode.removeChild(eventParent);
     }
 
+
     onSubmit(): void {
         this.productService.addProduct(this.product);
         this.router.navigate(['/products'])

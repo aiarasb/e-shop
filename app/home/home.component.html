@@ -5,10 +5,17 @@
     <div *ngFor="let product of pagedProducts">
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-                <img class="img-responsive img-thumbnail" [attr.src]="product.photos[0].link" (click)="gotoProductPage(product.name)">
+                <img *ngIf="product.photos[0].link" class="img-responsive img-thumbnail img-product" [attr.src]="product.photos[0].link" (click)="gotoProductPage(product.name)">
+                <img (click)="gotoProductPage(product.name)" class="img-responsive img-thumbnail img-product" *ngIf="!product.photos[0].link" src="https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw.jpg">
                 <div class="caption">
                     <h3>{{ product.name }}</h3>
-                    <h5>{{ product.price }} $</h5>
+                    <h5 *ngIf="!product.reducedPrice">{{ product.price }} $</h5>
+                    <div *ngIf="product.reducedPrice">
+                        <h5>{{ product.reducedPrice }} $      <sup><del class="text-primary">{{product.price}} $</del></sup></h5>
+                    </div>
+                    <div class="clearfix">
+                        &nbsp;
+                    </div>
                 </div>
             </div>
         </div>

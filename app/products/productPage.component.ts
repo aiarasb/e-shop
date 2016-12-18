@@ -8,12 +8,14 @@ import {PurchaseService} from "../services/purchase.service";
     moduleId: module.id,
     selector: 'product-page',
     templateUrl: 'productPage.component.html',
+    styleUrls: ['productPage.component.css']
 })
 
 export class ProductPageComponent {
 
-    product = new Product('', '', '', 0.0, 0, 0, [], []);
 
+    private errorMessage = false;
+    product = new Product('', '', '', 0.0, 0, 0, [], []);
     private quantity = 0;
 
     private userId: any = null;
@@ -28,21 +30,39 @@ export class ProductPageComponent {
     getProduct(): void {
         this.route.params.forEach((params: Params) => {
             let name = params['name'];
-            this.productService.getProductByName(name).subscribe(product => this.product = product);
+            this.productService.getProductByName(name).subscribe(product => {
+                this.product = product;
+                this.product.reducedPrice = this.productService.getReducedPrice(
+                    this.product.price,
+                    this.product.discount
+                );
+            });
         });
     }
 
     addToCart(productId : any, quantity : number): void {
         if (!this.quantity) {
+            this.errorMessage = true;
             return;
         }
 
-        this.purchaseService.createNewOrder(window.localStorage.getItem('userId')).then(() => {
-            this.purchaseService.getActiveOrder(window.localStorage.getItem('userId')).then((response) => {
-                var activeOrderId = response[0]._id;
-                this.purchaseService.addPurchase(productId, activeOrderId, quantity);
+        this.purchaseService.createNewOrder(this.userId).then(() => {
+            this.purchaseService.getActiveOrder(this.userId).then((response) => {
+                let activeOrderId = response[0]._id;
+                this.purchaseService.addPurchase(productId, activeOrderId, quantity).then(() => {
+                    this.router.navigate(['/cart']);
+                });
             });
         });
+    }
+
+    replaceMainImage(event): void {
+        let eventNode = event.target;
+        let eventImage = eventNode.getAttribute('src');
+        let mainNode = document.getElementById('main-image');
+        let mainImg = mainNode.getAttribute('src');
+        mainNode.setAttribute('src', eventImage);
+        eventNode.setAttribute('src', mainImg);
     }
 
     ngOnInit(): void {
