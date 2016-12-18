@@ -118,7 +118,8 @@ export class CartComponent {
         this.getPurchases();
     }
 
-    ngDoCheck(): void{
+    ngOnDestroy(): void{
+        this.updatePurchases();
     }
 
 }

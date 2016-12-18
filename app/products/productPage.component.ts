@@ -19,6 +19,7 @@ export class ProductPageComponent {
     private quantity = 0;
 
     private userId: any = null;
+    private inCart : boolean = false;
 
     constructor (
         private productService: ProductService,
@@ -36,11 +37,16 @@ export class ProductPageComponent {
                     this.product.price,
                     this.product.discount
                 );
+                this.getPurchasesCount();
             });
         });
     }
 
     addToCart(productId : any, quantity : number): void {
+        if (this.inCart){
+            return;
+        }
+
         if (!this.quantity) {
             this.errorMessage = true;
             return;
@@ -63,6 +69,19 @@ export class ProductPageComponent {
         let mainImg = mainNode.getAttribute('src');
         mainNode.setAttribute('src', eventImage);
         eventNode.setAttribute('src', mainImg);
+    }
+
+    getPurchasesCount(): void{
+        this.purchaseService.createNewOrder(this.userId).then(() => {
+            this.purchaseService.getActiveOrder(this.userId).then((response) => {
+                let activeOrderId = response[0]._id;
+                this.purchaseService.getProductPurchasesCount(activeOrderId, this.product._id).then((response) => {
+                    if (response > 0){
+                        this.inCart = true;
+                    }
+                });
+            });
+        });
     }
 
     ngOnInit(): void {
