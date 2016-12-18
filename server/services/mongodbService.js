@@ -42,7 +42,12 @@ const getItems = (usedCollection, limit) => {
 const getItemsByField = (collectionName, field) => {
     let items = collections[collectionName].find(field);
     return items;
-}
+};
+
+const getItemsByCategoryId = (collectionName, id) => {
+    let items = collections[collectionName].find({categories: id});
+    return items;
+};
 
 const getItemById = (usedCollection, id) => {
     let item = collections[usedCollection].find(ObjectId(id));
@@ -96,5 +101,6 @@ module.exports = {
     removeItemByName,
     removeItem,
     getItemByName,
-    getItemsById
+    getItemsById,
+    getItemsByCategoryId
 };

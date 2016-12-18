@@ -72,7 +72,7 @@ export class PurchaseService {
 
     updateProduct(newProduct: Product): Promise<void> {
         return this.http.post(
-            this.apiUrl + '/products/update',
+            this.apiUrl + '/products/update-quantity',
             JSON.stringify(newProduct),
             {headers: this.requestHeaders})
             .toPromise()

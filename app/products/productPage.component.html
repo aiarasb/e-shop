@@ -51,9 +51,14 @@
             <div class="panel-footer">
                 <div [ngClass]="product-content-container">
                     <div class="text-center">
-                        <button class="btn btn-lg btn-success" (click)="addToCart( product._id, quantity)">
-                            <i class="glyphicon glyphicon-shopping-cart"></i> Add to cart
-                        </button>
+                        <div *ngIf="userId != null">
+                            <button class="btn btn-lg btn-success" (click)="addToCart( product._id, quantity)">
+                                <i class="glyphicon glyphicon-shopping-cart"></i> Add to cart
+                            </button>
+                        </div>
+                        <div *ngIf="userId == null">
+                            <h3>Login to add this product to shopping cart</h3>
+                        </div>
                     </div>
                     <div class="clearfix">
                         &nbsp;

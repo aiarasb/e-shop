@@ -23,8 +23,7 @@ export class OrderHistoryComponent {
     private selected: boolean = false;
     private orderExists: boolean = true;
 
-    private userId: any = "13";
-
+    private userId: any = null;
 
     constructor ( private router: Router, private purchaseService: PurchaseService)
     {}
@@ -73,7 +72,7 @@ export class OrderHistoryComponent {
     }
 
     getOrderData(): void {
-            this.purchaseService.getCompletedOrders(this.userId).then( (orderData) => {
+            this.purchaseService.getCompletedOrders(window.localStorage.getItem('userId')).then( (orderData) => {
                 this.orders = orderData;
             if (orderData.length === 0){
                 this.orderExists = false;
@@ -85,6 +84,7 @@ export class OrderHistoryComponent {
     }
 
     ngOnInit(): void {
+        this.userId = window.localStorage.getItem('userId');
         this.getOrderData();
     }
 

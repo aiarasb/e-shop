@@ -13,11 +13,12 @@ import {PurchaseService} from "../services/purchase.service";
 
 export class ProductPageComponent {
 
-    product = new Product('', '', '', 0.0, 0, 0, []);
+
     private errorMessage = false;
+    product = new Product('', '', '', 0.0, 0, 0, [], []);
     private quantity = 0;
 
-    private userId : any = "13"; // will need to change later
+    private userId: any = null;
 
     constructor (
         private productService: ProductService,
@@ -59,6 +60,7 @@ export class ProductPageComponent {
     }
 
     ngOnInit(): void {
+        this.userId = window.localStorage.getItem('userId');
         this.getProduct();
     }
 }

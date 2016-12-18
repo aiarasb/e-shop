@@ -6,6 +6,7 @@ export class Product {
     quantity: number;
     discount: number;
     photos: any;
+    categories: Array<string>;
 
     constructor(
         _id: string,
@@ -14,7 +15,8 @@ export class Product {
         price: number,
         quantity: number,
         discount: number,
-        photos: any
+        photos: any,
+        categories: Array<string>
     ) {
         this._id = _id;
         this.name = name;
@@ -23,6 +25,7 @@ export class Product {
         this.quantity = quantity;
         this.discount = discount;
         this.photos = photos;
+        this.categories = categories;
     }
 }
 

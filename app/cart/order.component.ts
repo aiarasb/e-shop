@@ -23,14 +23,12 @@ export class OrderComponent {
 
     private completed : boolean = false;
 
-    private userId : any = "13";
-
     goBack(): void {
         this.location.back();
     }
 
     getOrder(): void{
-        this.purchaseService.getActiveOrder(this.userId).then((response) => {
+        this.purchaseService.getActiveOrder(window.localStorage.getItem('userId')).then((response) => {
             this.orders = response;
 
             var activeOrderId = response[0]._id;
@@ -61,7 +59,7 @@ export class OrderComponent {
 
         this.purchaseService.updateOrder(this.orders[0]).then( () => {
             this.completed = true;
-            this.purchaseService.createNewOrder(this.userId);
+            this.purchaseService.createNewOrder(window.localStorage.getItem('userId'));
         });
     }
 
