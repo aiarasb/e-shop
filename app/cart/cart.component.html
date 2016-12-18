@@ -57,9 +57,11 @@
             </form>
         </div>
     </div>
-    <div *ngIf="isCartEmpty()">
+    <div *ngIf="isCartEmpty() && userId != null">
         <h3>Your shopping cart is empty.</h3>
     </div>
-
+    <div *ngIf="isCartEmpty() && userId == null">
+        <h3>Please login to see your shopping cart.</h3>
+    </div>
 
 </div>
