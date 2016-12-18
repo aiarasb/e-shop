@@ -34,6 +34,10 @@ export class CategoryComponent {
         this.productService.getProductsByCategoryId(this.category._id).subscribe(products => this.products = products);
     }
 
+    gotoProductPage(name: string): void {
+        this.router.navigate(['/products']);
+    }
+
     deleteCategory(category): void {
         this.categoryService.deleteCategory(category);
         this.router.navigate(['/categories']);
