@@ -51,7 +51,6 @@ export class ProductsComponent {
                 }
             }
         });
-
     }
 
     editProduct(productName: string): void {
