@@ -5,5 +5,6 @@ module.exports = [].concat(
     require('./product'),
     require('./user'),
     require('./order'),
-    require('./purchase')
+    require('./purchase'),
+    require('./role')
 );

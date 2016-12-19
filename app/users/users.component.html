@@ -1,0 +1,20 @@
+<div class="users-list">
+    <div *ngFor="let user of users" class="thumbnail">
+        <div class="users-list-align">
+            <label>Username</label>
+            <input [(ngModel)]="user.username" name="username"/>
+        </div>
+        <div class="users-list-align">
+            <label>Password</label>
+            <input [(ngModel)]="user.password" name="password"/>
+        </div>
+        <div class="users-list-align">
+            <div>Set new role:</div>
+            <select (change)="onChange(user, $event.target.value)" >
+                <option *ngFor="let role of roles" [selected]="user.role == role">{{role}}</option>
+            </select>
+        </div>
+        <div class="btn btn-primary" (click)="delete(user)">Delete</div>
+    </div>
+</div>
+<span class="btn btn-primary" (click)="update()">Update</span>

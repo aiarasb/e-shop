@@ -28,6 +28,8 @@ import { PagerService } from './services/pager.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { SearchComponent } from "./search/search.component";
+import { UserComponent } from "./user/user.component";
+import { UsersComponent } from "./users/users.component";
 
 @NgModule({
   imports:      [
@@ -53,7 +55,9 @@ import { SearchComponent } from "./search/search.component";
       EditProductComponent,
       SearchComponent,
       ProductPageComponent,
-      OrderHistoryComponent
+      OrderHistoryComponent,
+      UserComponent,
+      UsersComponent
   ],
   providers: [
      ApiService,

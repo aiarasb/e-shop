@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ApiService } from '../services/api.service'
+import { Router } from "@angular/router";
 
 @Component({
     moduleId: module.id,
@@ -11,7 +12,8 @@ import { ApiService } from '../services/api.service'
 
 export class LoginComponent {
     constructor (
-        private apiService: ApiService
+        private apiService: ApiService,
+        private router: Router
     ) {}
     private loggedIn = false;
     private showLoginPanel = 'hidden';
@@ -22,6 +24,19 @@ export class LoginComponent {
     private passwordRepeat = '';
 
     private errorMessage = '';
+
+    ngOnInit() {
+        let userId = window.localStorage.getItem('userId');
+        if(userId) {
+            this.apiService.getUser(userId, (res) => {
+                if(res.success === 'true') {
+                    this.username = res.payload.username;
+                    this.password = res.payload.password;
+                    this.loggedIn = true;
+                }
+            })
+        }
+    }
 
     showRegister() {
         if(this.showRegisterPanel === 'hidden') {
@@ -74,6 +89,12 @@ export class LoginComponent {
         this.username = '';
         this.password = '';
         this.loggedIn = false;
-        window.localStorage.clear()
+        window.localStorage.clear();
+        this.router.navigate(['']);
+    }
+
+    update(username, password) {
+        this.username = username;
+        this.password = password;
     }
 }
