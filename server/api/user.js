@@ -148,7 +148,8 @@ let createUser = (request, reply) => {
 
     let newUser = {
         username: payload.username,
-        password: payload.password
+        password: payload.password,
+        role: 'user'
     };
 
     let users = mongoDb.getItems('userCollection');
