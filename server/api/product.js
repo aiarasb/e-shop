@@ -12,10 +12,13 @@ function insertProduct (request, reply) {
 
     if (messages.length > 0) {
         reply({
-            success: 'false',
+            success: false,
             messages: messages
         });
+        return;
     }
+
+
 
     let newProduct = {
         name: payload.name,
@@ -32,7 +35,7 @@ function insertProduct (request, reply) {
     products.toArray().then((productArray) => {
         let product = productArray.find((product)=>{
                 return product.name === newProduct.name;
-});
+    });
 
     let status = false;
 

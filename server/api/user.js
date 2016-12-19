@@ -54,32 +54,42 @@ let getUsers = (request, reply) => {
 let authorizeUser = (request, reply) => {
     let payload = request.payload;
 
-    if(!payload.action || payload.id) {
+    if(!payload.role || !payload.action) {
         reply({
             success: 'false',
-            message: 'Invalid user token or username!'
+            message: 'Missing role or action!'
         });
     }
 
-    let users = mongoDb.getItems('userCollection');
+    let roles = mongoDb.getItems('roleCollection');
 
     let message;
 
-    users.toArray().then((userArray) => {
-        let user = userArray.find((user)=>{
-            return user.username === payload.username &&
-                user.token === payload.token;
+    roles.toArray().then((roleArray) => {
+        let role = roleArray.find((role)=>{
+            return role.name === payload.role;
         });
 
-        if(user) {
-            message = {
-                success: 'true',
-                payload: user
-            };
+        if(role) {
+            let action = role.actions.find(action => {
+                return action === payload.action;
+            });
+
+            if(action) {
+                message = {
+                    success: true
+                };
+            } else {
+                message = {
+                    success: false
+                };
+            }
+
+
         } else {
             message = {
                 success: 'false',
-                message: 'Token not valid!'
+                message: 'Role not found.'
             };
         }
         reply(message);
