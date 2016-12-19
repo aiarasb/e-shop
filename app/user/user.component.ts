@@ -18,7 +18,8 @@ export class UserComponent {
         this.apiService.getUser(window.localStorage.getItem('userId'), (res) => {
             if(res.success === 'true') {
                 this.apiService.authorize(res.payload.role, 'editUserRoles', (results) => {
-                    if(results.success === 'true') {
+                    console.log('res', results)
+                    if(results.success) {
                         this.showRootAdminSection = true;
                         this.username = res.payload.username;
                         this.password = res.payload.username;
