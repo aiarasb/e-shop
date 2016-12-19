@@ -9,7 +9,7 @@ import {Order} from "../cart/order";
 @Injectable()
 export class PurchaseService {
 
-    private apiUrl = 'http://e-shop.dev:3000';
+    private apiUrl = 'http://127.0.0.1:3000';
 
     private requestHeaders = new Headers({
         'Content-Type': 'application/json'

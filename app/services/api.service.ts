@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ApiService {
 
-    private apiUrl = 'http://localhost:3000';
+    private apiUrl = 'http://127.0.0.1:3000';
     private requestHeaders = new Headers({
         'Content-Type': 'application/json',
     });

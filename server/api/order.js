@@ -14,18 +14,18 @@ function insertOrder (request, reply){
 
     order.toArray().then((orderArray) => {
         if (orderArray.length > 0){
-        reply("Active order already exists.");
-    }else{
+            reply("Active order already exists.");
+        }else{
 
-        var orderData = {
-            isActive : true
-            , userId : request.payload.id
-        };
+            var orderData = {
+                isActive : true
+                , userId : request.payload.id
+            };
 
-        mongoDb.insertItem('orderCollection', orderData);
-        reply('Order added.');
+            mongoDb.insertItem('orderCollection', orderData);
+            reply('Order added.');
 
-    }
+        }
     }).catch(()=>{
             reply("Error getting data from DB");
     });
