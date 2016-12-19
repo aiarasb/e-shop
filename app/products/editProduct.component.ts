@@ -13,6 +13,9 @@ import {IMultiSelectOption} from 'angular-2-dropdown-multiselect/src/multiselect
 })
 
 export class EditProductComponent {
+    private failedToAdd = false;
+    private productAdded = false;
+    private errorMessages : any;
     product = new Product('','','',0,0,0,[],[]);
     categories: Category[];
     categoriesList: IMultiSelectOption[] = [];
@@ -67,8 +70,16 @@ export class EditProductComponent {
     }
 
     onSubmit(): void {
-        this.productService.updateProduct(this.product);
-        this.router.navigate(['/products'])
+        this.productService.updateProduct(this.product, (res) => {
+            if (res.success) {
+                this.productAdded = true;
+            }
+
+            if (!res.success) {
+                this.failedToAdd = true;
+                this.errorMessages = res.messages;
+            }
+        });
     }
 
     gotoProductsPage(): void {

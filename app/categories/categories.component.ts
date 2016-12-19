@@ -17,8 +17,8 @@ export class CategoriesComponent {
 
     constructor(private router: Router,
                 private categoryService: CategoryService,
-                private apiService: ApiService
-    ) {}
+                private apiService: ApiService) {
+    }
 
     getCategories(): void {
         this.categoryService.getCategories().subscribe(categories => this.categories = categories);
@@ -29,16 +29,14 @@ export class CategoriesComponent {
     }
 
     gotoCategory(category): void {
-        if(this.userIsAdmin) {
-            this.router.navigate(['/category/show', category.name]);
-        }
+        this.router.navigate(['/category/show', category.name]);
     }
 
     ngOnInit(): void {
         this.getCategories();
         this.apiService.getUser(window.localStorage.getItem('userId'), (res) => {
-            if(res.success === 'true') {
-                if(res.payload.role === 'admin' || res.payload.role === 'rootAdmin') {
+            if (res.success === 'true') {
+                if (res.payload.role === 'admin' || res.payload.role === 'rootAdmin') {
                     this.userIsAdmin = true;
                 }
             }

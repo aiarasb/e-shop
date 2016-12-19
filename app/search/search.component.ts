@@ -93,6 +93,10 @@ export class SearchComponent {
         this.setPage(1);
     }
 
+    gotoProductPage(name: string): void {
+        this.router.navigate(['/product', name]);
+    }
+
     ngOnInit(): void {
         this.getCategories();
         this.getProducts();
