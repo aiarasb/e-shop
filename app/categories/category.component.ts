@@ -5,6 +5,7 @@ import {Category} from './category';
 import {CategoryService} from '../services/category.service'
 import {ProductService} from "../services/product.service";
 import {Product} from "../products/product";
+import {ApiService} from "../services/api.service";
 
 @Component({
     moduleId: module.id,
@@ -16,11 +17,13 @@ export class CategoryComponent {
     category: Category;
     oldCategory: Category;
     products: Product[];
+    private userIsAdmin = false;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
                 private categoryService: CategoryService,
-                private productService: ProductService) {
+                private productService: ProductService,
+                private apiService: ApiService) {
     }
 
     getCategory(): void {
@@ -35,7 +38,7 @@ export class CategoryComponent {
     }
 
     gotoProductPage(name: string): void {
-        this.router.navigate(['/products']);
+        this.router.navigate(['/product', name]);
     }
 
     deleteCategory(category): void {
@@ -49,6 +52,13 @@ export class CategoryComponent {
 
     ngOnInit(): void {
         this.getCategory();
+        this.apiService.getUser(window.localStorage.getItem('userId'), (res) => {
+            if(res.success === 'true') {
+                if(res.payload.role === 'admin' || res.payload.role === 'rootAdmin') {
+                    this.userIsAdmin = true;
+                }
+            }
+        });
     }
 
     ngDoCheck(): void {

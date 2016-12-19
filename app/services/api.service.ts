@@ -9,7 +9,6 @@ export class ApiService {
     private apiUrl = 'http://localhost:3000';
     private requestHeaders = new Headers({
         'Content-Type': 'application/json',
-        'Origin': 'Access-Control-Allow-Origin'
     });
 
     constructor(private http: Http) {}
