@@ -49,6 +49,11 @@ export class OrderHistoryComponent {
             this.loaded++;
             if ((i+1) < this.purchases.length)
                 this.getProductsRecursively(i+1);
+            else{
+                for (var j = 0; j < this.purchases.length; j++){
+                    console.log((this.purchases[j].discount + "   " + this.products[j].name));
+                }
+            }
         })
     }
 

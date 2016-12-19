@@ -36,12 +36,8 @@ export class OrderComponent {
             this.purchaseService.getPurchases(activeOrderId).then((response) => {
                 this.purchases = response;
 
-                var ind = 0;
-                for (let i of this.purchases){
-                    this.purchaseService.getProduct(i.productId).then((resp) => {
-                        this.products.splice(ind, 0, resp[0]);
-                    })
-                    ind ++;
+                if(this.purchases.length > 0){
+                    this.getProductsRecursively(0);
                 }
             });
         });
@@ -51,6 +47,14 @@ export class OrderComponent {
         this.updateOrder();
         this.updateProductQuantity();
         this.updatePurchaseDiscount();
+    }
+
+    getProductsRecursively(i : any){
+        this.purchaseService.getProduct(this.purchases[i].productId).then((resp) => {
+            this.products.push(resp[0]);
+            if ((i+1) < this.purchases.length)
+                this.getProductsRecursively(i+1);
+        })
     }
 
     updateOrder(): void{
