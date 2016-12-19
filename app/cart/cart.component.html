@@ -3,7 +3,7 @@
         <h1>Shopping cart</h1>
     </div>
 
-    <div *ngIf="!isCartEmpty()">
+    <div *ngIf="!isCartEmpty() && loaded == purchases.length">
         <div class="col-md-8">
             <form (ngSubmit)="goToOrder()">
                 <div class="panel panel-default">
@@ -18,13 +18,13 @@
                                     <th>Whole price</th>
                                     <th>Remove</th>
                                 </tr>
-                                <tr *ngFor="let product of products; let i = index" >
-                                    <td><img src={{product.photos[0].link}} class="img-rounded"></td>
-                                    <td id="productName" (click)="goToProductPage(product.name)">{{product.name}} </td>
+                                <tr *ngFor="let purchase of purchases; let i = index" >
+                                    <td><img src={{products[i].photos[0].link}} class="img-rounded"></td>
+                                    <td id="productName" (click)="goToProductPage(products[i].name)">{{products[i].name}} </td>
                                     <td style="text-align:right" >{{getDiscountedProductPrice(i) }} €</td>
-                                    <td style="text-align:left"><span *ngIf="product.discount" style="color: #9c9c9c; text-decoration:line-through;font-size:85%;">{{getFullProductPrice(i) }} €</span> </td>
-                                    <td><input (ngModelChange)="onQuantityChange(purchases[i])" type="number" min="1" max={{product.quantity}}
-                                               class="input" [(ngModel)]="purchases[i].quantity" placeholder="Enter quantity" name={{i}} required></td>
+                                    <td style="text-align:left"><span *ngIf="products[i].discount" style="color: #9c9c9c; text-decoration:line-through;font-size:85%;">{{getFullProductPrice(i) }} €</span> </td>
+                                    <td><input (ngModelChange)="onQuantityChange(purchases[i])" type="number" min="1" max={{products[i].quantity}}
+                                               class="input" [(ngModel)]="purchase.quantity" placeholder="Enter quantity" name={{i}} required></td>
                                     <td><b>{{getPurchasePrice(i)}} € </b></td>
                                     <td> <button class="btn btn-default" (click)="removePurchase(i)"><span class="glyphicon glyphicon-remove"></span></button></td>
                                 </tr>
