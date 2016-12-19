@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Product } from './product'
 import { ProductService } from '../services/product.service'
 import { PagerService } from '../services/pager.service'
+import { ApiService } from '../services/api.service'
 
 @Component({
     moduleId: module.id,
@@ -18,11 +19,13 @@ export class ProductsComponent {
     products: Product[];
     private  pager: any = {};
     private pagedProducts: any[];
+    private showProducts = false;
 
     constructor (
         private router: Router,
         private productService: ProductService,
-        private pagerService: PagerService
+        private pagerService: PagerService,
+        private apiService: ApiService
     ) {}
 
     gotoProductAdd(): void {
@@ -37,10 +40,18 @@ export class ProductsComponent {
     }
 
     ngOnInit(): void {
-        this.getProducts();
-        if (this.products) {
-            this.displayProducts = true;
-        }
+        this.apiService.getUser(window.localStorage.getItem('userId'), (res) => {
+            if(res.success === 'true') {
+                this.getProducts();
+                if (this.products) {
+                    this.displayProducts = true;
+                }
+                if(res.payload.role === 'admin' || res.payload.role === 'rootAdmin') {
+                    this.showProducts = true;
+                }
+            }
+        });
+
     }
 
     editProduct(productName: string): void {
