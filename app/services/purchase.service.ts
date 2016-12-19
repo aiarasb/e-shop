@@ -115,6 +115,18 @@ export class PurchaseService {
             .catch(this.handleError);
     }
 
+    getProductPurchasesCount(orderId : any, productId: any): Promise<number> {
+        return this.http.post(
+            this.apiUrl + '/purchase/get-by-product',
+            {orderId: orderId, productId: productId})
+            .toPromise()
+            .then(response => {
+                var orders : Order[] = response.json();
+                return orders.length;
+            })
+            .catch(this.handleError);
+    }
+
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);

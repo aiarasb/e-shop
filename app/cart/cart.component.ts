@@ -18,6 +18,7 @@ export class CartComponent {
     private products: Product[] = [];
 
     private userId: any = null;
+    private loaded = 0;
 
     constructor (
         private router: Router, private purchaseService: PurchaseService
@@ -41,18 +42,24 @@ export class CartComponent {
             this.purchaseService.getPurchases(activeOrderId).then((response) => {
                 this.purchases = response;
 
-                var ind = 0;
-                for (let i of this.purchases){
-                    this.purchaseService.getProduct(i.productId).then((resp) => {
-                        this.products.splice(ind, 0, resp[0]);
-                    })
-                    ind ++;
+                if(this.purchases.length > 0){
+                    this.getProductsRecursively(0);
                 }
             });
         }).catch(() => {
             console.log("User doesn't have active order.")
         });
     }
+
+    getProductsRecursively(i : any){
+        this.purchaseService.getProduct(this.purchases[i].productId).then((resp) => {
+            this.products.push(resp[0]);
+            this.loaded++;
+            if ((i+1) < this.purchases.length)
+                this.getProductsRecursively(i+1);
+        })
+    }
+
 
     removePurchase(index : any) : void{
         var purchaseId = this.purchases[index]._id;
@@ -118,7 +125,10 @@ export class CartComponent {
         this.getPurchases();
     }
 
-    ngDoCheck(): void{
+    ngOnDestroy(): void{
+        if(this.products.length > 0){
+            this.updatePurchases();
+        }
     }
 
 }

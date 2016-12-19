@@ -24,6 +24,7 @@ export class OrderHistoryComponent {
     private orderExists: boolean = true;
 
     private userId: any = null;
+    private loaded = 0;
 
     constructor ( private router: Router, private purchaseService: PurchaseService)
     {}
@@ -36,15 +37,24 @@ export class OrderHistoryComponent {
 
         this.purchaseService.getPurchases(selectedOrderId).then((response) => {
             this.purchases = response;
-
-            var ind = 0;
-            for (let i of this.purchases){
-                this.purchaseService.getProduct(i.productId).then((resp) => {
-                    this.products.splice(ind, 0, resp[0]);
-                })
-                ind ++;
+            if(this.purchases.length > 0){
+                this.getProductsRecursively(0);
             }
         });
+    }
+
+    getProductsRecursively(i : any){
+        this.purchaseService.getProduct(this.purchases[i].productId).then((resp) => {
+            this.products.push(resp[0]);
+            this.loaded++;
+            if ((i+1) < this.purchases.length)
+                this.getProductsRecursively(i+1);
+            else{
+                for (var j = 0; j < this.purchases.length; j++){
+                    console.log((this.purchases[j].discount + "   " + this.products[j].name));
+                }
+            }
+        })
     }
 
     getDiscountedProductPrice(ind : any): string{
@@ -67,6 +77,7 @@ export class OrderHistoryComponent {
     onChange(orderId : any): void {
         this.purchases = [];
         this.products = [];
+        this.loaded = 0;
         this.getPurchases(orderId);
         this.selected = true;
     }

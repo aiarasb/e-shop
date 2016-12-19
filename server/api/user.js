@@ -2,13 +2,13 @@
 
 const mongoDb = require('../services/mongodbService.js');
 
-let authenticateUser = (request, reply) => {
-    let payload = request.payload;
+let getUser = (request, reply) => {
+    let userId = request.params.id;
 
-    if(!payload.token || payload.username) {
+    if(!userId) {
         reply({
             success: 'false',
-            message: 'Invalid user token or username!'
+            message: 'The request must contain a user Id!'
         });
     }
 
@@ -17,9 +17,8 @@ let authenticateUser = (request, reply) => {
     let message;
 
     users.toArray().then((userArray) => {
-        let user = userArray.find((user)=>{
-            return user.username === payload.username &&
-                user.token === payload.token;
+        let user = userArray.find((user) => {
+            return user._id.toString() === userId;
         });
 
         if(user) {
@@ -30,7 +29,67 @@ let authenticateUser = (request, reply) => {
         } else {
             message = {
                 success: 'false',
-                message: 'Token not valid!'
+                message: 'User with such id does not exist!'
+            };
+        }
+        reply(message);
+    }).catch(()=>{
+        reply({success: 'false'});
+    });
+};
+
+let getUsers = (request, reply) => {
+    let users = mongoDb.getItems('userCollection');
+
+    users.toArray().then((userArray) => {
+        reply({
+            success: 'false',
+            payload: userArray
+        });
+    }).catch(()=>{
+        reply({success: 'false'});
+    });
+};
+
+let authorizeUser = (request, reply) => {
+    let payload = request.payload;
+
+    if(!payload.role || !payload.action) {
+        reply({
+            success: 'false',
+            message: 'Missing role or action!'
+        });
+    }
+
+    let roles = mongoDb.getItems('roleCollection');
+
+    let message;
+
+    roles.toArray().then((roleArray) => {
+        let role = roleArray.find((role)=>{
+            return role.name === payload.role;
+        });
+
+        if(role) {
+            let action = role.actions.find(action => {
+                return action === payload.action;
+            });
+
+            if(action) {
+                message = {
+                    success: true
+                };
+            } else {
+                message = {
+                    success: false
+                };
+            }
+
+
+        } else {
+            message = {
+                success: 'false',
+                message: 'Role not found.'
             };
         }
         reply(message);
@@ -124,8 +183,10 @@ let updateUser = (request, reply) => {
     let payload = request.payload;
 
     let userToUpdate = {
+        id: payload.id,
         username: payload.username,
-        password: payload.password
+        password: payload.password,
+        role: payload.role
     };
 
     let users = mongoDb.getItems('userCollection');
@@ -134,15 +195,15 @@ let updateUser = (request, reply) => {
 
     users.toArray().then((userArray) => {
         let user = userArray.find((user)=>{
-            return user.username === userToUpdate.username;
+            return user._id.toString() === userToUpdate.id;
         });
 
         if(user) {
+            user.username = userToUpdate.username;
             user.password = userToUpdate.password;
+            user.role = userToUpdate.role;
 
             mongoDb.updateItem('userCollection', user);
-
-            console.log(user);
 
             message = {
                 success: 'true',
@@ -167,9 +228,9 @@ let updateUser = (request, reply) => {
 let deleteUser = (request, reply) => {
     let payload = request.payload;
 
-    if(!payload.username) {
+    if(!payload.id) {
         reply({
-            message: 'Must input username!'
+            message: 'Must input id!'
         });
     }
 
@@ -179,7 +240,7 @@ let deleteUser = (request, reply) => {
 
     users.toArray().then((userArray) => {
         let user = userArray.find((user)=>{
-            return user.username === payload.username;
+            return user._id.toString() === payload.id;
         });
 
         if(user) {
@@ -206,7 +267,9 @@ let deleteUser = (request, reply) => {
 };
 
 module.exports = [
-    { method: 'POST', path: '/user/authenticate', handler: authenticateUser },
+    { method: 'GET',  path: '/user/{id}', handler: getUser},
+    { method: 'GET',  path: '/user/all', handler: getUsers},
+    { method: 'POST', path: '/user/authorize', handler: authorizeUser },
     { method: 'POST', path: '/user/login', handler: loginUser },
     { method: 'POST', path: '/user/create', handler: createUser },
     { method: 'POST', path: '/user/update', handler: updateUser },
