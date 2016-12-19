@@ -14,6 +14,16 @@ export class ApiService {
 
     constructor(private http: Http) {}
 
+    authorize(role, action, onSuccess) {
+        return this.http
+            .post(this.apiUrl + '/user/authorize', JSON.stringify({role: role, action: action}), {headers: this.requestHeaders})
+            .toPromise()
+            .then((res) => {
+                console.log(res['_body']);
+                onSuccess(JSON.parse(res['_body']));
+            })
+    }
+
     login(username, password, onSuccess) {
         return this.http
             .post(this.apiUrl + '/user/login', JSON.stringify({username: username, password: password}), {headers: this.requestHeaders})

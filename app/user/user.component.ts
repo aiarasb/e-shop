@@ -17,11 +17,11 @@ export class UserComponent {
     ngOnInit() {
         this.apiService.getUser(window.localStorage.getItem('userId'), (res) => {
             if(res.success === 'true') {
-                this.userData = res.payload;
-                if(this.userData.role === 'rootAdmin') {
-                    this.showRootAdminSection = true;
-                }
-                console.log(this.userData)
+                this.apiService.authorize(res.payload.role, 'editUserRoles', (results) => {
+                    if(results.success) {
+                        this.showRootAdminSection = true;
+                    }
+                });
             }
         })
     }
