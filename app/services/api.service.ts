@@ -6,10 +6,9 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ApiService {
 
-    private apiUrl = 'http://localhost:3000';
+    private apiUrl = 'http://127.0.0.1:3000';
     private requestHeaders = new Headers({
         'Content-Type': 'application/json',
-        'Origin': 'Access-Control-Allow-Origin'
     });
 
     constructor(private http: Http) {}
@@ -63,9 +62,10 @@ export class ApiService {
 
     updateUser(userData, username, password, onSuccess) {
         return this.http
-            .post(this.apiUrl + '/user/update', JSON.stringify({id: userData._id, username: username, password: password, role: userData.role}), {headers: this.requestHeaders})
+            .post(this.apiUrl + '/user/update', JSON.stringify({id: userData._id, username: username, password: password, role: userData.role, photo: userData.photo}), {headers: this.requestHeaders})
             .toPromise()
             .then((res) => {
+                console.log('update', res);
                 onSuccess(JSON.parse(res['_body']));
             })
     }

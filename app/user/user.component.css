@@ -5,3 +5,8 @@
 .user-list-separator {
     border-top: 1px solid gainsboro;
 }
+
+.user-profile {
+    display: flex;
+    justify-content: space-around;
+}

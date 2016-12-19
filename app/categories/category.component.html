@@ -4,8 +4,8 @@
             <h2>{{category.name}}</h2>
             <p>{{category.description}}</p>
         </div>
-        <div class="row" *ngFor="let product of products">
-            <div class="col-sm-6 col-md-4">
+        <div class="row">
+            <div *ngFor="let product of products" class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <img class="img-responsive img-thumbnail" [attr.src]="product.photos[0].link"
                          (click)="gotoProductPage(product.name)">
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
+        <div *ngIf="userIsAdmin" class="modal-footer">
             <button class="btn btn-primary" (click)="editCategory(category)">Edit</button>
             <button class="btn btn-danger" (click)="deleteCategory(category)">Delete</button>
         </div>

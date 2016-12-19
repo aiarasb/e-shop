@@ -148,7 +148,8 @@ let createUser = (request, reply) => {
 
     let newUser = {
         username: payload.username,
-        password: payload.password
+        password: payload.password,
+        role: 'user'
     };
 
     let users = mongoDb.getItems('userCollection');
@@ -186,7 +187,8 @@ let updateUser = (request, reply) => {
         id: payload.id,
         username: payload.username,
         password: payload.password,
-        role: payload.role
+        role: payload.role,
+        photo: payload.photo
     };
 
     let users = mongoDb.getItems('userCollection');
@@ -202,6 +204,7 @@ let updateUser = (request, reply) => {
             user.username = userToUpdate.username;
             user.password = userToUpdate.password;
             user.role = userToUpdate.role;
+            user.photo = userToUpdate.photo;
 
             mongoDb.updateItem('userCollection', user);
 
