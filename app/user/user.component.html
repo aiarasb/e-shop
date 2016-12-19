@@ -1,18 +1,26 @@
-<div class="user-edit">
+<div class="user-edit" *ngIf="userData !== null">
     <h1>User information</h1>
-    <form *ngIf="userData !== null">
-        <div>
-            <label>Username:</label>
-            <input class="form-control" [(ngModel)]="username" name="username"/>
-        </div>
+    <div class="user-profile">
+        <img *ngIf="userData.photo !== ''" src="{{userData.photo}}"/>
+        <form>
+            <div>
+                <label>Username:</label>
+                <input class="form-control" [(ngModel)]="username" name="username"/>
+            </div>
 
-        <div class="user-item-padding">
-            <label>Password:</label>
-            <input class="form-control" [(ngModel)]="password" name="password"/>
-        </div>
+            <div class="user-item-padding">
+                <label>Password:</label>
+                <input class="form-control" [(ngModel)]="password" name="password"/>
+            </div>
 
-        <div class="btn btn-primary" (click)="update()">Update</div>
-    </form>
+            <div class="user-item-padding">
+                <label>Photo url:</label>
+                <input class="form-control" [(ngModel)]="userData.photo" name="userPhoto"/>
+            </div>
+
+            <div class="btn btn-primary" (click)="update()">Update</div>
+        </form>
+    </div>
 </div>
 
 <div *ngIf="showRootAdminSection === true">

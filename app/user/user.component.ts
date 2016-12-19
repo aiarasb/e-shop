@@ -20,13 +20,18 @@ export class UserComponent {
                 this.apiService.authorize(res.payload.role, 'editUserRoles', (results) => {
                     if(results.success) {
                         this.showRootAdminSection = true;
+                        this.username = res.payload.username;
+                        this.password = res.payload.username;
+                        this.userData = res.payload;
                     }
                 });
             }
         })
     }
 
-    private userData;
+    private userData = {
+        photo: ''
+    };
     private username;
     private password;
     private showRootAdminSection;
@@ -34,6 +39,7 @@ export class UserComponent {
     update() {
         this.apiService.updateUser(this.userData, this.username, this.password, (res) => {
             if(res.success === 'true') {
+                console.log(res.payload);
                 this.userData = res.payload;
             }
         });

@@ -63,9 +63,10 @@ export class ApiService {
 
     updateUser(userData, username, password, onSuccess) {
         return this.http
-            .post(this.apiUrl + '/user/update', JSON.stringify({id: userData._id, username: username, password: password, role: userData.role}), {headers: this.requestHeaders})
+            .post(this.apiUrl + '/user/update', JSON.stringify({id: userData._id, username: username, password: password, role: userData.role, photo: userData.photo}), {headers: this.requestHeaders})
             .toPromise()
             .then((res) => {
+                console.log('update', res);
                 onSuccess(JSON.parse(res['_body']));
             })
     }
