@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Product } from '../products/product';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ProductService {
@@ -12,7 +13,10 @@ export class ProductService {
         'Content-Type': 'application/json'
     });
 
-    constructor(private http: Http) {}
+    constructor(
+        private http: Http,
+        private router: Router
+    ) {}
 
     private extractData(res: Response) {
         let body = res.json();
@@ -27,6 +31,15 @@ export class ProductService {
         return {};
     }
 
+    getReducedPrice(price: number, discount: number): number {
+        if (!discount) {
+            return 0;
+        }
+
+        let calculatedDidcount = price*(discount/100);
+        return price - calculatedDidcount;
+    }
+
     getPhotoLinks() {
         let photos = <HTMLCollection>document.getElementsByClassName('photo-link-input');
         if (!photos) {
@@ -35,7 +48,7 @@ export class ProductService {
 
         let photosObj = [];
 
-        for(var i = 0; i < photos.length; i++)
+        for(let i = 0; i < photos.length; i++)
         {
             let cover = 0;
             let link = (<HTMLInputElement>photos[i]).value;
@@ -45,7 +58,7 @@ export class ProductService {
             }
             photosObj.push({
                 link: link,
-                main: cover
+                cover: cover
             });
         }
         return photosObj;
@@ -56,6 +69,16 @@ export class ProductService {
             .post(
                 this.apiUrl + '/products/get-multiple',
                 JSON.stringify({'ids':productIds})
+            )
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    getProductsByCategoryId(categoryId: string): Observable<Product[]> {
+        return this.http
+            .post(
+                this.apiUrl + '/products/get-multiple-by-category',
+                JSON.stringify({'id':categoryId})
             )
             .map(this.extractData)
             .catch(this.handleError);
@@ -81,47 +104,25 @@ export class ProductService {
             .catch(this.handleError);
     }
 
-    addProduct (name: string, description: string, price: number, quantity: number, discount: number): void {
-        let data = {
-            name: name,
-            description: description,
-            price: price,
-            quantity: quantity,
-            discount: discount,
-            photos: this.getPhotoLinks()
-        };
+    addProduct (product: Product): void {
+        product['photos'] = this.getPhotoLinks();
         this.http
             .post(
                 this.apiUrl + '/products/add',
-                JSON.stringify(data),
-                {headers: this.requestHeaders}
+                product,
             )
             .toPromise()
-            .catch(this.handleError);
+            .then(() =>{
+                this.router.navigate(['/products']);
+            });
     }
 
-    updateProduct(
-        id: string,
-        name: string,
-        description: string,
-        price: number,
-        quantity: number,
-        discount: number
-    ): void {
-        let data = {
-            _id: id,
-            name: name,
-            description: description,
-            price: price,
-            quantity: quantity,
-            discount: discount,
-            photos: this.getPhotoLinks()
-        };
+    updateProduct(product: Product): void {
+        product['photos'] = this.getPhotoLinks();
         this.http
             .post(
                 this.apiUrl + '/products/update',
-                JSON.stringify(data),
-                {headers: this.requestHeaders}
+                product
             )
             .toPromise()
             .catch(this.handleError);

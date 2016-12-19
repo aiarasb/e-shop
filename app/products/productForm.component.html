@@ -1,194 +1,77 @@
-<div class="clearfix">
-    &nbsp;
-</div>
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h1 *ngIf="product">Edit product</h1>
-                    <h1 *ngIf="!product">Add product</h1>
-                </div>
-                    <div class="panel-body">
-                        <form #productForm="ngForm" class="form-horizontal">
-                            <div *ngIf="product">
-                                <input #id name="id" [hidden]="hideId" [value]="product._id">
-                                <div  class="form-group">
-                                    <div class="col-lg-6 col-md-6">
-                                        <label for="name">Name</label>
-                                        <input #name [value]="product.name" type="text" class="form-control" name="name" id="name" required>
-                                    </div>
-                                </div>
-                                <div  class="form-group">
-                                    <div class="col-lg-6 col-md-6">
-                                        <label>Description</label>
-                                        <textarea #description [value]="product.description" name="description" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                                <div  class="form-group">
-                                    <div class="col-lg-6 col-md-6">
-                                        <label for="price">Price</label>
-                                        <div class="input-group">
-                                            <input #price [value]="product.price" type="text" class="form-control" id="price" name="price" required>
-                                            <span class="input-group-addon">$</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div  class="form-group">
-                                    <div class="col-lg-2 col-md-2">
-                                        <label for="quantity">Quantity</label>
-                                        <input #quantity [value]="product.quantity" type="text" class="form-control" id="quantity" name="quantity" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-6 col-md-6">
-                                        <label>Discount %</label>
-                                        <div class="input-group">
-                                            <input #discount [value]="product.discount" type="text" class="form-control" name="discount">
-                                            <span class="input-group-addon">%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div *ngIf="product.photos">
-                                    <div class="well">
-                                        <button class="pull-left btn btn-default" type="button" (click)="addProductInput()">
-                                            <i class="glyphicon glyphicon-camera"></i> Add photo links
-                                        </button>
-                                        <div class="clearfix">
-                                            &nbsp;
-                                        </div>
-                                    </div>
-                                        <div *ngFor="let photo of product.photos" class="photo-link-container">
-                                            <div class="form-group">
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="input-group">
-                                                        <input *ngIf="photo.main == 1" [value]="photo.link"  class="photo-link-input form-control" type="text">
-                                                        <input *ngIf="photo.main == 0" [value]="photo.link" class="photo-link-input form-control" type="text">
-                                                        <span *ngIf="photo.main == 1" class="input-group-addon">
-                                                            cover image
-                                                        </span>
-                                                        <span class="input-group-addon" *ngIf="photo.main == 0" (click)="removeProductInput($event)">
-                                                            <i class="glyphicon glyphicon-remove"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div *ngFor='let input of inputData' class="photo-link-container">
-                                            <div class="form-group">
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="input-group">
-                                                        <input *ngIf="input.display" class="photo-link-input form-control" type="text">
-                                                        <span class="input-group-addon" *ngIf="input.display" (click)="removeProductInput($event)">
-                                                            <i class="glyphicon glyphicon-remove"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <div class="pull-left">
-                                            <button type="button" class="btn btn-default btn-lg" (click)="gotoProductsPage()">
-                                                <i class="glyphicon glyphicon-remove"></i> Cancel
-                                            </button>
-                                        </div>
-                                        <div class="pull-right">
-                                            <button type="button" class="btn btn-primary btn-lg" [disabled]="!productForm.form.valid"
-                                                    (click)="updateProduct(id.value, name.value, description.value, price.value, quantity.value, discount.value)">
-                                                <i class="glyphicon glyphicon-ok"></i> Update
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngIf="!product">
-                                <div  class="form-group">
-                                    <div class="col-lg-6 col-md-6">
-                                        <label>Name</label>
-                                        <input #name type="text" class="form-control" name="name" required>
-                                    </div>
-                                </div>
-                                <div  class="form-group">
-                                    <div class="col-lg-6 col-md-6">
-                                        <label>Description</label>
-                                        <textarea #description name="description" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                                <div  class="form-group">
-                                    <div class="col-lg-6 col-md-6">
-                                        <label>Price</label>
-                                        <div class="input-group">
-                                            <input #price type="text" class="form-control" name="price" required>
-                                            <span class="input-group-addon">$</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div  class="form-group">
-                                    <div class="col-lg-2 col-md-2">
-                                        <label for="quantity">Quantity</label>
-                                        <input #quantity type="text" class="form-control" name="quantity" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-6 col-md-6">
-                                        <label>Discount %</label>
-                                        <div class="input-group">
-                                            <input #discount type="text" class="form-control" name="discount">
-                                            <span class="input-group-addon">%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="well">
-                                        <button class="pull-left btn btn-default" type="button" (click)="addProductInput()">
-                                            <i class="glyphicon glyphicon-camera"></i> Add photo links
-                                        </button>
-                                        <div class="clearfix">
-                                            &nbsp;
-                                        </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="input-group">
-                                            <input class="photo-link-input form-control" type="text">
-                                            <span class="input-group-addon">
-                                                cover image
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div *ngFor='let input of inputData' class="photo-link-container">
-                                    <div class="form-group">
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="input-group">
-                                                <input class="photo-link-input form-control" type="text">
-                                                <span class="input-group-addon" (click)="removeProductInput($event)">
-                                                        <i class="glyphicon glyphicon-remove"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <div class="pull-left">
-                                            <button type="button" class="btn btn-default btn-lg" (click)="gotoProductsPage()">
-                                                <i class="glyphicon glyphicon-remove"></i> Cancel
-                                            </button>
-                                        </div>
-                                        <div class="pull-right">
-                                            <button type="button" class="btn btn-primary btn-lg" [disabled]="!productForm.form.valid"
-                                                    (click)="addProduct(name.value, description.value, price.value, quantity.value, discount.value)">
-                                                    <i class="glyphicon glyphicon-ok"></i> Add
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+    <div class="page-header">
+        <h2>Add/Edit Product</h2>
+    </div>
+    <form class="col-md-8" #productForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input #productName class="form-control" type="text" id="name" name="name" [(ngModel)]="product.name"
+                   required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" rows="5" #productDescription id="description" name="description"
+                      [(ngModel)]="product.description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="price">Price</label>
+            <div class="input-group">
+                <input #productPrice type="number" class="form-control"
+                       id="price" name="price" [(ngModel)]="product.price" required>
+                <span class="input-group-addon">$</span>
             </div>
         </div>
-    </div>
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input #productquantity type="number" class="form-control"
+                   id="quantity" name="quantity" [(ngModel)]="product.quantity" required>
+        </div>
+        <div class="form-group">
+            <label for="discount">Discount</label>
+            <div class="input-group">
+                <input #productDiscount type="number" class="form-control"
+                       id="discount" name="discount" [(ngModel)]="product.discount">
+                <span class="input-group-addon">%</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Categories</label>
+            <ss-multiselect-dropdown name="categories" [options]="categoriesList"
+                                     [(ngModel)]="product.categories"
+                                     (click)="transformCategories()"></ss-multiselect-dropdown>
+        </div>
+        <div class="well">
+            <button class="pull-left btn btn-default" type="button" (click)="addProductInput()">
+                <i class="glyphicon glyphicon-camera"></i> Add photo links
+            </button>
+            <div class="clearfix">
+                &nbsp;
+            </div>
+        </div>
+        <div *ngIf="product.photos">
+            <div *ngFor="let photo of product.photos" class="photo-link-container form-group">
+                <div class="input-group">
+                    <input *ngIf="photo.cover == 1" [value]="photo.link"
+                           class="photo-link-input form-control" type="text">
+                    <input *ngIf="photo.cover == 0" [value]="photo.link"
+                           class="photo-link-input form-control" type="text">
+                    <span *ngIf="photo.cover == 1" class="input-group-addon">cover image</span>
+                    <span class="input-group-addon" *ngIf="photo.cover == 0"
+                          (click)="removeProductInput($event)">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </span>
+                </div>
+            </div>
+        </div>
+        <div *ngFor='let input of inputData' class="photo-link-container form-group">
+            <div class="input-group">
+                <input class="photo-link-input form-control" type="text">
+                <span class="input-group-addon" (click)="removeProductInput($event)" *ngIf="!input.cover">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </span>
+                <span *ngIf="input.cover" class="input-group-addon">cover image</span>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Save</button>
+    </form>
 </div>

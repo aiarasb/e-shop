@@ -72,7 +72,7 @@ export class PurchaseService {
 
     updateProduct(newProduct: Product): Promise<void> {
         return this.http.post(
-            this.apiUrl + '/products/update',
+            this.apiUrl + '/products/update-quantity',
             JSON.stringify(newProduct),
             {headers: this.requestHeaders})
             .toPromise()
@@ -112,6 +112,18 @@ export class PurchaseService {
              )
             .toPromise()
             .then(() => null)
+            .catch(this.handleError);
+    }
+
+    getProductPurchasesCount(orderId : any, productId: any): Promise<number> {
+        return this.http.post(
+            this.apiUrl + '/purchase/get-by-product',
+            {orderId: orderId, productId: productId})
+            .toPromise()
+            .then(response => {
+                var orders : Order[] = response.json();
+                return orders.length;
+            })
             .catch(this.handleError);
     }
 

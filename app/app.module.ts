@@ -4,6 +4,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
+import {MultiselectDropdownModule} from 'angular-2-dropdown-multiselect/src/multiselect-dropdown';
 
 import { AppComponent }   from './main/app.component';
 import { HomeComponent } from './home/home.component';
@@ -37,7 +38,8 @@ import { UsersComponent } from "./users/users.component";
       AppRoutingModule,
       HttpModule,
       JsonpModule,
-      FormsModule
+      FormsModule,
+      MultiselectDropdownModule,
   ],
   declarations: [
       AppComponent,

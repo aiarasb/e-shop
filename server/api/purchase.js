@@ -53,12 +53,23 @@ function updatePurchase (request, reply){
     reply('Purchase updated.');
 }
 
+function getProductPurchases (request, reply){
+    let purchases = mongoDb.getItemsByField('purchaseCollection',
+        {$and:[
+            {"orderId": request.payload.orderId},
+            {"productId" : request.payload.productId}
+        ]});
+
+    reply(purchases.toArray());
+}
+
 module.exports = [
     { method: 'POST', path: '/purchase/get-all', handler: getPurchases },
     { method: 'POST', path: '/purchase/get-by-order', handler: getOrderPurchases },
     { method: 'POST', path: '/purchase/add', handler: addPurchase },
     { method: 'POST', path: '/purchase/update', handler: updatePurchase },
-    { method: 'POST', path: '/purchase/remove', handler: removePurchase }
+    { method: 'POST', path: '/purchase/remove', handler: removePurchase },
+    { method: 'POST', path: '/purchase/get-by-product', handler: getProductPurchases }
 ];
 
 

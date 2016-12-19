@@ -1,3 +1,11 @@
 .img-thumbnail {
     cursor: pointer;
 }
+
+.img-product {
+    min-width: 250px;
+    min-height: 250px;
+    max-height: 250px;
+    max-widht: 250px;
+    object-fit: cover;
+}

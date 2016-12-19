@@ -17,8 +17,7 @@ export class CartComponent {
     private purchases: Purchase[];
     private products: Product[] = [];
 
-    private userId : any = "13";
-    private productId : any = '58502142da77270ecb6a2464';
+    private userId: any = null;
 
     constructor (
         private router: Router, private purchaseService: PurchaseService
@@ -36,7 +35,7 @@ export class CartComponent {
 
     getPurchases(): void {
 
-        this.purchaseService.getActiveOrder(this.userId).then((response) => {
+        this.purchaseService.getActiveOrder(window.localStorage.getItem('userId')).then((response) => {
             var activeOrderId = response[0]._id;
 
             this.purchaseService.getPurchases(activeOrderId).then((response) => {
@@ -115,10 +114,14 @@ export class CartComponent {
     }
 
     ngOnInit(): void {
+        this.userId = window.localStorage.getItem('userId');
         this.getPurchases();
     }
 
-    ngDoCheck(): void{
+    ngOnDestroy(): void{
+        if(this.products.length > 0){
+            this.updatePurchases();
+        }
     }
 
 }
