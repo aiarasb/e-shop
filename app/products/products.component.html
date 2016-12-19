@@ -1,96 +1,101 @@
-<div class="clearfix">
-    &nbsp;
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="well">
-                <div class="pull-right">
-                    <button class="btn btn-primary" (click)="gotoProductAdd()">
-                        <i class="glyphicon glyphicon-plus"></i> Add product
-                    </button>
+<div *ngIf="showProducts === true">
+    <div class="clearfix">
+        &nbsp;
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="well">
+                    <div class="pull-right">
+                        <button class="btn btn-primary" (click)="gotoProductAdd()">
+                            <i class="glyphicon glyphicon-plus"></i> Add product
+                        </button>
+                    </div>
+                    <div class="clearfix">
+                        &nbsp;
+                    </div>
                 </div>
-                <div class="clearfix">
-                    &nbsp;
-                </div>
-            </div>
-            <div *ngIf="pagedProducts" [hidden]="displayProducts">
-                        <table class="table table-bordered table-condensed">
-                            <thead>
-                            <tr>
-                                <th >Product name</th>
-                                <th>Photos</th>
-                                <th>description</th>
-                                <th>Price $</th>
-                                <th>Discount %</th>
-                                <th>Quantity</th>
-                                <th>--</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr *ngFor="let product of pagedProducts" [attr.id]="product._id">
-                                <td *ngIf="product">
-                                    <p *ngIf="product.name">{{product.name}}</p>
-                                    <p *ngIf="!product.name">--</p>
-                                </td>
-                                <td *ngIf="product">
-                                    <img *ngIf="product.photos" [attr.src]="product.photos[0].link" class="img-responsive img-product">
-                                    <img class="img-responsive img-product" *ngIf="!product.photos[0].link" src="https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw.jpg">
-                                </td>
-                                <td *ngIf="product">
-                                    <p *ngIf="product.description">{{product.description}}</p>
-                                    <p *ngIf="!product.description">--</p>
-                                </td>
-                                <td *ngIf="product">
-                                    <p *ngIf="product.price" class="text-center">{{product.price}}</p>
-                                    <p *ngIf="!product.price" class="text-center">--</p>
-                                </td>
-                                <td *ngIf="product">
-                                    <p *ngIf="product.discount" class="text-center">{{product.discount}}</p>
-                                    <p *ngIf="!product.discount" class="text-center">--</p>
-                                </td>
-                                <td *ngIf="product">
-                                    <p *ngIf="product.quantity" class="text-center">{{product.quantity}}</p>
-                                    <p *ngIf="!product.quantity" class="text-center">0</p>
-                                </td>
-                                <td *ngIf="product">
-                                    <div class="button-group btn-group-vertical" role="group">
-                                        <input #idProduct [hidden]="hideId" [value]="product._id">
-                                        <button class="btn btn-default pull-right" *ngIf="product" (click)="editProduct(product.name)">
-                                            <i class="glyphicon glyphicon-edit"></i>
-                                            Edit
-                                        </button>
-                                        <button class="btn btn-warning pull-right" *ngIf="product" (click)="deleteProduct(idProduct.value)">
-                                            <i class="glyphicon glyphicon-trash"></i>
-                                            Delete
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="container">
-                            <div class="text-center">
-                                <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-                                    <li [ngClass]="{disabled:pager.currentPage === 1}">
-                                        <a (click)="setPage(1)">First</a>
-                                    </li>
-                                    <li [ngClass]="{disabled:pager.currentPage === 1}">
-                                        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
-                                    </li>
-                                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                                        <a (click)="setPage(page)">{{page}}</a>
-                                    </li>
-                                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                                        <a (click)="setPage(pager.currentPage + 1)">Next</a>
-                                    </li>
-                                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                                        <a (click)="setPage(pager.totalPages)">Last</a>
-                                    </li>
-                                </ul>
-                            </div>
+                <div *ngIf="pagedProducts" [hidden]="displayProducts">
+                    <table class="table table-bordered table-condensed">
+                        <thead>
+                        <tr>
+                            <th >Product name</th>
+                            <th>Photos</th>
+                            <th>description</th>
+                            <th>Price $</th>
+                            <th>Discount %</th>
+                            <th>Quantity</th>
+                            <th>--</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let product of pagedProducts" [attr.id]="product._id">
+                            <td *ngIf="product">
+                                <p *ngIf="product.name">{{product.name}}</p>
+                                <p *ngIf="!product.name">--</p>
+                            </td>
+                            <td *ngIf="product">
+                                <img *ngIf="product.photos" [attr.src]="product.photos[0].link" class="img-responsive img-product">
+                                <img class="img-responsive img-product" *ngIf="!product.photos[0].link" src="https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw.jpg">
+                            </td>
+                            <td *ngIf="product">
+                                <p *ngIf="product.description">{{product.description}}</p>
+                                <p *ngIf="!product.description">--</p>
+                            </td>
+                            <td *ngIf="product">
+                                <p *ngIf="product.price" class="text-center">{{product.price}}</p>
+                                <p *ngIf="!product.price" class="text-center">--</p>
+                            </td>
+                            <td *ngIf="product">
+                                <p *ngIf="product.discount" class="text-center">{{product.discount}}</p>
+                                <p *ngIf="!product.discount" class="text-center">--</p>
+                            </td>
+                            <td *ngIf="product">
+                                <p *ngIf="product.quantity" class="text-center">{{product.quantity}}</p>
+                                <p *ngIf="!product.quantity" class="text-center">0</p>
+                            </td>
+                            <td *ngIf="product">
+                                <div class="button-group btn-group-vertical" role="group">
+                                    <input #idProduct [hidden]="hideId" [value]="product._id">
+                                    <button class="btn btn-default pull-right" *ngIf="product" (click)="editProduct(product.name)">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                        Edit
+                                    </button>
+                                    <button class="btn btn-warning pull-right" *ngIf="product" (click)="deleteProduct(idProduct.value)">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                        Delete
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="container">
+                        <div class="text-center">
+                            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a (click)="setPage(1)">First</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                                </li>
+                                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                    <a (click)="setPage(page)">{{page}}</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                    <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                    <a (click)="setPage(pager.totalPages)">Last</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="showProducts === false">
+    <h2>You must be an administrator to manage products.</h2>
 </div>

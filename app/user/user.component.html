@@ -1,0 +1,23 @@
+<div class="user-edit">
+    <h1>User information</h1>
+    <form *ngIf="userData !== null">
+        <div>
+            <label>Username:</label>
+            <input class="form-control" [(ngModel)]="username" name="username"/>
+        </div>
+
+        <div class="user-item-padding">
+            <label>Password:</label>
+            <input class="form-control" [(ngModel)]="password" name="password"/>
+        </div>
+
+        <div class="btn btn-primary" (click)="update()">Update</div>
+    </form>
+</div>
+
+<div *ngIf="showRootAdminSection === true">
+    <div class=".page-header user-list-separator">
+        <h2>User management</h2>
+    </div>
+    <users></users>
+</div>

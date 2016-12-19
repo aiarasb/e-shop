@@ -14,6 +14,7 @@ const mongoConnect = (callback) => {
             userCollection: db.collection('userCollection'),
             purchaseCollection: db.collection('purchaseCollection'),
             orderCollection: db.collection('orderCollection'),
+            roleCollection: db.collection('roleCollection')
         };
     callback();
 });

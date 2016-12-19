@@ -1,8 +1,8 @@
 <ul class="nav navbar-nav navbar-right">
     <li>
         <div class="navbar-text pushable">
-            <div *ngIf="loggedIn === true">
-                <span>Logged in as {{username}}</span>
+            <div *ngIf="loggedIn === true" >
+                <a routerLink="/user">Logged in as {{username}}</a>
             </div>
             <div *ngIf="loggedIn === false">
                 <span (click)="showRegister()">Register</span>
@@ -16,7 +16,7 @@
             </div>
         </div>
     </li>
-    <li>
+    <li *ngIf="loggedIn === false">
         <div class="navbar-text pushable">
             <span (click)="showLogin()">Login</span>
             <div class="login-form {{showLoginPanel}}">

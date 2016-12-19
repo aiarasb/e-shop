@@ -32,4 +32,40 @@ export class ApiService {
                 onSuccess(JSON.parse(res['_body']));
             })
     }
+
+    getUser(userId, onSuccess) {
+        return this.http
+            .get(this.apiUrl + `/user/${userId}`, {headers: this.requestHeaders})
+            .toPromise()
+            .then((res) => {
+                onSuccess(JSON.parse(res['_body']))
+            })
+    }
+
+    getUsers(onSuccess) {
+        return this.http
+            .get(this.apiUrl + `/user/all`, {headers: this.requestHeaders})
+            .toPromise()
+            .then((res) => {
+                onSuccess(JSON.parse(res['_body']))
+            })
+    }
+
+    updateUser(userData, username, password, onSuccess) {
+        return this.http
+            .post(this.apiUrl + '/user/update', JSON.stringify({id: userData._id, username: username, password: password, role: userData.role}), {headers: this.requestHeaders})
+            .toPromise()
+            .then((res) => {
+                onSuccess(JSON.parse(res['_body']));
+            })
+    }
+
+    removeUser(userId, onSuccess) {
+        return this.http
+            .post(this.apiUrl + '/user/delete', JSON.stringify({id: userId}), {headers: this.requestHeaders})
+            .toPromise()
+            .then((res) => {
+                onSuccess(JSON.parse(res['_body']));
+            })
+    }
 }

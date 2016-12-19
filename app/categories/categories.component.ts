@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 
 import {Category} from './category';
 import {CategoryService} from '../services/category.service'
+import {ApiService} from '../services/api.service'
 
 @Component({
     moduleId: module.id,
@@ -12,10 +13,12 @@ import {CategoryService} from '../services/category.service'
 
 export class CategoriesComponent {
     categories: Category[];
+    private userIsAdmin = false;
 
     constructor(private router: Router,
-                private categoryService: CategoryService) {
-    }
+                private categoryService: CategoryService,
+                private apiService: ApiService
+    ) {}
 
     getCategories(): void {
         this.categoryService.getCategories().subscribe(categories => this.categories = categories);
@@ -26,10 +29,19 @@ export class CategoriesComponent {
     }
 
     gotoCategory(category): void {
-        this.router.navigate(['/category/show', category.name]);
+        if(this.userIsAdmin) {
+            this.router.navigate(['/category/show', category.name]);
+        }
     }
 
     ngOnInit(): void {
         this.getCategories();
+        this.apiService.getUser(window.localStorage.getItem('userId'), (res) => {
+            if(res.success === 'true') {
+                if(res.payload.role === 'admin' || res.payload.role === 'rootAdmin') {
+                    this.userIsAdmin = true;
+                }
+            }
+        });
     }
 }
