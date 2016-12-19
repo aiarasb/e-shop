@@ -31,7 +31,6 @@ export class HomeComponent {
             for (let entry of this.products) {
                 entry.reducedPrice = this.productService.getReducedPrice(entry.price, entry.discount);
             }
-            console.log(this.products);
             this.setPage(1);
         });
     }

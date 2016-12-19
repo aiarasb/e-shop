@@ -104,7 +104,7 @@ export class ProductService {
             .catch(this.handleError);
     }
 
-    addProduct (product: Product): void {
+    addProduct (product: Product, onSuccess): void {
         product['photos'] = this.getPhotoLinks();
         this.http
             .post(
@@ -112,12 +112,13 @@ export class ProductService {
                 product,
             )
             .toPromise()
-            .then(() =>{
-                this.router.navigate(['/products']);
+            .then((res) =>{
+                console.log(res['_body']);
+                onSuccess(JSON.parse(res['_body']));
             });
     }
 
-    updateProduct(product: Product): void {
+    updateProduct(product: Product, onSuccess): void {
         product['photos'] = this.getPhotoLinks();
         this.http
             .post(
@@ -125,7 +126,10 @@ export class ProductService {
                 product
             )
             .toPromise()
-            .catch(this.handleError);
+            .then((res) =>{
+                console.log(res['_body']);
+                onSuccess(JSON.parse(res['_body']));
+            });
     }
 
     deleteProduct (idProduct: string) {
